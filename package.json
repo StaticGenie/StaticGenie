@@ -1,0 +1,28 @@
+{
+  "name": "StaticGenie",
+  "version": "1.0.0",
+  "description": "Built for JavaScript programmers to intuitively create static websites",
+  "main": "",
+  "scripts": {
+    "compile": "tsc",
+    "build": "echo \"Error: build command not yet done: tsc && node {location of entry point js}\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StaticGenie/StaticGenie.git"
+  },
+  "keywords": [],
+  "author": "Scott (ScottyCoder)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/StaticGenie/StaticGenie/issues"
+  },
+  "homepage": "https://staticgenie.com",
+  "devDependencies": {
+    "typescript": "^4.0.5"
+  },
+  "dependencies": {
+    "@types/node": "^14.14.6"
+  }
+}

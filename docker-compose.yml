@@ -1,0 +1,18 @@
+# version of docker compose to use
+version: "3.8"
+
+# setup
+services:
+
+  # the name of this service
+  sg:
+
+    # use the Dockerfile as the image
+    build: .
+
+    # all commands run within this directory
+    working_dir: /home/sg
+
+    # mount these volumes with write access so the code within the container can modify files within it. In this case, everything is mounted.
+    volumes:
+      - ./:/home/sg

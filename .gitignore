@@ -1,0 +1,8 @@
+# Log files
+*.log
+
+# Node Modules
+node_modules/
+
+# Compiled TS to JS code
+tmp/
