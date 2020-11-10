@@ -1,6 +1,14 @@
 # StaticGenie
 
-The framework to intuitively create static websites. Built primarily for JavaScript developers (they will fly with this framework)
+The framework to intuitively create static websites. Built primarily for JavaScript developers (they will fly with this framework). 
+
+Focused on 3 core areas;
+
+- Lightening build times - *Generating potentially 1000's of web pages could take a while. However, this would destroy a quick feedback loop (CI) when making changes. It would also make reacting to customer requirements, fixing bugs and so on potentially take hours instead of seconds or minutes. Making it a high priority to focus on fast build times using various techniques such as caching, divide and conquer, checksums, pre-processing, etc.*
+
+- Simplicity - *If it's difficult to write plugins and use. It won't get used. So it's important to ensure everything is simple.*
+
+- Community - *A strong open source community will help weather any storm. Helping to educate, promote & develop StaticGenie into what the community truely needs.*
 
 # Installation
 
