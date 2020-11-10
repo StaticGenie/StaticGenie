@@ -4,7 +4,7 @@ import {Generators} from "../libs/generators";
 import {iAppConfigPlugin} from "../libs/config";
 import {iPlugin} from "../libs/plugins";
 
-export class CorePlugin implements iPlugin {
+export default class implements iPlugin {
 
     /**
      * Official name of this plugin
@@ -18,8 +18,6 @@ export class CorePlugin implements iPlugin {
      */
     initialise(models:Models, generators:Generators, services:Services) {
         
-
-
     }
 
     /**

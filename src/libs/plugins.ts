@@ -66,9 +66,7 @@ export class Plugins {
         plugins.forEach(config => {
 
             // Build the plugin
-            // @TODO build the right plugin according to the config
-            /*
-            let plugin = new CorePlugin();
+            let plugin = new (require(config.file)).default();
 
             // Ensure the plugin hasn't already been registered
             if (this.plugins.hasOwnProperty(plugin.name()) === true) {
@@ -77,8 +75,7 @@ export class Plugins {
 
             // Register the plugin
             this.plugins[plugin.name()] = plugin;
-
-            */
+            
         });
 
     }
