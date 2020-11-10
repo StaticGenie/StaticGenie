@@ -71,6 +71,16 @@ export = <fm.app.iConfig>{
                 name: "",
                 desc: "",
                 author: "",
+                plugins: [
+                    "core:pages",
+                    "core:tags",
+                    "core:categories",
+                    "core:sitemap",
+                    "core:blogposts",
+                    "core:videos",
+                    "core:downloads",
+                    "core:footer",
+                ]
             },
         },
         */

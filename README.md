@@ -46,4 +46,27 @@ When you wish to run StaticGenie. Use the following command: `docker-compose run
 
 Configure your website by editing `/src/config.ts`
 
+# Events & Execution Flow
+
+## 1. Load Plugins
+
+Load all the plugins... simple... (need to do plenty of config checks here to ensure the theme & plugins have the right plugins installed)
+
+## 2. Data Models
+
+Get the plugins to update the data models with all required data and freeze it. This step MUST be fast!!
+
+## 3. Generate Virtual Routes
+
+Generators should create all the routes (pages), create a hash of the data model contents used within the page and skip the page generation if the hash matches. The route generation and hashing must be fast.
+
+## 4. Generate Real Routes
+
+Generators should render the extracted data against the theme and dump the page to the output directory
+
+## 5. Report
+
+On the console, spew out a report of what just happened :)
+
+
 @TODO convert to a proper README instead of a brain dump
