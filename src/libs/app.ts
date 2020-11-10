@@ -4,12 +4,13 @@ import {Models} from "./models";
 import {Services} from "./services";
 import {Generators} from "./generators";
 import {Themes} from "./themes";
-import {Debug} from "./debug";
 
 /**
  * The core application, everything starts here!!
  * @TODO how to handle keywords & meta data to support search?
  * @TODO wrap up all core libs into a single app export; import * as app from "../libs/app"
+ * @TODO remove long names (eg AppConfigPlugins) should be controlled by plugins, not config
+ * @TODO implement debug()
  */
 export class App {
 
@@ -44,14 +45,6 @@ export class App {
     private themes:Themes;
 
     /**
-     * Handles the the debug information to the console
-     * @TODO replace this with a proper debugger/logger, for now, this crude implementation will do
-     * @TODO implement the debug class
-     * @TODO pull in via imports, NOT held on this app class
-     */
-    private debug:Debug;
-
-    /**
      * Register everything
      * @param config 
      */
@@ -66,7 +59,6 @@ export class App {
         this.services = new Services();
         this.generators = new Generators();
         this.themes = new Themes();
-        this.debug = new Debug();
 
         // Handlers with dependencies
         this.plugins = new Plugins(this.models, this.generators, this.services);

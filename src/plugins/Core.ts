@@ -4,6 +4,9 @@ import {Generators} from "../libs/generators";
 import {iAppConfigPlugin} from "../libs/config";
 import {iPlugin} from "../libs/plugins";
 
+/**
+ * Plugin
+ */
 export default class implements iPlugin {
 
     /**
