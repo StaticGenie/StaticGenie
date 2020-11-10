@@ -5,7 +5,7 @@
   "main": "",
   "scripts": {
     "compile": "tsc",
-    "build": "echo \"Error: build command not yet done: tsc && node {location of entry point js}\" && exit 1",
+    "build": "tsc && nodejs ./tmp/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
