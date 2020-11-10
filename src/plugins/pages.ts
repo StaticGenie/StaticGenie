@@ -23,7 +23,7 @@ export default class implements fm.plugins.iPlugin {
      * Create and return the services/models/generators that make up this plugin
      * @param config 
      */
-    build(config:fm.config.iAppConfigPlugin) {
+    build(config:fm.plugins.iConfig) {
         
     }
 

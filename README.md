@@ -42,4 +42,8 @@ When you wish to run StaticGenie. Use the following command: `docker-compose run
 - `build` - Builds your website (although this isn't working yet)
 - `test` - Compile and tests the javascript (although this isn't working yet)
 
+# Config
+
+Configure your website by editing `/src/config.ts`
+
 @TODO convert to a proper README instead of a brain dump
