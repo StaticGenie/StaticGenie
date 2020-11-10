@@ -1,9 +1,13 @@
-import {iAppConfigTheme} from "./config";
-
 export class Themes {
 
-    load(themeConfig:iAppConfigTheme[]) {
+    load(config:iConfig[]) {
 
     }
 
+}
+
+export interface iConfig {
+    name: string;
+    files: string[];
+    conf: { [key: string]: string; };
 }

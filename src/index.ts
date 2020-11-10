@@ -1,18 +1,11 @@
-import {App} from "./libs/app";
-import {iAppConfig, iAppConfigDebug} from "./libs/config";
+import * as fm from "./framework";
 
 // New StaticGenie instance
-new App(<iAppConfig>{
+new fm.app.App(<fm.app.iConfig>{
     outputDir: "./public",
     assetsDir: "./assets",
-    debug: <iAppConfigDebug>{
-        showLifeCycle: true,
-        showWarnings: true,
-        showGeneratedUrls: true,
-    },
     plugins: [
         {
-            name: "Core",
             file: "../plugins/Core.js",
             conf: {}        // @TODO Assign relevant interface, should be part of plugin
         },

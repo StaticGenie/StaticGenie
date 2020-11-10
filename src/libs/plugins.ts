@@ -1,15 +1,19 @@
 import {Models} from "./models";
 import {Services} from "./services";
 import {Generators} from "./generators";
-import {iAppConfigPlugin} from "./config";
 import {ConfigError} from "./errors";
+
+export interface iConfig {
+    file: string;
+    conf: { [key: string]: string; };
+}
 
 /**
  * If you want your class/object to be considered a plugin, use this
  */
 export interface iPlugin {
     name(): string;
-    build(config:iAppConfigPlugin):void;
+    build(config:iConfig):void;
     initialise(models:Models, generators:Generators, services:Services): void;
 }
 
@@ -46,7 +50,7 @@ export class Plugins {
      * 
      * @TODO provide a copy of the properties. Preventing calling of methods on the generators/models/services.
      */
-    load(pluginsConfig:iAppConfigPlugin[]) {
+    load(pluginsConfig:iConfig[]) {
 
         // Build all plugins according to the config
         this.build(pluginsConfig);
@@ -60,7 +64,7 @@ export class Plugins {
      * Build a new plugin from the config (the plugin should build itself, since this Plugins class won't know how)
      * @param config 
      */
-    build(plugins:iAppConfigPlugin[]) {
+    build(plugins:iConfig[]) {
 
         // Build each plugin from the config
         plugins.forEach(config => {
@@ -75,7 +79,7 @@ export class Plugins {
 
             // Register the plugin
             this.plugins[plugin.name()] = plugin;
-            
+
         });
 
     }

@@ -1,13 +1,9 @@
-import {Models} from "../libs/models";
-import {Services} from "../libs/services";
-import {Generators} from "../libs/generators";
-import {iAppConfigPlugin} from "../libs/config";
-import {iPlugin} from "../libs/plugins";
+import * as fm from "../framework";
 
 /**
  * Plugin
  */
-export default class implements iPlugin {
+export default class implements fm.plugins.iPlugin {
 
     /**
      * Official name of this plugin
@@ -19,7 +15,7 @@ export default class implements iPlugin {
     /**
      * Injects its models, generators and services into the app
      */
-    initialise(models:Models, generators:Generators, services:Services) {
+    initialise(models:fm.models.Models, generators:fm.generators.Generators, services:fm.services.Services) {
         
     }
 
@@ -27,7 +23,7 @@ export default class implements iPlugin {
      * Create and return the services/models/generators that make up this plugin
      * @param config 
      */
-    build(config:iAppConfigPlugin) {
+    build(config:fm.config.iAppConfigPlugin) {
         
     }
 

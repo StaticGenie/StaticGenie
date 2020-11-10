@@ -1,15 +1,37 @@
-import {iAppConfig} from "./config";
 import {Plugins} from "./plugins";
 import {Models} from "./models";
 import {Services} from "./services";
 import {Generators} from "./generators";
 import {Themes} from "./themes";
+import {iConfig as iConfigPlugin} from "./plugins";
+import {iConfig as iConfigTheme} from "./themes";
+
+/**
+ * Configuration used by the app
+ */
+export interface iConfig {
+
+    /**
+     * Where the generated website will be placed
+     */
+    outputDir: string;
+
+    /**
+     * Registered plugins
+     */
+    plugins: iConfigPlugin[];
+
+    /**
+     * Registered themes
+     */
+    themes: iConfigTheme[];
+    
+}
+
 
 /**
  * The core application, everything starts here!!
  * @TODO how to handle keywords & meta data to support search?
- * @TODO wrap up all core libs into a single app export; import * as app from "../libs/app"
- * @TODO remove long names (eg AppConfigPlugins) should be controlled by plugins, not config
  * @TODO implement debug()
  */
 export class App {
@@ -17,7 +39,7 @@ export class App {
     /**
      * Everything configuration related
      */
-    private config:iAppConfig;
+    private config:iConfig;
 
     /**
      * Primarily created to help build and initialise the plugins
@@ -48,7 +70,7 @@ export class App {
      * Register everything
      * @param config 
      */
-    constructor(config:iAppConfig) {
+    constructor(config:iConfig) {
 
         // Register the configuration & make it immutable
         this.config = config;
