@@ -58,15 +58,37 @@ Get the plugins to update the data models with all required data and freeze it. 
 
 ## 3. Generate Virtual Routes
 
-Generators should create all the routes (pages), create a hash of the data model contents used within the page and skip the page generation if the hash matches. The route generation and hashing must be fast.
+Generators should create all the routes (pages), create a hash of the data model contents used within the page. This step MUST also be fast!!
 
 ## 4. Generate Real Routes
 
-Generators should render the extracted data against the theme and dump the page to the output directory
+Generators should render the extracted data against the theme & run any optimisations eg resize images, pull data from the web, etc and dump the page to the output directory if the checksums don't match.
+
+*Note: To force a rebuild, delete the already generated page in the output directory*
 
 ## 5. Report
 
-On the console, spew out a report of what just happened :)
+On the console, spew out a report of what just happened for each route. E.G.
+
+232 pages generated [ 23 from cache, 71 refreshed, 131 new ]
+
+New
+
+[-] /about.html
+[-] /contact.html
+[-] /home.html
+
+Refreshed
+
+[-] /about.html
+[-] /contact.html
+[-] /home.html
+
+From Cache
+
+[-] /about.html
+[-] /contact.html
+[-] /home.html
 
 
 @TODO convert to a proper README instead of a brain dump

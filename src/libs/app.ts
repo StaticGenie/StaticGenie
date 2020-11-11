@@ -1,6 +1,5 @@
 import {Plugins} from "./plugins";
 import {Models} from "./models";
-import {Services} from "./services";
 import {Generators} from "./generators";
 import {Themes} from "./themes";
 import {iConfig as iConfigPlugin} from "./plugins";
@@ -28,7 +27,6 @@ export interface iConfig {
     
 }
 
-
 /**
  * The core application, everything starts here!!
  * @TODO how to handle keywords & meta data to support search?
@@ -42,27 +40,17 @@ export class App {
     private config:iConfig;
 
     /**
-     * Primarily created to help build and initialise the plugins
-     */
-    private plugins: Plugins;
-
-    /**
-     * Data used by generators to render pages
+     * Shared models accessible by both generators and themes
      */
     private models:Models;
 
     /**
-     * Objects that provide services such as caching, image resizing, etc
-     */
-    private services:Services;
-
-    /**
-     * Generates pages, executes in order, performs caching, image resizing, clash handling, route generation, etc
+     * Generates pages, executes in order, performs caching, image resizing, clash handling, etc. This is what does the hard work.
      */
     private generators:Generators;
 
     /**
-     * Themes containing layouts & views used by generators. Generators know which theme to use from the config file
+     * Themes containing layouts & views used by generators.
      */
     private themes:Themes;
 
@@ -78,26 +66,36 @@ export class App {
 
         // Basic handlers
         this.models = new Models;
-        this.services = new Services();
         this.generators = new Generators();
-        this.themes = new Themes();
+        this.themes = new Themes().load(this.config.themes);
+        
+        // Load the plugins - which will register models and generators
+        this.config.plugins.forEach(config => {
 
-        // Handlers with dependencies
-        this.plugins = new Plugins(this.models, this.generators, this.services);
+            // Build the plugin
+            let plugin = new (require(config.file)).default();
 
-        // Load the plugins and themes
-        this.plugins.load(this.config.plugins);
-        this.themes.load(this.config.themes);
+            // Add any shared models
+            this.models.addBuilder(plugin.models());
+
+            // Add generators to execute
+            this.generators.add(plugin.generators())
+
+        });
 
     }
     
     /**
      * Generate the website
+     * @TODO
      */
     generate() {
         
-        // Execute each generator
-        this.generators.execute();
+        // Build all shared models
+        this.models.build();
+
+        // Execute each generator, generators can use all shared models
+        this.generators.build();
 
         // @TODO Create and save each rendered page
         

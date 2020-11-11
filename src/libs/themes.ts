@@ -1,7 +1,7 @@
 export class Themes {
 
-    load(config:iConfig[]) {
-
+    load(config:iConfig[]) : Themes {
+        return this;
     }
 
 }

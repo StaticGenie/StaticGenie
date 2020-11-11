@@ -65,8 +65,9 @@ export = <fm.app.iConfig>{
     themes: [
         /*
         {
-            name: "Default",
-            files: [],
+            name: "default",
+            directory: "",
+            layouts: [],
             conf: {
                 name: "",
                 desc: "",
