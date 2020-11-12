@@ -4,9 +4,10 @@ import {iConfig as iConfigTheme} from "./themes";
 
 /**
  * The core application, everything starts here!!
- * @TODO how to handle keywords & meta data to support search?
  * @TODO how to handle generated files such as images, js files, etc?
  * @TODO Implement error handling and a way of reporting new pages, failed pages and errors during processing
+ * @TODO How can users supply their own services
+ * @TODO Service providers don't have an intialisation process (using the config)
  */
 export class App {
 
@@ -27,8 +28,6 @@ export class App {
 
     /**
      * All starts (and ends) here
-     * @TODO Allow user supplied services?
-     * @TODO service providers don't have a setup routine yet - intialise them with config....
      * @param config 
      */
     constructor(config:iConfig) {
