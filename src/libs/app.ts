@@ -1,7 +1,8 @@
-import {Models} from "./models";
-import {Generators} from "./generators";
-import {iConfig as iConfigPlugin} from "./plugins";
+import {Services} from "./services";
+import {iConfig as iConfigPlugins, iPlugin} from "./plugins";
 import {iConfig as iConfigTheme} from "./themes";
+import {Report} from "./services/report";
+import {Model} from "./services/model";
 import Debug from "debug";
 
 /**
@@ -18,19 +19,19 @@ export class App {
     private config:iConfig;
 
     /**
-     * Shared models accessible by both generators and themes
+     * Stores all the plugins
      */
-    private models:Models;
+    private plugins: {[key:string] : iPlugin} = {};
 
     /**
-     * Generators generate pages, executes in order, performs caching, image resizing, clash handling, etc. This is what does the hard work.
-     * @TODO Do generates do too much?
+     * Service providers perform tasks shared by the generators such as; caching, image resizing, clash handling, etc
      */
-    private generators:Generators;
+    private services:Services;
 
     /**
      * All starts (and ends) here
-     * 
+     * @TODO use pub/sub to inform service providers of current execution e.g. when plugins have all initialise the model service provider will want to freeze itself, or the report will want to spew out the report to the console, etc
+     * @TODO Allow user supplied services?
      * @param config 
      */
     constructor(config:iConfig) {
@@ -39,47 +40,39 @@ export class App {
         this.debug("Assigning config & creating handlers");
         this.config = config;
         Object.freeze(this.config);
-        this.models = new Models;
-        this.generators = new Generators();
-
-        // Register services (theme rendering, file io, caching, etc)
-        /* @TODO create services, use interface to allow type hinting when using a service. By registering services, it allows the potential for 3rd parties to also create services... later tho...
         this.services = new Services();
-        this.services.register(new Theme);
-        */
 
-        // Load the plugins - which will register models and generators
-        this.debug("Loading plugins");
-        this.config.plugins.forEach(config => {
-
-            // Build the plugin
-            let plugin = new (require(config.file)).default();
-
-            // Add any shared models
-            this.models.addBuilders(plugin.models());
-
-            // Add generators to execute
-            this.generators.addGenerators(plugin.generators())
-
+        // Build the plugins and register with the framework
+        this.debug("Registering plugins");
+        Object.keys(this.config.plugins).forEach(file => {
+            this.plugins[file] = new (require(file)).default();
         });
 
-        // Build all shared models
-        this.debug("Building shared models");
-        this.models.build();
+        // Register services
+        this.debug("Registering service providers");
+        this.services.register("model", new Model());                   // Shared model to help share data between plugins
+        // @TODO this.services.register("markdown", new Markdown());    // Parses markdown
+        
+        // Initialise each plugin. Will allow for things like connecting to a database, ensuring API keys exist, checks config, updates shared model (service provider), etc 
+        Object.keys(this.plugins).forEach(file => {
+            this.plugins[file].initialise(this.services, this.config.plugins[file]);
+        });
 
-        // Execute each generator, generators can use all shared models data
-        // @TODO pass in service providers
-        this.debug("Building pages (generators)");
-        this.generators.generate(this.models.data);
-
-        // @TODO Create and save each rendered page - pass to the generator so that it can render pages as generated to prevent heavy RAM usage and make use of async io
-        // @TODO Will theme be better off as a plugin? Config would be the model (so pointless creating a model builder), and no need for a generator as the theme would be used by others. This appears more of a service provider.        
-        // @TODO Report
-
+        // Register services that become available AFTER plugins have initialised
+        this.services.register("report", new Report());                 // Report on what pages have been generated, skipped, etc
+        // @TODO this.services.register("theme", new Theme());          // Load up the theme selected within the config, used to render pages
+        // @TODO this.services.register("routes", new Routes());        // Anything passed to this will be output to the public website. All interaction with the generated website is done via this...
+        
+        // Call each plugins generator
+        Object.keys(this.plugins).forEach(file => {
+            this.plugins[file].generate(this.services, this.config.plugins[file]);
+        });
+        
     }
     
     /**
      * Show the stages of processing
+     * @TODO could be a service provider that simply spews this out when each event is called
      * @param text 
      */
     private debug(text:string) {
@@ -101,7 +94,7 @@ export interface iConfig {
     /**
      * Registered plugins
      */
-    plugins: iConfigPlugin[];
+    plugins: iConfigPlugins;
 
     /**
      * Registered themes

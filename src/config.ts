@@ -18,50 +18,10 @@ export = <fm.app.iConfig>{
     /**
      * Lists all plugins to load and their respective config
      */
-    plugins: [
-        {
-            file: "../plugins/pages",
-            conf: {}
-        },
-        /*
-        {
-            file: "./plugins/tags.js",
-            conf: {}
-        },
-        {
-            file: "./plugins/categories.js",
-            conf: {}
-        },
-        {
-            file: "./plugins/sitemap.js",
-            conf: {}
-        },
-        {
-            file: "./plugins/blogposts.js",
-            conf: {}
-        },
-        {
-            file: "./plugins/videos.js",
-            conf: {}
-        },
-        {
-            file: "./plugins/downloads.js",
-            conf: {}
-        },
-        {
-            file: "./plugins/footer.js",
-            conf: {}
-        },
-        {
-            file: "./plugins/cache.js",
-            conf: {}
-        },
-        {
-            file: "./plugins/imageresizer.js",
-            conf: {}
-        },
-        */
-    ],
+    plugins: {
+        "../plugins/pages": {}
+    },
+
     themes: [
         /*
         {

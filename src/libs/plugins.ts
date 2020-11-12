@@ -1,15 +1,34 @@
-import {iBuilder} from "./models";
-import {iGenerator} from "./generators";
+import {Services} from "./services";
 
+export class Plugins {
+
+    private plugins: {[key: string] : any} = {}
+
+    add() {
+
+    }
+
+    getAllModelBuilders() {
+
+    }
+
+    getAllGenerators() {
+
+    }
+
+}
+
+/**
+ * Config
+ */
 export interface iConfig {
-    file: string;
-    conf: { [key: string]: string; };
+    [key: string]: { [key: string] : any };
 }
 
 /**
  * If you want your class/object to be considered a plugin, use this
  */
 export interface iPlugin {
-    models(): iBuilder[]
-    generators(): iGenerator[]
+    initialise(services:Services, config:iConfig): void;
+    generate(services:Services, config:iConfig): void;
 }
