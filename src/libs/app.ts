@@ -1,4 +1,3 @@
-import {Plugins} from "./plugins";
 import {Models} from "./models";
 import {Generators} from "./generators";
 import {Themes} from "./themes";
@@ -76,10 +75,10 @@ export class App {
             let plugin = new (require(config.file)).default();
 
             // Add any shared models
-            this.models.addBuilder(plugin.models());
+            this.models.addBuilders(plugin.models());
 
             // Add generators to execute
-            this.generators.add(plugin.generators())
+            this.generators.addGenerators(plugin.generators())
 
         });
 
@@ -94,10 +93,10 @@ export class App {
         // Build all shared models
         this.models.build();
 
-        // Execute each generator, generators can use all shared models
-        this.generators.build();
+        // Execute each generator, generators can use all shared models data
+        this.generators.generate(this.models.data);
 
-        // @TODO Create and save each rendered page
+        // @TODO Create and save each rendered page - pass to the generator so that it can render pages as generated to prevent heavy RAM usage and make use of async io
         
 
     }
