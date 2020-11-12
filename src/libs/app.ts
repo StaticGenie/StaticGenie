@@ -51,17 +51,21 @@ export class App {
         Object.keys(this.plugins).forEach(file => {
             this.plugins[file].initialise(this.services, this.config.plugins[file]);
         });
-        this.services.pluginsInitialised();
         
-        // Register services that become available AFTER plugins have initialised
+        // Register more services
         this.services.register("report", new services.Report());        // Report on what pages have been generated, skipped, etc
         this.services.register("theme", new services.Theme());          // Load up the theme selected within the config, used to render pages
         this.services.register("routes", new services.Routes());        // Anything passed to this will be output to the public website. All interaction with the generated website is done via this...
+        
+        // Services event
+        this.services.pluginsInitialised();
         
         // Call each plugins generator
         Object.keys(this.plugins).forEach(file => {
             this.plugins[file].generate(this.services, this.config.plugins[file]);
         });
+        
+        // Services event
         this.services.pluginsGenerated();
         
     }
