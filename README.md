@@ -39,32 +39,23 @@ To run a command;
 When you wish to run StaticGenie. Use the following command: `docker-compose run sg npm run {commands-below}`
 
 - `compile` - Converts the typescript to javascript. Gives you quicker feedback than having to generate the website everytime you wish to test
-- `build` - Builds your website (although this isn't working yet)
+- `debug` - When you're actively developing the framework, developing plugins or trying to fix it
+- `build` - If your manually building the website via the command line. Will give you the report inline
 - `test` - Compile and tests the javascript (although this isn't working yet)
 
 # Config
 
 Configure your website by editing `/src/config.ts`
 
-# Events & Execution Flow
+# Framework Structure
 
-## 1. Load Plugins
+Everything is based around plugins. Without plugins there would be no data model. Without data, there would be nothing to put within pages.
 
-Load all the plugins... simple... (need to do plenty of config checks here to ensure the theme & plugins have the right plugins installed)
+Each plugin creates Model Builders and Generators.
 
-## 2. Data Models
+Model Builders are responsible for mutating a shared model that is later accessible by all generators. This is great if you want data to be displayed across multiple generators such as site name, contact details, etc. 
 
-Get the plugins to update the data models with all required data and freeze it. This step MUST be fast!!
-
-## 3. Generate Virtual Routes
-
-Generators should create all the routes (pages), create a hash of the data model contents used within the page. This step MUST also be fast!!
-
-## 4. Generate Real Routes
-
-Generators should render the extracted data against the theme & run any optimisations eg resize images, pull data from the web, etc and dump the page to the output directory if the checksums don't match.
-
-*Note: To force a rebuild, delete the already generated page in the output directory*
+Generators are responsible for generating pages. They can do this by looking at the shared model and/or pulling in it's own data as well as using service providers to assist it.
 
 ## 5. Report
 
