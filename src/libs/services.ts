@@ -1,3 +1,9 @@
+export * from "./services/model";
+export * from "./services/report";
+export * from "./services/markdown";
+export * from "./services/routes";
+export * from "./services/theme";
+
 export class Services {
 
     /**
@@ -10,7 +16,7 @@ export class Services {
      * @param name 
      * @param service 
      */
-    register(name:string, service:any) {
+    register(name:string, service:iService) {
         if (this.services.hasOwnProperty(name) === true) {
             throw new Error(`Can not register service provider '${name}' due to already having been registered.`);
         }
@@ -28,4 +34,17 @@ export class Services {
         throw new Error(`Can not get service '${name}' since it's not been register (doesn't exist)`);
     }
 
+    pluginsInitialised() {
+        Object.keys(this.services).forEach(key => this.services[key].pluginsInitialised());
+    }
+
+    pluginsGenerated() {
+        Object.keys(this.services).forEach(key => this.services[key].pluginsGenerated());
+    }
+
+}
+
+export interface iService {
+    pluginsInitialised(): void;
+    pluginsGenerated(): void;
 }

@@ -1,9 +1,6 @@
-import {Services} from "./services";
+import * as services from "./services";
 import {iConfig as iConfigPlugins, iPlugin} from "./plugins";
 import {iConfig as iConfigTheme} from "./themes";
-import {Report} from "./services/report";
-import {Model} from "./services/model";
-import Debug from "debug";
 
 /**
  * The core application, everything starts here!!
@@ -26,59 +23,49 @@ export class App {
     /**
      * Service providers perform tasks shared by the generators such as; caching, image resizing, clash handling, etc
      */
-    private services:Services;
+    private services:services.Services;
 
     /**
      * All starts (and ends) here
-     * @TODO use pub/sub to inform service providers of current execution e.g. when plugins have all initialise the model service provider will want to freeze itself, or the report will want to spew out the report to the console, etc
      * @TODO Allow user supplied services?
+     * @TODO service providers don't have a setup routine yet - intialise them with config....
      * @param config 
      */
     constructor(config:iConfig) {
 
         // Store config and build some basic handlers
-        this.debug("Assigning config & creating handlers");
         this.config = config;
         Object.freeze(this.config);
-        this.services = new Services();
+        this.services = new services.Services();
 
         // Build the plugins and register with the framework
-        this.debug("Registering plugins");
         Object.keys(this.config.plugins).forEach(file => {
             this.plugins[file] = new (require(file)).default();
         });
 
         // Register services
-        this.debug("Registering service providers");
-        this.services.register("model", new Model());                   // Shared model to help share data between plugins
-        // @TODO this.services.register("markdown", new Markdown());    // Parses markdown
-        
+        this.services.register("model", new services.Model());                   // Shared model to help share data between plugins
+        this.services.register("markdown", new services.Markdown());             // Parses markdown
+
         // Initialise each plugin. Will allow for things like connecting to a database, ensuring API keys exist, checks config, updates shared model (service provider), etc 
         Object.keys(this.plugins).forEach(file => {
             this.plugins[file].initialise(this.services, this.config.plugins[file]);
         });
-
+        this.services.pluginsInitialised();
+        
         // Register services that become available AFTER plugins have initialised
-        this.services.register("report", new Report());                 // Report on what pages have been generated, skipped, etc
-        // @TODO this.services.register("theme", new Theme());          // Load up the theme selected within the config, used to render pages
-        // @TODO this.services.register("routes", new Routes());        // Anything passed to this will be output to the public website. All interaction with the generated website is done via this...
+        this.services.register("report", new services.Report());        // Report on what pages have been generated, skipped, etc
+        this.services.register("theme", new services.Theme());          // Load up the theme selected within the config, used to render pages
+        this.services.register("routes", new services.Routes());        // Anything passed to this will be output to the public website. All interaction with the generated website is done via this...
         
         // Call each plugins generator
         Object.keys(this.plugins).forEach(file => {
             this.plugins[file].generate(this.services, this.config.plugins[file]);
         });
+        this.services.pluginsGenerated();
         
     }
     
-    /**
-     * Show the stages of processing
-     * @TODO could be a service provider that simply spews this out when each event is called
-     * @param text 
-     */
-    private debug(text:string) {
-        Debug("sg:stages")("\n=============================================\n=== " + text.toLocaleUpperCase() + "\n=============================================\n");
-    }
-
 }
 
 /**

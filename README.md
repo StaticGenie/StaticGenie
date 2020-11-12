@@ -39,8 +39,7 @@ To run a command;
 When you wish to run StaticGenie. Use the following command: `docker-compose run sg npm run {commands-below}`
 
 - `compile` - Converts the typescript to javascript. Gives you quicker feedback than having to generate the website everytime you wish to test
-- `debug` - When you're actively developing the framework, developing plugins or trying to fix it
-- `build` - If your manually building the website via the command line. Will give you the report inline
+- `build` - Build your website
 - `test` - Compile and tests the javascript (although this isn't working yet)
 
 # Config
