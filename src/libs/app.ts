@@ -42,10 +42,10 @@ export class App {
         Object.keys(this.config.plugins).forEach(file => {
             this.plugins[file] = new (require(file)).default();
         });
-
+        
         // Register services
-        this.services.register("model", new services.Model());                   // Shared model to help share data between plugins
-        this.services.register("markdown", new services.Markdown());             // Parses markdown
+        this.services.register("model", new services.Model());
+        this.services.register("markdown", new services.Markdown());
 
         // Initialise each plugin. Will allow for things like connecting to a database, ensuring API keys exist, checks config, updates shared model (service provider), etc 
         Object.keys(this.plugins).forEach(file => {
@@ -53,13 +53,14 @@ export class App {
         });
         
         // Register more services
-        this.services.register("report", new services.Report());        // Report on what pages have been generated, skipped, etc
-        this.services.register("theme", new services.Theme());          // Load up the theme selected within the config, used to render pages
-        this.services.register("routes", new services.Routes());        // Anything passed to this will be output to the public website. All interaction with the generated website is done via this...
+        this.services.register("report", new services.Report());
+        this.services.register("theme", new services.Theme());
+        this.services.register("ejs", new services.Ejs());
+        this.services.register("routes", new services.Routes());
         
         // Services event
         this.services.pluginsInitialised();
-        
+
         // Call each plugins generator
         Object.keys(this.plugins).forEach(file => {
             this.plugins[file].generate(this.services, this.config.plugins[file]);

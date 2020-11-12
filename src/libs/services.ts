@@ -3,6 +3,7 @@ export * from "./services/report";
 export * from "./services/markdown";
 export * from "./services/routes";
 export * from "./services/theme";
+export * from "./services/ejs";
 
 export class Services {
 
