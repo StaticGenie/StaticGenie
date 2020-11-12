@@ -10,7 +10,7 @@ export class Generators {
      * @param generators 
      */
     addGenerators(generators: iGenerator[]) {
-        this.generators.concat(generators);
+        generators.forEach(generator => this.generators.push(generator));
     }
 
     /**

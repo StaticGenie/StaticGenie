@@ -49,6 +49,8 @@ Configure your website by editing `/src/config.ts`
 
 # Framework Structure
 
+## Plugins
+
 Everything is based around plugins. Without plugins there would be no data model. Without data, there would be nothing to put within pages.
 
 Each plugin creates Model Builders and Generators.
@@ -57,7 +59,11 @@ Model Builders are responsible for mutating a shared model that is later accessi
 
 Generators are responsible for generating pages. They can do this by looking at the shared model and/or pulling in it's own data as well as using service providers to assist it.
 
-## 5. Report
+## Services
+
+Services are support systems built directly into the framework. They are all used via interfaces to allow them to be switched out for "better" ones in the future. An accessor is always used which will allow the potential for turning it into a factory/facade/etc to support versioning and 3rd party service providers depending on how it develops.
+
+## Report
 
 On the console, spew out a report of what just happened for each route. E.G.
 

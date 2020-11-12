@@ -15,7 +15,7 @@ export class Models {
      * @param builders 
      */
     addBuilders(builders: iBuilder[]) {
-        this.builders.concat(builders);
+        builders.forEach(builder => this.builders.push(builder));
     }
 
     /**

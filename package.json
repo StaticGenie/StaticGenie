@@ -5,8 +5,8 @@
   "main": "",
   "scripts": {
     "compile": "tsc",
-    "debug": "tsc && DEBUG=* nodejs ./tmp/index.js ",
-    "build": "tsc && DEBUG=report nodejs ./tmp/index.js ",
+    "debug": "tsc && DEBUG=sg:* nodejs ./tmp/index.js ",
+    "build": "tsc && DEBUG=sg:report nodejs ./tmp/index.js ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
