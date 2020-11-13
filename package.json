@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:clean": "rm -r ./tmp",
     "build:ts": "tsc",
-    "build:pages": "nodejs ./tmp/src/index.js"
+    "build:pages": "nodejs ./tmp/src/index.js",
+    "build:optimise": "echo \"@TODO run JS/CSS/IMG optimisation scripts over the output (www) folder\" && exit 1"
   },
   "repository": {
     "type": "git",

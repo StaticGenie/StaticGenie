@@ -48,7 +48,7 @@ export class App {
             this.services.register(this.config.services.beforePluginsInitialised[file].name, new (require(file)).Service(), this.config.services.beforePluginsInitialised[file]);
         });
 
-        // Initialise each plugin. Will allow for things like connecting to a database, ensuring API keys exist, checks config, updates shared model (service provider), etc 
+        // Initialise each plugin (primary use is to create shared data on the model service provider)
         Object.keys(this.plugins).forEach(file => {
             this.plugins[file].initialise(this.services, this.config.plugins[file]);
         });
