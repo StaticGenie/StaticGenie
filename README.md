@@ -77,6 +77,7 @@ Services are support systems built directly into the framework. They are all use
 
 On the console, spew out a report of what just happened for each route. E.G.
 
+```
 232 pages generated [ 23 from cache, 71 refreshed, 131 new ]
 
 New
@@ -96,7 +97,7 @@ From Cache
 [-] /about.html
 [-] /contact.html
 [-] /home.html
+```
 
-
-@TODO convert to a proper README instead of a brain dump
-@TODO figure out an easy way of updating the framework
+- @TODO convert to a proper README instead of a brain dump
+- @TODO figure out an easy way of updating the framework
