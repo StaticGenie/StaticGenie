@@ -9,7 +9,7 @@ export = <fm.app.iConfig>{
     /**
      * Where to put the generated website
      */
-    outputDir: "./public",
+    outputDir: "./www",
 
     /**
      * Where to pull static assets like files (js, images, etc)
