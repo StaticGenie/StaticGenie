@@ -1,5 +1,5 @@
 import * as fm from "./src/framework";
-
+import {iThemeConfigData} from "./theme/package";
 
 /**
  * Configure your website here
@@ -27,7 +27,7 @@ export = <fm.app.iConfig>{
      * Theme config
      */
     theme: {
-        data: {
+        data: <iThemeConfigData>{
             title: "StaticGenie",
             links: [
                 {name: "Home", url: "/index.html"},
