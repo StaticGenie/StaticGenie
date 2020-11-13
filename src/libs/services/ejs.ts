@@ -1,6 +1,14 @@
-import {iService} from "../services"
+import {iService, iConfig} from "../services"
 
-export class Ejs implements iService {
+export class Service implements iService {
+
+    /**
+     * Initialise using provided config
+     * @param config 
+     */
+    initialise(config:iConfig) {
+        
+    }
     
     pluginsInitialised() {
 

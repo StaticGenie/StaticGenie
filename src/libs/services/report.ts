@@ -1,4 +1,4 @@
-import {iService} from "../services"
+import {iService, iConfig} from "../services"
 
 /**
  * @TODO finish this, currently it absolutely sucks
@@ -6,13 +6,21 @@ import {iService} from "../services"
  * @TODO would be good to benchmark how long between calls to this, since it would show any pages that are effectively stuck
  * @TODO would be better to show a page that is currently BEING generated in the event it gets stuck you know where to look followed by a "done", "failed", etc
  */
-export class Report implements iService {
+export class Service implements iService {
     
     private totalPages = 0;
 
     add(record:string) {
         console.log("[-] " + record);
         this.totalPages++;
+    }
+
+    /**
+     * Initialise using provided config
+     * @param config 
+     */
+    initialise(config:iConfig) {
+        
     }
     
     pluginsInitialised() {

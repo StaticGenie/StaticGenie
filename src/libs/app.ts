@@ -1,6 +1,7 @@
 import * as services from "./services";
 import {iConfig as iConfigPlugins, iPlugin} from "./plugins";
 import {iConfig as iConfigTheme} from "./themes";
+import {iConfig as iConfigServices} from "./services";
 
 /**
  * The core application, everything starts here!!
@@ -39,12 +40,13 @@ export class App {
 
         // Build the plugins and register with the framework
         Object.keys(this.config.plugins).forEach(file => {
-            this.plugins[file] = new (require(file)).default();
+            this.plugins[file] = new (require(file)).Plugin();
         });
-        
+
         // Register services
-        this.services.register("model", new services.Model());
-        this.services.register("markdown", new services.Markdown());
+        Object.keys(this.config.services.beforePluginsInitialised).forEach(file => {
+            this.services.register(this.config.services.beforePluginsInitialised[file].name, new (require(file)).Service(), this.config.services.beforePluginsInitialised[file]);
+        });
 
         // Initialise each plugin. Will allow for things like connecting to a database, ensuring API keys exist, checks config, updates shared model (service provider), etc 
         Object.keys(this.plugins).forEach(file => {
@@ -52,10 +54,9 @@ export class App {
         });
         
         // Register more services
-        this.services.register("report", new services.Report());
-        this.services.register("theme", new services.Theme());
-        this.services.register("ejs", new services.Ejs());
-        this.services.register("routes", new services.Routes());
+        Object.keys(this.config.services.afterPluginsInitialised).forEach(file => {
+            this.services.register(this.config.services.afterPluginsInitialised[file].name, new (require(file)).Service(), this.config.services.afterPluginsInitialised[file]);
+        });
         
         // Services event
         this.services.pluginsInitialised();
@@ -86,6 +87,14 @@ export interface iConfig {
      * Registered plugins
      */
     plugins: iConfigPlugins;
+
+    /**
+     * Registered services
+     */
+    services: {
+        beforePluginsInitialised: iConfigServices;
+        afterPluginsInitialised: iConfigServices;
+    };
 
     /**
      * Registered themes

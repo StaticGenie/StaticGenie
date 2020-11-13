@@ -4,7 +4,7 @@ import * as fm from "../framework";
  * Plugin
  * @TODO
  */
-export default class implements fm.plugins.iPlugin {
+export class Plugin implements fm.plugins.iPlugin {
 
     /**
      * Update the model, check config, etc

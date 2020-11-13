@@ -3,7 +3,7 @@ import * as fm from "../framework";
 /**
  * Plugin
  */
-export default class implements fm.plugins.iPlugin {
+export class Plugin implements fm.plugins.iPlugin {
 
     /**
      * Update the model, check config, etc
@@ -31,7 +31,7 @@ export default class implements fm.plugins.iPlugin {
 
         console.log(services.get("model").data);
 
-        const report = <fm.services.Report>services.get("report");
+        const report = <fm.services.report.Service>services.get("report");
         report.add("/index.html");
         report.add("/about.html");
         report.add("/contact.html");

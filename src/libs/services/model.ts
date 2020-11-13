@@ -1,14 +1,22 @@
-import {iService} from "../services"
+import {iConfig, iService} from "../services"
 
 /**
  * Holds the shared model data
  */
-export class Model implements iService {
+export class Service implements iService {
     
     /**
      * The data (duh)
      */
     public data: {[key: string] : any} = {};
+
+    /**
+     * Initialise using provided config
+     * @param config 
+     */
+    initialise(config:iConfig) {
+        
+    }
 
     /**
      * Freeze the model once all plugins have initialised to prevent generators interfering with them

@@ -1,9 +1,9 @@
-export * from "./services/model";
-export * from "./services/report";
-export * from "./services/markdown";
-export * from "./services/routes";
-export * from "./services/theme";
-export * from "./services/ejs";
+export * as model from "./services/model";
+export * as report from "./services/report";
+export * as makrdown from "./services/markdown";
+export * as routes from "./services/routes";
+export * as theme from "./services/theme";
+export * as ejs from "./services/ejs";
 
 export class Services {
 
@@ -17,11 +17,19 @@ export class Services {
      * @param name 
      * @param service 
      */
-    register(name:string, service:iService) {
+    register(name:string, service:iService, config:iConfig) {
+
+        // Ensure the service doesn't already
         if (this.services.hasOwnProperty(name) === true) {
             throw new Error(`Can not register service provider '${name}' due to already having been registered.`);
         }
+
+        // Register the service
         this.services[name] = service;
+
+        // Initialise the service
+        this.services[name].initialise(config);
+
     }
 
     /**
@@ -46,6 +54,14 @@ export class Services {
 }
 
 export interface iService {
+    initialise(config:iConfig): void;
     pluginsInitialised(): void;
     pluginsGenerated(): void;
+}
+
+/**
+ * Config
+ */
+export interface iConfig {
+    [key: string]: { [key: string] : any };
 }
