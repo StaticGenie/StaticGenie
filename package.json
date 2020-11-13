@@ -4,9 +4,10 @@
   "description": "Built for JavaScript programmers to intuitively create static websites",
   "main": "",
   "scripts": {
-    "compile": "tsc",
-    "build": "tsc && nodejs ./tmp/index.js ",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run build:ts && npm run build:pages",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:ts": "tsc",
+    "build:pages": "nodejs ./tmp/index.js"
   },
   "repository": {
     "type": "git",
