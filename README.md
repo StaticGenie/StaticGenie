@@ -66,12 +66,12 @@ Services are support systems built directly into the framework. They are all use
 
 ## Directory Structure
 
-`/plugins` - Any 3rd party plugins and core plugin data. For example, the built in plugin `pages` has a folder here for you to define your own pages.
-`/src` - The StaticGenie source code (best to stay out of here unless you know what you're doing).
-`/theme/assets` - Any assets such as .css, .zip, .png, .js etc you want to add to your site.
-`/theme/layouts` - In order to create any page with a unique look and feel (such as /contact.html with a contact form) it needs a layout. They are defined here.
-`/www` - your generated website! Copy all the contents of this folder to your web host. You can change the output directory in your `/config.ts` file.
-`/config.ts` - General configuration of your website.
+- `/plugins` - Any 3rd party plugins and core plugin data. For example, the built in plugin `pages` has a folder here for you to define your own pages.
+- `/src` - The StaticGenie source code (best to stay out of here unless you know what you're doing).
+- `/theme/assets` - Any assets such as .css, .zip, .png, .js etc you want to add to your site.
+- `/theme/layouts` - In order to create any page with a unique look and feel (such as /contact.html with a contact form) it needs a layout. They are defined here.
+- `/www` - your generated website! Copy all the contents of this folder to your web host. You can change the output directory in your `/config.ts` file.
+- `/config.ts` - General configuration of your website.
 
 ## Report
 

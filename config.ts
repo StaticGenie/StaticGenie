@@ -14,7 +14,7 @@ export = <fm.app.iConfig>{
     /**
      * Where to pull static assets like files (js, images, etc)
      */
-    assetsDir: "./assets",
+    assetsDir: "./theme/assets",
 
     /**
      * Lists all plugins to load and their respective config
