@@ -1,4 +1,5 @@
-import * as fm from "./framework";
+import * as fm from "./src/framework";
+
 
 /**
  * Configure your website here
