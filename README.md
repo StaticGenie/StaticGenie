@@ -64,6 +64,15 @@ Generators are responsible for generating pages. They can do this by looking at 
 
 Services are support systems built directly into the framework. They are all used via interfaces to allow them to be switched out for "better" ones in the future. An accessor is always used which will allow the potential for turning it into a factory/facade/etc to support versioning and 3rd party service providers depending on how it develops.
 
+## Directory Structure
+
+`/plugins` - Your own or 3rd party plugins.
+`/src` - The StaticGenie source code (best to stay out of here unless you know what you're doing).
+`/theme/assets` - Any assets such as .css, .zip, .png, .js etc you want to add to your site.
+`/theme/layouts` - In order to create any page with a unique look and feel (such as /contact.html with a contact form) it needs a layout. They are defined here.
+`/www` - your generated website! Copy all the contents of this folder to your web host. You can change the output directory in your `/config.ts` file.
+`/config.ts` - General configuration of your website.
+
 ## Report
 
 On the console, spew out a report of what just happened for each route. E.G.
