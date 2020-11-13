@@ -4,8 +4,9 @@
   "description": "Built for JavaScript programmers to intuitively create static websites",
   "main": "",
   "scripts": {
-    "start": "npm run build:ts && npm run build:pages",
+    "start": "npm run build:ts && npm run build:pages && npm run build:clean",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build:clean": "rm -r ./tmp",
     "build:ts": "tsc",
     "build:pages": "nodejs ./tmp/src/index.js"
   },
