@@ -7,7 +7,5 @@ export class Themes {
 }
 
 export interface iConfig {
-    name: string;
-    files: string[];
-    conf: { [key: string]: string; };
+    data: { [key: string]: any; };
 }

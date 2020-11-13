@@ -90,6 +90,6 @@ export interface iConfig {
     /**
      * Registered themes
      */
-    themes: iConfigTheme[];
+    theme: iConfigTheme;
     
 }

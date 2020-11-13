@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>StaticGenie</title>
+        <title>{title}</title>
         <style>
             * {
                 font-family: Arial, Helvetica, sans-serif;
@@ -95,9 +95,10 @@
     <body>
         <nav>
             <ul>
-                <li><a href='/index.html'>Home</a></li>
+                {links}
+                <!-- <li><a href='/index.html'>Home</a></li>
                 <li><a href='/about.html'>About</a></li>
-                <li><a href='/contact.html'>Contact</a></li>
+                <li><a href='/contact.html'>Contact</a></li> -->
             </ul>
         </nav>
         <section class='header'>
@@ -114,7 +115,7 @@
         </section>
         <footer>
             <div class='links'><a href='/terms.html'>Terms</a> | <a href='/privacy.html'>Privacy</a> | <a href='/contact.html'>Contact</a></div>
-            <div class='copyright'>Copyright &copy; 2020 StaticGenie, All Rights Reserved</div>
+            <div class='copyright'>{copyright}</div>
         </footer>
     </body>
 </html>

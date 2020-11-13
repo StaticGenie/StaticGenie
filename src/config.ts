@@ -22,28 +22,19 @@ export = <fm.app.iConfig>{
         "../plugins/pages": {}
     },
 
-    themes: [
-        /*
-        {
-            name: "default",
-            directory: "",
-            layouts: [],
-            conf: {
-                name: "",
-                desc: "",
-                author: "",
-                plugins: [
-                    "core:pages",
-                    "core:tags",
-                    "core:categories",
-                    "core:sitemap",
-                    "core:blogposts",
-                    "core:videos",
-                    "core:downloads",
-                    "core:footer",
-                ]
-            },
+    /**
+     * Theme config
+     */
+    theme: {
+        data: {
+            title: "StaticGenie",
+            links: [
+                {name: "Home", url: "/index.html"},
+                {name: "About", url: "/about.html"},
+                {name: "Contact", url: "/contact.html"},
+            ],
+            copyright: "Copyright &copy; 2020 StaticGenie, All Rights Reserved",
         },
-        */
-    ],
+    },
+    
 }
