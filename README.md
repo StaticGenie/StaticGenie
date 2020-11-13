@@ -66,7 +66,7 @@ Services are support systems built directly into the framework. They are all use
 
 ## Directory Structure
 
-`/plugins` - Your own or 3rd party plugins.
+`/plugins` - Any 3rd party plugins and core plugin data. For example, the built in plugin `pages` has a folder here for you to define your own pages.
 `/src` - The StaticGenie source code (best to stay out of here unless you know what you're doing).
 `/theme/assets` - Any assets such as .css, .zip, .png, .js etc you want to add to your site.
 `/theme/layouts` - In order to create any page with a unique look and feel (such as /contact.html with a contact form) it needs a layout. They are defined here.
