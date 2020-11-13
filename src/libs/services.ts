@@ -1,9 +1,9 @@
-export * as model from "./services/model";
-export * as report from "./services/report";
-export * as makrdown from "./services/markdown";
-export * as routes from "./services/routes";
-export * as theme from "./services/theme";
-export * as ejs from "./services/ejs";
+export * as model from "../services/model";
+export * as report from "../services/report";
+export * as makrdown from "../services/markdown";
+export * as routes from "../services/routes";
+export * as theme from "../services/theme";
+export * as ejs from "../services/ejs";
 
 export class Services {
 

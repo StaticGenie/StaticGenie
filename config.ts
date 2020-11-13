@@ -28,24 +28,24 @@ export = <fm.app.iConfig>{
      */
     services: {
         beforePluginsInitialised: {
-            "../libs/services/markdown": {
+            "../services/markdown": {
                 name: "markdown"
             },
-            "../libs/services/model": {
+            "../services/model": {
                 name: "model"
             },
         },
         afterPluginsInitialised: {
-            "../libs/services/ejs": {
+            "../services/ejs": {
                 name: "ejs"
             },
-            "../libs/services/report": {
+            "../services/report": {
                 name: "report"
             },
-            "../libs/services/routes": {
+            "../services/routes": {
                 name: "routes"
             },
-            "../libs/services/theme": {
+            "../services/theme": {
                 name: "theme"
             },
         },

@@ -1,4 +1,4 @@
-import {iService, iConfig} from "../services"
+import {iService, iConfig} from "../libs/services"
 
 /**
  * @TODO finish this, currently it absolutely sucks

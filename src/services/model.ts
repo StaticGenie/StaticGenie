@@ -1,4 +1,4 @@
-import {iConfig, iService} from "../services"
+import {iConfig, iService} from "../libs/services"
 
 /**
  * Holds the shared model data

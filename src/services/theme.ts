@@ -1,4 +1,4 @@
-import {iService, iConfig} from "../services"
+import {iService, iConfig} from "../libs/services"
 
 export class Service implements iService {
 
