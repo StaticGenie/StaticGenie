@@ -15,7 +15,7 @@ export class Services {
      * @param name 
      * @param service 
      */
-    register(name:string, service:iService, config:iConfigServices) {
+    register(name:string, service:iService, config:iConfigService) {
 
         // Ensure the service doesn't already
         if (this.services.hasOwnProperty(name) === true) {
@@ -26,7 +26,7 @@ export class Services {
         this.services[name] = service;
 
         // Initialise the service
-        this.services[name].initialise(config.config);
+        this.services[name].initialise(config);
 
     }
 

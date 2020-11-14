@@ -73,5 +73,5 @@ export class ThemeEJS extends Theme {
 }
 
 export interface iThemeEJSConfig extends iThemeConfig {
-    
+
 }

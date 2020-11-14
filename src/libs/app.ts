@@ -40,7 +40,10 @@ export class App {
 
         // Register services
         Object.keys(this.config.services.beforePluginsInitialised).forEach(file => {
-            this.services.register(this.config.services.beforePluginsInitialised[file].name, new (require(file))[this.config.services.beforePluginsInitialised[file].class], this.config.services.beforePluginsInitialised[file]);
+            this.services.register(
+                this.config.services.beforePluginsInitialised[file].name, 
+                new (require(file))[this.config.services.beforePluginsInitialised[file].class], 
+                this.config.services.beforePluginsInitialised[file].config);
         });
 
         // Initialise each plugin (primary use is to create shared data on the model service provider)
@@ -50,7 +53,10 @@ export class App {
         
         // Register more services
         Object.keys(this.config.services.afterPluginsInitialised).forEach(file => {
-            this.services.register(this.config.services.afterPluginsInitialised[file].name, new (require(file))[this.config.services.afterPluginsInitialised[file].class], this.config.services.afterPluginsInitialised[file]);
+            this.services.register(
+                this.config.services.afterPluginsInitialised[file].name, 
+                new (require(file))[this.config.services.afterPluginsInitialised[file].class], 
+                this.config.services.afterPluginsInitialised[file].config);
         });
         
         // Services event
