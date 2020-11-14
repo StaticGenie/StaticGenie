@@ -99,3 +99,4 @@ Alpha
 - @TODO How can users supply their own services and switch out existing services (extended/implemented)
 - @TODO Inconsistency between the terms model & data
 - @TODO Build a static website for StaticGenie.com
+- @TODO Comment everything

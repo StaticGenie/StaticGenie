@@ -39,6 +39,17 @@ export class ThemeEJS extends Theme {
      */
     renderLayout(layout:string, data:{[key:string] : any}) : string {
         
+        // Lookup layout
+
+
+
+        // Merge theme data into local data
+
+
+        // Parse layout with the merged data
+
+
+        // Return the parsed layout
         return "";
 
     }
@@ -50,6 +61,14 @@ export class ThemeEJS extends Theme {
      */
     render(template:string, data:{[key:string] : any}) : string {
 
+
+        // Merge theme data into local data
+
+
+        // Parse template with the merged data
+
+
+        // Return the parsed layout
         return "";
 
     }
