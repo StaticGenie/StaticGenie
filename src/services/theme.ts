@@ -1,13 +1,13 @@
 import {iService, iConfigService} from "../libs/services"
 
 export interface iTheme {
-    renderLayout(layout:string, data:{[key: string] : any}): void;
-    render(template:string, data:{[key: string] : any}): void;
+    renderLayout(layout:string, data:{[key: string] : any}): string;
+    render(template:string, data:{[key: string] : any}): string;
 }
 
-export class Theme implements iService, iTheme {
+abstract class Theme implements iService, iTheme {
 
-    private config:iConfigService = {};
+    protected config:iConfigService = {};
 
     /**
      * Initialise using provided config
@@ -17,14 +17,29 @@ export class Theme implements iService, iTheme {
         this.config = config;
     }
 
+    pluginsInitialised() {
+
+    }
+
+    pluginsGenerated() {
+    
+    }
+
+    abstract renderLayout(layout:string, data:{[key:string] : any}) : string;
+    abstract render(template:string, data:{[key:string] : any}) : string;
+
+}
+
+export class ThemeEJS extends Theme {
+
     /**
      * Renders a layout using the data
      * @param layout 
      * @param data 
      */
-    renderLayout(layout:string, data:{[key:string] : any}) {
+    renderLayout(layout:string, data:{[key:string] : any}) : string {
 
-        
+        return "";
 
     }
 
@@ -33,16 +48,10 @@ export class Theme implements iService, iTheme {
      * @param template 
      * @param data 
      */
-    render(template:string, data:{[key:string] : any}) {
+    render(template:string, data:{[key:string] : any}) : string {
 
-    }
+        return "";
 
-    pluginsInitialised() {
-
-    }
-
-    pluginsGenerated() {
-    
     }
 
 }

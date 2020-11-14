@@ -48,7 +48,7 @@ export = <fm.app.iConfig>{
             },
             "../services/theme": { 
                 name: "theme", 
-                class: fm.services.theme.Theme.name,
+                class: fm.services.theme.ThemeEJS.name,
                 config: <iThemeConfig>{
                     title: "StaticGenie",
                     links: [

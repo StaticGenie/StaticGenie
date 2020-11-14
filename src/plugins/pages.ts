@@ -24,7 +24,7 @@ export class Plugin implements fm.plugins.iPlugin {
         //@TODO Can register a new service provider... not recommended (may create a dependency on the order the plugins are executed) but a possible way of creating plugin based service providers given only the plugin generators use it :/ maybe providing the actual services plugin isn't the best idea here... Mabe provide another method here to explicitly register service providers?
 
     }
-
+    
     /**
      * Generate pages
      * @TODO
