@@ -30,8 +30,10 @@ export class App {
 
         // Store config and build some basic handlers
         this.config = config;
-        Object.freeze(this.config);
         this.services = new services.Services();
+
+        // Freeze the config since it should NEVER change from what the user expects
+        Object.freeze(this.config);
 
         // Build the plugins and register with the framework
         Object.keys(this.config.plugins).forEach(file => {
@@ -43,7 +45,8 @@ export class App {
             this.services.register(
                 this.config.services.beforePluginsInitialised[file].name, 
                 new (require(file))[this.config.services.beforePluginsInitialised[file].class], 
-                this.config.services.beforePluginsInitialised[file].config);
+                this.config.services.beforePluginsInitialised[file].config
+            );
         });
 
         // Initialise each plugin (primary use is to create shared data on the model service provider)
@@ -56,7 +59,8 @@ export class App {
             this.services.register(
                 this.config.services.afterPluginsInitialised[file].name, 
                 new (require(file))[this.config.services.afterPluginsInitialised[file].class], 
-                this.config.services.afterPluginsInitialised[file].config);
+                this.config.services.afterPluginsInitialised[file].config
+            );
         });
         
         // Services event
