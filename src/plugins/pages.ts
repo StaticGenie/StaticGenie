@@ -11,6 +11,7 @@ export class Plugin implements fm.plugins.iPlugin {
      * @param config 
      */
     initialise(services:fm.services.Services, config:fm.plugins.iConfig) {
+
         /*
         services.get("model").data.title = "StaticGenie";
         services.get("model").data.author = {
@@ -26,46 +27,22 @@ export class Plugin implements fm.plugins.iPlugin {
 
     /**
      * Generate pages
+     * @TODO
      * @param services 
      * @param config 
      */
     generate(services:fm.services.Services, config:fm.plugins.iConfig) {
 
-        // 
-        /* @TODO
-        FAKE CODE
+        // Services
+        const pages = <fm.services.pagewriter.PageWriter>services.get("pagewriter");
+        const report = <fm.services.report.Report>services.get("report");
         
-        // Write a 
-        const writer = <fm.services.pagewriter.Service>services.get("writer");
-        writer.write("/index.html", theme.renderLayout("home", {title: "hello"}));
-        wrtier.write("/global.js", data);
-        
-        
-        
+        // Write a page
+        pages.write("hello.txt", Buffer.from("I'm a string!"));
+        //pages.write("index.html", theme.renderLayout("home", {title: "hello"}));
 
-        
-
-
-        console.log(services.get("model").data);
-
-        const report = <fm.services.report.Service>services.get("report");
-        report.add("/index.html");
-        report.add("/about.html");
-        report.add("/contact.html");
-
-        // Get location of pages from config
-
-        // Parse a pages markdown/yaml/etc
-
-        // Render the page (via theme layout service)
-
-        // Output page (service)
-
-        // Report (service)
-
-        // Debug info? (service)
-
-        */
+        // Report the page
+        report.add("hello.txt");
         
     }
 

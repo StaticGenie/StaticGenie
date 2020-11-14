@@ -1,9 +1,7 @@
 export * as model from "../services/model";
 export * as report from "../services/report";
-export * as makrdown from "../services/markdown";
-export * as routes from "../services/routes";
+export * as pagewriter from "../services/pagewriter";
 export * as theme from "../services/theme";
-export * as ejs from "../services/ejs";
 
 export class Services {
 
@@ -43,16 +41,25 @@ export class Services {
         throw new Error(`Can not get service '${name}' since it's not been register (doesn't exist)`);
     }
 
+    /**
+     * Hooks
+     */
     pluginsInitialised() {
         Object.keys(this.services).forEach(key => this.services[key].pluginsInitialised());
     }
 
+    /**
+     * Hooks
+     */
     pluginsGenerated() {
         Object.keys(this.services).forEach(key => this.services[key].pluginsGenerated());
     }
 
 }
 
+/**
+ * Service interface
+ */
 export interface iService {
     initialise(config:iConfig): void;
     pluginsInitialised(): void;

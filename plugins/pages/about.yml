@@ -1,6 +1,13 @@
 layout: article
 url: /about.html
 
+# Any key values here will be added to the shared model allowing other plugins to access it.
+global:
+  keywords: 
+
+# Any key values here will only be made available to ONLY this page
+page:
+
 -------------
 
 Markdown text here

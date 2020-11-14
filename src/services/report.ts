@@ -1,12 +1,9 @@
 import {iService, iConfig} from "../libs/services"
 
 /**
- * @TODO finish this, currently it absolutely sucks
- * @TODO console.log() is slow as hell, which will drastically slow down website generation for very large sites
- * @TODO would be good to benchmark how long between calls to this, since it would show any pages that are effectively stuck
- * @TODO would be better to show a page that is currently BEING generated in the event it gets stuck you know where to look followed by a "done", "failed", etc
+ * @TODO finish this, currently it absolutely sucks. Implement similar to the pagewriter service i.e. interface, switchable within config, etc
  */
-export class Service implements iService {
+export class Report implements iService {
     
     private totalPages = 0;
 
@@ -40,13 +37,7 @@ export class Service implements iService {
         console.log(" === SUMMARY")
         console.log(" ==================================================")
         console.log()
-
-        console.log(` ${this.totalPages} - .html`)
-        console.log(` ${this.totalPages} - .js`)
-        console.log(` ${this.totalPages} - .css`)
-        console.log(` ${this.totalPages} - .jpg`)
-        console.log(` ${this.totalPages} - .png`)
-        console.log(` ${this.totalPages*80} - Total Files`)
+        console.log(` ${this.totalPages} - Total Files`)
         console.log()
 
     }

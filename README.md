@@ -103,3 +103,6 @@ From Cache
 
 - @TODO convert to a proper README instead of a brain dump
 - @TODO figure out an easy way of updating the framework
+- @TODO how to handle generated files such as images, js files, etc?
+- @TODO Implement error handling and a way of reporting new pages, failed pages and errors during processing
+- @TODO How can users supply their own services and switch out existing services (extended/implemented)

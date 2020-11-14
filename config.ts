@@ -24,29 +24,29 @@ export = <fm.app.iConfig>{
     },
 
     /**
-     * Load all services
+     * Load all services to be used by plugins
+     * @TODO the services config doesn't "require" name, class in the interface. Fix this.
      */
     services: {
         beforePluginsInitialised: {
-            "../services/markdown": {
-                name: "markdown"
-            },
-            "../services/model": {
-                name: "model"
+            "../services/model": { 
+                name: "model", 
+                class: fm.services.model.Model.name 
             },
         },
         afterPluginsInitialised: {
-            "../services/ejs": {
-                name: "ejs"
+            "../services/report": { 
+                name: "report", 
+                class: fm.services.report.Report.name 
             },
-            "../services/report": {
-                name: "report"
+            "../services/pagewriter": { 
+                name: "pagewriter", 
+                class: fm.services.pagewriter.PageWriterConsole.name, 
+                //directory: "./www"
             },
-            "../services/routes": {
-                name: "routes"
-            },
-            "../services/theme": {
-                name: "theme"
+            "../services/theme": { 
+                name: "theme", 
+                class: fm.services.theme.Theme.name,
             },
         },
     },

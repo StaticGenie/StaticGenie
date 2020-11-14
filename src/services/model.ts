@@ -3,7 +3,7 @@ import {iConfig, iService} from "../libs/services"
 /**
  * Holds the shared model data
  */
-export class Service implements iService {
+export class Model implements iService {
     
     /**
      * The data (duh)
