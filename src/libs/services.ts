@@ -26,7 +26,7 @@ export class Services {
         this.services[name] = service;
 
         // Initialise the service
-        this.services[name].initialise(config);
+        this.services[name].initialise(config.config);
 
     }
 

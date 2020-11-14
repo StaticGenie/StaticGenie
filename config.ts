@@ -50,6 +50,7 @@ export = <fm.app.iConfig>{
                 name: "theme", 
                 class: fm.services.theme.ThemeEJS.name,
                 config: <fm.services.theme.iThemeEJSConfig>{
+                    //@TODO add options {  } that get directly injected into the EJS template renderer. Personally, I want to use <? instead of <%
                     data: <iThemeConfigData>{
                         title: "StaticGenie",
                         links: [

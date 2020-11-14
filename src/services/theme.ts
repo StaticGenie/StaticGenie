@@ -1,4 +1,5 @@
 import {iService, iConfigService} from "../libs/services"
+import * as ejs from "ejs";
 
 export interface iTheme {
     renderLayout(layout:string, data:{[key: string] : any}): string;
@@ -34,43 +35,39 @@ export class ThemeEJS extends Theme {
 
     /**
      * Renders a layout using the data
+     * @TODO create a consistent model structure to pass the EJS
      * @param layout 
      * @param data 
      */
     renderLayout(layout:string, data:{[key:string] : any}) : string {
         
         // Lookup layout
+        
 
 
-
-        // Merge theme data into local data
-
-
-        // Parse layout with the merged data
+        // Parse layout
 
 
         // Return the parsed layout
         return "";
 
     }
-
+    
     /**
      * Renders a template using the data model
+     * @TODO create a consistent model structure to pass the EJS
      * @param template 
      * @param data 
      */
     render(template:string, data:{[key:string] : any}) : string {
 
-
-        // Merge theme data into local data
-
-
-        // Parse template with the merged data
-
-
-        // Return the parsed layout
-        return "";
-
+        // Parse template
+        return ejs.render(template, {
+            theme: this.config.data,    // theme config data
+            // model: ?                 // @TODO pull in the model from the model service. Otherwise, for example, if there was a tags panel as often is the case in blogs, this would have no way of globally getting into each layout (bloating the "page" data)
+            page: data,                 // data used to render this specific page/layout
+        });
+        
     }
 
 }

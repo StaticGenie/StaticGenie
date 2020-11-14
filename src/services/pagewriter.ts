@@ -8,6 +8,7 @@ abstract class PageWriter implements iService, iPageWriter {
 
     /**
      * Write the page
+     * @TODO while functional, it's not a very nice interface having to use Buffer.from() everytime you write strings to a file
      * @param name 
      * @param data 
      */

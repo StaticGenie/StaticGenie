@@ -19,7 +19,7 @@ You will require;
 
 Simple right?
 
-You will then need to clone this repo and run `docker-compose run sg npm install`. You should then be all setup and ready to go.
+You will need to clone this repo and run `docker-compose run sg npm install`. You should then be all setup and ready to go.
 
 # Running Commands Inside Docker
 
@@ -41,14 +41,15 @@ When you wish to run StaticGenie. Use the following command: `docker-compose run
 - `build:ts` - Converts the typescript to javascript. Gives you quicker feedback than having to generate the website everytime you wish to test
 - `build:pages` - Build your web pages
 - `build:clean` - Cleans up any temporary artifacts such as compiled ts ready for the next build
-- `test` - Compile and tests the javascript (although this isn't working yet)
-- `start` - runs all the build scripts (remember you run this command using `npm start` not `npm run start`)
+- `build:optimise` - @TODO - Will perform optimisations like CSS/JS minification, etc
+- `test` - @TODO - Compile and tests the javascript (although this isn't working yet)
+- `start` - runs all the build scripts in order
 
 @TODO can't decide if to make `build:website` or break it up and split the generator into multiple commands (I like this one I think): `build:pages`, `build:assets`, `build:optimise`, etc
 
 # Config
 
-Configure your website by editing `/src/config.ts`
+Configure your website by editing `/src/config.ts`.
 
 # Framework Structure
 
@@ -100,3 +101,5 @@ Alpha
 - @TODO Inconsistency between the terms model & data
 - @TODO Build a static website for StaticGenie.com
 - @TODO Comment everything
+- @TODO Sync file access change to async
+- @TODO Unit tests
