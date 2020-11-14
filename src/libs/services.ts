@@ -15,7 +15,7 @@ export class Services {
      * @param name 
      * @param service 
      */
-    register(name:string, service:iService, config:iConfig) {
+    register(name:string, service:iService, config:iConfigServices) {
 
         // Ensure the service doesn't already
         if (this.services.hasOwnProperty(name) === true) {
@@ -61,14 +61,23 @@ export class Services {
  * Service interface
  */
 export interface iService {
-    initialise(config:iConfig): void;
+    initialise(config:iConfigService): void;
     pluginsInitialised(): void;
     pluginsGenerated(): void;
 }
 
 /**
- * Config
+ * Define a group of services
  */
-export interface iConfig {
-    [key: string]: { [key: string] : any };
+export interface iConfigServices {
+    name: string;
+    class: string;
+    config: iConfigService;
+}
+
+/**
+ * Config for a specific service
+ */
+export interface iConfigService {
+    [key: string] : any;
 }

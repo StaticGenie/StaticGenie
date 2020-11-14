@@ -1,5 +1,5 @@
 import * as fm from "./src/framework";
-import {iThemeConfigData} from "./theme/package";
+import {iThemeConfig} from "./theme/package";
 
 /**
  * Configure your website here
@@ -31,39 +31,35 @@ export = <fm.app.iConfig>{
         beforePluginsInitialised: {
             "../services/model": { 
                 name: "model", 
-                class: fm.services.model.Model.name 
+                class: fm.services.model.Model.name,
+                config: <fm.services.model.iModelConfig>{} 
             },
         },
         afterPluginsInitialised: {
             "../services/report": { 
                 name: "report", 
-                class: fm.services.report.Report.name 
+                class: fm.services.report.Report.name,
+                config: <fm.services.report.iReportConfig>{} 
             },
             "../services/pagewriter": { 
                 name: "pagewriter", 
-                class: fm.services.pagewriter.PageWriterConsole.name, 
-                //directory: "./www"
+                class: fm.services.pagewriter.PageWriterConsole.name,
+                config: <fm.services.pagewriter.iPageWriterConsoleConfig>{}
             },
             "../services/theme": { 
                 name: "theme", 
                 class: fm.services.theme.Theme.name,
+                config: <iThemeConfig>{
+                    title: "StaticGenie",
+                    links: [
+                        {name: "Home", url: "/index.html"},
+                        {name: "About", url: "/about.html"},
+                        {name: "Contact", url: "/contact.html"},
+                    ],
+                    copyright: "Copyright &copy; 2020 StaticGenie, All Rights Reserved",
+                },
             },
         },
     },
 
-    /**
-     * Theme config
-     */
-    theme: {
-        data: <iThemeConfigData>{
-            title: "StaticGenie",
-            links: [
-                {name: "Home", url: "/index.html"},
-                {name: "About", url: "/about.html"},
-                {name: "Contact", url: "/contact.html"},
-            ],
-            copyright: "Copyright &copy; 2020 StaticGenie, All Rights Reserved",
-        },
-    },
-    
 }

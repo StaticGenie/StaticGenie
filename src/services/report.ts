@@ -1,9 +1,13 @@
-import {iService, iConfig} from "../libs/services"
+import {iService, iConfigService} from "../libs/services"
+
+export interface iReport {
+    add(record:string) : void;
+}
 
 /**
  * @TODO finish this, currently it absolutely sucks. Implement similar to the pagewriter service i.e. interface, switchable within config, etc
  */
-export class Report implements iService {
+export class Report implements iService, iReport {
     
     private totalPages = 0;
 
@@ -16,7 +20,7 @@ export class Report implements iService {
      * Initialise using provided config
      * @param config 
      */
-    initialise(config:iConfig) {
+    initialise(config:iConfigService) {
         
     }
     
@@ -42,4 +46,8 @@ export class Report implements iService {
 
     }
 
+}
+
+export interface iReportConfig {
+    
 }

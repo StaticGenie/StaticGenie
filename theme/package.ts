@@ -1,4 +1,4 @@
-export interface iThemeConfigData {
+export interface iThemeConfig {
     title: string;
     links: iLink[]
     copyright: string;

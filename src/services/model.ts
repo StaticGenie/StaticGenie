@@ -1,9 +1,13 @@
-import {iConfig, iService} from "../libs/services"
+import {iConfigService, iService} from "../libs/services"
+
+export interface iModel {
+    data: {[key: string] : any};
+}
 
 /**
  * Holds the shared model data
  */
-export class Model implements iService {
+export class Model implements iService, iModel {
     
     /**
      * The data (duh)
@@ -14,7 +18,7 @@ export class Model implements iService {
      * Initialise using provided config
      * @param config 
      */
-    initialise(config:iConfig) {
+    initialise(config:iConfigService) {
         
     }
 
@@ -44,5 +48,9 @@ export class Model implements iService {
         Object.freeze(this.data);
 
     }
+
+}
+
+export interface iModelConfig {
 
 }

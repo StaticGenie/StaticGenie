@@ -1,10 +1,10 @@
-import {iService, iConfig} from "../libs/services"
+import {iService, iConfigService} from "../libs/services"
 
 export interface iPageWriter {
     write(name:string, data:Buffer) : void;
 }
 
-export abstract class PageWriter implements iService, iPageWriter {
+abstract class PageWriter implements iService, iPageWriter {
 
     /**
      * Write the page
@@ -17,7 +17,7 @@ export abstract class PageWriter implements iService, iPageWriter {
      * Initialise using provided config
      * @param config 
      */
-    initialise(config:iConfig) {
+    initialise(config:iConfigService) {
         
     }
 
@@ -38,6 +38,10 @@ export class PageWriterFile extends PageWriter {
     }
 
 }
+export interface iPageWriterFileConfig {
+    
+}
+
 export class PageWriterVoid extends PageWriter {
 
     write(name:string, data:Buffer) {
@@ -45,10 +49,17 @@ export class PageWriterVoid extends PageWriter {
     }
 
 }
+export interface iPageWriterVoidConfig {
+    
+}
+
 export class PageWriterConsole extends PageWriter {
 
     write(name:string, data:Buffer) {
         console.log(`\n#########################################\n### ${name}\n#########################################\n` + data.toString());
     }
 
+}
+export interface iPageWriterConsoleConfig {
+    
 }

@@ -1,15 +1,20 @@
-import {iService, iConfig} from "../libs/services"
+import {iService, iConfigService} from "../libs/services"
 
-export class Theme implements iService {
+export interface iTheme {
+    renderLayout(layout:string, data:{[key: string] : any}): void;
+    render(template:string, data:{[key: string] : any}): void;
+}
 
-    private config:iConfig = {};
+export class Theme implements iService, iTheme {
+
+    private config:iConfigService = {};
 
     /**
      * Initialise using provided config
      * @param config 
      */
-    initialise(config:iConfig) {
-        this.config = config;        
+    initialise(config:iConfigService) {
+        this.config = config;
     }
 
     /**
@@ -18,6 +23,8 @@ export class Theme implements iService {
      * @param data 
      */
     renderLayout(layout:string, data:{[key:string] : any}) {
+
+        
 
     }
 

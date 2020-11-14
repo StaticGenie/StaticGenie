@@ -34,7 +34,7 @@ export class Plugin implements fm.plugins.iPlugin {
     generate(services:fm.services.Services, config:fm.plugins.iConfig) {
 
         // Services
-        const pages = <fm.services.pagewriter.PageWriter>services.get("pagewriter");
+        const pages = <fm.services.pagewriter.iPageWriter>services.get("pagewriter");
         const report = <fm.services.report.Report>services.get("report");
         
         // Write a page

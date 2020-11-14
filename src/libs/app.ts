@@ -1,7 +1,6 @@
 import * as services from "./services";
 import {iConfig as iConfigPlugins, iPlugin} from "./plugins";
-import {iConfig as iConfigTheme} from "./themes";
-import {iConfig as iConfigServices} from "./services";
+import {iConfigServices} from "./services";
 
 /**
  * The core application, everything starts here!!
@@ -88,13 +87,8 @@ export interface iConfig {
      * Registered services
      */
     services: {
-        beforePluginsInitialised: iConfigServices;
-        afterPluginsInitialised: iConfigServices;
+        beforePluginsInitialised: {[key:string] : iConfigServices};
+        afterPluginsInitialised:  {[key:string] : iConfigServices};
     };
 
-    /**
-     * Registered themes
-     */
-    theme: iConfigTheme;
-    
 }
