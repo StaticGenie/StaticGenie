@@ -5,17 +5,16 @@ export interface iTheme {
     render(template:string, data:{[key: string] : any}): string;
 }
 
+export interface iThemeConfig extends iConfigService {
+    options: {[key: string] : any};
+    data: {[key: string] : any};
+}
+
 abstract class Theme implements iService, iTheme {
 
-    protected config:iConfigService = {};
-
-    /**
-     * Initialise using provided config
-     * @param config 
-     */
-    initialise(config:iConfigService) {
-        this.config = config;
-    }
+    abstract initialise(config:iConfigService) : void;
+    abstract renderLayout(layout:string, data:{[key:string] : any}) : string;
+    abstract render(template:string, data:{[key:string] : any}) : string;
 
     pluginsInitialised() {
 
@@ -25,12 +24,23 @@ abstract class Theme implements iService, iTheme {
     
     }
 
-    abstract renderLayout(layout:string, data:{[key:string] : any}) : string;
-    abstract render(template:string, data:{[key:string] : any}) : string;
-
 }
 
 export class ThemeEJS extends Theme {
+
+    private config:iThemeEJSConfig;
+
+    constructor() {
+        super();
+        this.config = {
+            options: {},
+            data: {},
+        }
+    }
+
+    initialise(config:iThemeEJSConfig) {
+        this.config = config;
+    }
 
     /**
      * Renders a layout using the data
@@ -38,7 +48,7 @@ export class ThemeEJS extends Theme {
      * @param data 
      */
     renderLayout(layout:string, data:{[key:string] : any}) : string {
-
+        
         return "";
 
     }
@@ -54,4 +64,12 @@ export class ThemeEJS extends Theme {
 
     }
 
+}
+
+export interface iThemeEJSConfig extends iThemeConfig {
+    options: iThemeEJSConfigOptions;
+}
+
+export interface iThemeEJSConfigOptions {
+    
 }

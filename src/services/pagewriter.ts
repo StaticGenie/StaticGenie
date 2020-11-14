@@ -13,13 +13,7 @@ abstract class PageWriter implements iService, iPageWriter {
      */
     abstract write(name:string, data:Buffer) : void;
 
-    /**
-     * Initialise using provided config
-     * @param config 
-     */
-    initialise(config:iConfigService) {
-        
-    }
+    abstract initialise(config:iConfigService): void;
 
     pluginsInitialised() {
 
@@ -33,33 +27,45 @@ abstract class PageWriter implements iService, iPageWriter {
 
 export class PageWriterFile extends PageWriter {
 
+    initialise(config:iPageWriterFileConfig) {
+        
+    }
+
     write(name:string, data:Buffer) {
         
     }
 
 }
-export interface iPageWriterFileConfig {
+export interface iPageWriterFileConfig extends iConfigService {
     
 }
 
 export class PageWriterVoid extends PageWriter {
+
+    initialise(config:iPageWriterVoidConfig) {
+        
+    }
 
     write(name:string, data:Buffer) {
         // Just discards the data
     }
 
 }
-export interface iPageWriterVoidConfig {
+export interface iPageWriterVoidConfig extends iConfigService {
     
 }
 
 export class PageWriterConsole extends PageWriter {
+
+    initialise(config:iPageWriterConsoleConfig) {
+        
+    }
 
     write(name:string, data:Buffer) {
         console.log(`\n#########################################\n### ${name}\n#########################################\n` + data.toString());
     }
 
 }
-export interface iPageWriterConsoleConfig {
+export interface iPageWriterConsoleConfig extends iConfigService {
     
 }

@@ -18,7 +18,7 @@ export class Model implements iService, iModel {
      * Initialise using provided config
      * @param config 
      */
-    initialise(config:iConfigService) {
+    initialise(config:iModelConfig) {
         
     }
 
@@ -51,6 +51,6 @@ export class Model implements iService, iModel {
 
 }
 
-export interface iModelConfig {
+export interface iModelConfig extends iConfigService {
 
 }

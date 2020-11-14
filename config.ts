@@ -1,5 +1,5 @@
 import * as fm from "./src/framework";
-import {iThemeConfig} from "./theme/package";
+import {iThemeData, iThemeOptions} from "./theme/package";
 
 /**
  * Configure your website here
@@ -38,8 +38,8 @@ export = <fm.app.iConfig>{
         afterPluginsInitialised: {
             "../services/report": { 
                 name: "report", 
-                class: fm.services.report.Report.name,
-                config: <fm.services.report.iReportConfig>{} 
+                class: fm.services.report.ReportConsole.name,
+                config: <fm.services.report.iReportConsoleConfig>{} 
             },
             "../services/pagewriter": { 
                 name: "pagewriter", 
@@ -49,14 +49,19 @@ export = <fm.app.iConfig>{
             "../services/theme": { 
                 name: "theme", 
                 class: fm.services.theme.ThemeEJS.name,
-                config: <iThemeConfig>{
-                    title: "StaticGenie",
-                    links: [
-                        {name: "Home", url: "/index.html"},
-                        {name: "About", url: "/about.html"},
-                        {name: "Contact", url: "/contact.html"},
-                    ],
-                    copyright: "Copyright &copy; 2020 StaticGenie, All Rights Reserved",
+                config: <fm.services.theme.iThemeEJSConfig>{
+                    options: <iThemeOptions>{
+                        
+                    },
+                    data: <iThemeData>{
+                        title: "StaticGenie",
+                        links: [
+                            {name: "Home", url: "/index.html"},
+                            {name: "About", url: "/about.html"},
+                            {name: "Contact", url: "/contact.html"},
+                        ],
+                        copyright: "Copyright &copy; 2020 StaticGenie, All Rights Reserved",
+                    },
                 },
             },
         },

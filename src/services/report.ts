@@ -1,53 +1,70 @@
 import {iService, iConfigService} from "../libs/services"
 
 export interface iReport {
-    add(record:string) : void;
+    add(record:iRecord) : void;
+}
+
+export interface iRecord {
+    url: string;
+    status: STATUS;
+    msg: string;
+}
+
+export enum STATUS {
+    SUCCESS = "success",
+    ERROR = "error",
+
 }
 
 /**
- * @TODO finish this, currently it absolutely sucks. Implement similar to the pagewriter service i.e. interface, switchable within config, etc
+ * Base Report
  */
-export class Report implements iService, iReport {
+abstract class Report implements iService, iReport {
     
-    private totalPages = 0;
+    protected records:iRecord[] = [];
 
-    add(record:string) {
-        console.log("[-] " + record);
-        this.totalPages++;
+    add(record:iRecord) {
+        this.records.push(record);
     }
-
-    /**
-     * Initialise using provided config
-     * @param config 
-     */
-    initialise(config:iConfigService) {
-        
-    }
+    
+    abstract initialise(config:iConfigService) : void;
     
     pluginsInitialised() {
 
-        console.log()
-        console.log(" ==================================================")
-        console.log(" === STATIC GENIE WEBSITE GENERATION REPORT")
-        console.log(" ==================================================")
-        console.log();
-    
     }
 
     pluginsGenerated() {
 
-        console.log()
-        console.log(" ==================================================")
-        console.log(" === SUMMARY")
-        console.log(" ==================================================")
-        console.log()
-        console.log(` ${this.totalPages} - Total Files`)
-        console.log()
-
     }
 
 }
 
-export interface iReportConfig {
+export class ReportConsole extends Report {
     
+    initialise(config:iReportConsoleConfig) {
+
+    }
+
+    pluginsGenerated() {
+        
+        // Produce the report in one go (don't do multiple console.logs as it's VERY SLOW if 1000's are needed)
+        let report = this.records.map(record => `[${record.status}] ${record.url} ${record.msg}`).join("\n");
+
+        // Output the report
+
+        console.log()
+        console.log(" ==================================================")
+        console.log(" === REPORT")
+        console.log(" ==================================================")
+        console.log()
+        console.log(report)
+        console.log()
+        console.log(` ${this.records.length} - Total URLs`)
+        console.log()
+
+    }
+}
+
+export interface iReportConsoleConfig extends iConfigService {
+   
 }

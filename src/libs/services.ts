@@ -50,6 +50,7 @@ export class Services {
 
     /**
      * Hooks
+     * @TODO Don't like this name. Prefer something more like: Done, Complete or Finished
      */
     pluginsGenerated() {
         Object.keys(this.services).forEach(key => this.services[key].pluginsGenerated());
