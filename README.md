@@ -101,5 +101,6 @@ Alpha
 - @TODO Inconsistency between the terms model & data
 - @TODO Build a static website for StaticGenie.com
 - @TODO Comment everything
-- @TODO Sync file access change to async
+- @TODO Support async... maybe... conflict between simplicity and performance here...
 - @TODO Unit tests
+- @TODO Create UML diagram of classes, interfaces and their relationships
