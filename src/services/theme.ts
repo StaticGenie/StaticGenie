@@ -5,14 +5,18 @@ export interface iTheme {
     render(template:string, data:{[key: string] : any}): string;
 }
 
-export interface iThemeConfig extends iConfigService {
-    options: {[key: string] : any};
+interface iThemeConfig extends iConfigService {
     data: {[key: string] : any};
 }
 
 abstract class Theme implements iService, iTheme {
 
-    abstract initialise(config:iConfigService) : void;
+    protected config:iThemeConfig = {options: {}, data: {}};
+
+    initialise(config:iThemeConfig) {
+        this.config = config;
+    }
+
     abstract renderLayout(layout:string, data:{[key:string] : any}) : string;
     abstract render(template:string, data:{[key:string] : any}) : string;
 
@@ -27,20 +31,6 @@ abstract class Theme implements iService, iTheme {
 }
 
 export class ThemeEJS extends Theme {
-
-    private config:iThemeEJSConfig;
-
-    constructor() {
-        super();
-        this.config = {
-            options: {},
-            data: {},
-        }
-    }
-
-    initialise(config:iThemeEJSConfig) {
-        this.config = config;
-    }
 
     /**
      * Renders a layout using the data
@@ -67,9 +57,5 @@ export class ThemeEJS extends Theme {
 }
 
 export interface iThemeEJSConfig extends iThemeConfig {
-    options: iThemeEJSConfigOptions;
-}
-
-export interface iThemeEJSConfigOptions {
     
 }

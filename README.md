@@ -75,34 +75,27 @@ Services are support systems built directly into the framework. They are all use
 - `/www` - your generated website! Copy all the contents of this folder to your web host. You can change the output directory in your `/config.ts` file.
 - `/config.ts` - General configuration of your website.
 
-## Report
+## Build A Website!
 
-On the console, spew out a report of what just happened for each route. E.G.
 
-```
-232 pages generated [ 23 from cache, 71 refreshed, 131 new ]
 
-New
+## Creating A Theme
 
-[-] /about.html
-[-] /contact.html
-[-] /home.html
 
-Refreshed
+## Creating A Plugin
 
-[-] /about.html
-[-] /contact.html
-[-] /home.html
 
-From Cache
+## Creating A Service
 
-[-] /about.html
-[-] /contact.html
-[-] /home.html
-```
 
-- @TODO convert to a proper README instead of a brain dump
-- @TODO figure out an easy way of updating the framework
-- @TODO how to handle generated files such as images, js files, etc?
+# TODO
+
+Alpha
+
+- @TODO convert to a proper README instead of this brain dump
+- @TODO figure out an easy way of updating the framework (at the moment it's going to be a clone as opposed to npm install)
+- @TODO simplify directory structure
 - @TODO Implement error handling and a way of reporting new pages, failed pages and errors during processing
 - @TODO How can users supply their own services and switch out existing services (extended/implemented)
+- @TODO Inconsistency between the terms model & data
+- @TODO Build a static website for StaticGenie.com

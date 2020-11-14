@@ -1,5 +1,5 @@
 import * as fm from "./src/framework";
-import {iThemeData, iThemeOptions} from "./theme/package";
+import {iThemeConfigData} from "./theme/package";
 
 /**
  * Configure your website here
@@ -50,10 +50,7 @@ export = <fm.app.iConfig>{
                 name: "theme", 
                 class: fm.services.theme.ThemeEJS.name,
                 config: <fm.services.theme.iThemeEJSConfig>{
-                    options: <iThemeOptions>{
-                        
-                    },
-                    data: <iThemeData>{
+                    data: <iThemeConfigData>{
                         title: "StaticGenie",
                         links: [
                             {name: "Home", url: "/index.html"},
