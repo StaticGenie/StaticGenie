@@ -47,9 +47,9 @@ export = <fm.app.iConfig>{
                     data: <iThemeConfigData>{
                         title: "StaticGenie",
                         links: [
-                            {name: "Home", url: "/index.html"},
-                            {name: "About", url: "/about.html"},
-                            {name: "Contact", url: "/contact.html"},
+                            {name: "Home", url: "index.html"},
+                            {name: "About", url: "about.html"},
+                            {name: "Contact", url: "contact.html"},
                         ],
                         copyright: "Copyright &copy; 2020 StaticGenie, All Rights Reserved",
                     },

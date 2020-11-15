@@ -1,5 +1,7 @@
 import {iService, iConfigService, Services} from "../libs/services";
 import * as ejs from "ejs";
+import * as fs from "fs";
+
 
 export interface iTheme {
     renderLayout(layout:string, data:{[key: string] : any}): string;
@@ -48,9 +50,6 @@ export class ThemeEJS extends Theme {
      */
     constructor() {
         super();
-
-       
-
     }
 
     /**
@@ -60,17 +59,7 @@ export class ThemeEJS extends Theme {
      * @param data 
      */
     renderLayout(layout:string, data:{[key:string] : any}) : string {
-        
-        // Lookup layout
-        
-
-
-        // Parse layout
-
-
-        // Return the parsed layout
-        return "";
-
+        return this.render(fs.readFileSync("./theme/layouts/" + layout + ".ejs").toString(), data);
     }
     
     /**
@@ -86,6 +75,8 @@ export class ThemeEJS extends Theme {
             theme: this.config.data,                    // Theme config data
             model: this.services.get("model").data,     // The global model services data (updated via plugins during their init process)
             page: data,                                 // Data used to render this specific page/layout
+        }, {
+            root: "./theme/layouts",
         });
         
     }
