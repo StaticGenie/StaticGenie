@@ -1,13 +1,16 @@
+# Which layout to use from /theme/layouts/*.ejs
 layout: article
-url: /about.html
 
-# Any key values here will be added to the shared model allowing other plugins to access it.
-global:
-  keywords: 
+# The location of the file when generated & it's URL eg: /about/index.html
+file: /about.html
 
-# Any key values here will only be made available to ONLY this page
+# Where the contents of the page will fit the sekecred layout and accessable within the layout via "page.*".
 page:
-
--------------
-
-Markdown text here
+  key1: value1
+  key2: value2 etc
+  content: |
+    fdsfds
+    fdsfds
+    fdfd
+    fds
+    fds
