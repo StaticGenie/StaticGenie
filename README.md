@@ -69,13 +69,13 @@ Services are support systems built directly into the framework. They are all use
 
 ## Directory Structure
 
-- `/plugins` - Any 3rd party plugins and core plugin data. For example, the built in plugin `pages` has a folder here for you to define your own pages.
+- `/data/{plugin}` - Data used by the respective plugin.
 - `/src` - The StaticGenie source code (best to stay out of here unless you know what you're doing).
 - `/theme/assets` - Any assets such as .css, .zip, .png, .js etc you want to add to your site.
 - `/theme/layouts` - In order to create any page with a unique look and feel (such as /contact.html with a contact form) it needs a layout. They are defined here.
 - `/www` - your generated website! Copy all the contents of this folder to your web host. You can change the output directory in your `/config.ts` file.
 - `/config.ts` - General configuration of your website.
-- `/docs` - Documentation (although you can also find this at https://staticgenie.com)
+- `/docs` - Documentation (although you will also be able to see this at https://staticgenie.com)
 
 ## Build A Website!
 
@@ -106,3 +106,9 @@ Alpha
 - @TODO Unit tests
 - @TODO Create UML diagram of classes, interfaces and their relationships
 - @TODO Setup TypeDoc
+- @TODO create staticgenie.com website with documentation
+
+Beta
+
+- @TODO Create a proper dependency injection system around the services with proper constructor, register, init, boot, event system instead of old fashioned hooks, etc... Will break the API though so probably better for a version 2 thing once the use cases have been properly ironed out
+.

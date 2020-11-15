@@ -32,8 +32,10 @@ export class Plugin implements fm.plugins.iPlugin {
         const theme = <fm.services.theme.iTheme>services.get("theme");
         
         // Write a page
-        pages.write("hello.txt", Buffer.from(theme.render("<%= model.title %><br />Hello <%= page.name %><br /><%- theme.copyright %>", {name: "ScottyCoder"})));
-
+        pages.writeString("index.html", theme.render("Index: <%= model.title %><br />Hello <%= page.name %><br /><%- theme.copyright %>", {name: "ScottyCoder"}));
+        pages.writeString("about.html", theme.render("About: <%= model.title %><br />Hello <%= page.name %><br /><%- theme.copyright %>", {name: "ScottyCoder"}));
+        pages.writeString("contact.html", theme.render("Contact: <%= model.title %><br />Hello <%= page.name %><br /><%- theme.copyright %>", {name: "ScottyCoder"}));
+        
         // Report the page
         report.add({
             url: "/index.html",

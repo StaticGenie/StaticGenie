@@ -1,20 +1,23 @@
 import {iService, iConfigService, Services} from "../libs/services"
 
 export interface iPageWriter {
-    write(name:string, data:Buffer) : void;
+    writeString(file:string, data:string) : void;
+    writeBinary(file:string, data:Buffer) : void;
 }
 
 abstract class PageWriter implements iService, iPageWriter {
 
-    /**
-     * Write the page
-     * @TODO while functional, it's not a very nice interface having to use Buffer.from() everytime you write strings to a file
-     * @param name 
-     * @param data 
-     */
-    abstract write(name:string, data:Buffer) : void;
+    initialise(services:Services, config:iPageWriterFileConfig) {
+        
+    }
 
-    abstract initialise(services:Services, config:iConfigService): void;
+    writeString(file:string, data:string) {
+
+    }
+
+    writeBinary(file:string, data:Buffer) {
+        
+    }
 
     pluginsInitialised() {
 
@@ -27,29 +30,21 @@ abstract class PageWriter implements iService, iPageWriter {
 }
 
 export class PageWriterFile extends PageWriter {
-
-    initialise(services:Services, config:iPageWriterFileConfig) {
-        
+    writeString(file:string, data:string) {
+        console.log(`\n#########################################\n### ${file}\n#########################################\n` + data);        
     }
-
-    write(name:string, data:Buffer) {
-        
+    writeBinary(file:string, data:Buffer) {
+        this.writeString(name, data.toString());
     }
-
 }
 export interface iPageWriterFileConfig extends iConfigService {
     
 }
 
+/**
+ * Nothing to do :)
+ */
 export class PageWriterVoid extends PageWriter {
-
-    initialise(services:Services, config:iPageWriterVoidConfig) {
-        
-    }
-
-    write(name:string, data:Buffer) {
-        // Just discards the data
-    }
 
 }
 export interface iPageWriterVoidConfig extends iConfigService {
@@ -58,12 +53,12 @@ export interface iPageWriterVoidConfig extends iConfigService {
 
 export class PageWriterConsole extends PageWriter {
 
-    initialise(services:Services, config:iPageWriterConsoleConfig) {
-        
+    writeString(file:string, data:string) {
+        console.log(`\n#########################################\n### ${file}\n#########################################\n` + data);        
     }
 
-    write(name:string, data:Buffer) {
-        console.log(`\n#########################################\n### ${name}\n#########################################\n` + data.toString());
+    writeBinary(file:string, data:Buffer) {
+        this.writeString(name, data.toString());
     }
 
 }
