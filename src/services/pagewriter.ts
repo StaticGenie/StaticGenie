@@ -1,4 +1,4 @@
-import {iService, iConfigService} from "../libs/services"
+import {iService, iConfigService, Services} from "../libs/services"
 
 export interface iPageWriter {
     write(name:string, data:Buffer) : void;
@@ -14,7 +14,7 @@ abstract class PageWriter implements iService, iPageWriter {
      */
     abstract write(name:string, data:Buffer) : void;
 
-    abstract initialise(config:iConfigService): void;
+    abstract initialise(services:Services, config:iConfigService): void;
 
     pluginsInitialised() {
 
@@ -28,7 +28,7 @@ abstract class PageWriter implements iService, iPageWriter {
 
 export class PageWriterFile extends PageWriter {
 
-    initialise(config:iPageWriterFileConfig) {
+    initialise(services:Services, config:iPageWriterFileConfig) {
         
     }
 
@@ -43,7 +43,7 @@ export interface iPageWriterFileConfig extends iConfigService {
 
 export class PageWriterVoid extends PageWriter {
 
-    initialise(config:iPageWriterVoidConfig) {
+    initialise(services:Services, config:iPageWriterVoidConfig) {
         
     }
 
@@ -58,7 +58,7 @@ export interface iPageWriterVoidConfig extends iConfigService {
 
 export class PageWriterConsole extends PageWriter {
 
-    initialise(config:iPageWriterConsoleConfig) {
+    initialise(services:Services, config:iPageWriterConsoleConfig) {
         
     }
 

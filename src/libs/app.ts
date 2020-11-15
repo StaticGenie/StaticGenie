@@ -45,7 +45,7 @@ export class App {
             this.services.register(
                 this.config.services.beforePluginsInitialised[file].name, 
                 new (require(file))[this.config.services.beforePluginsInitialised[file].class], 
-                this.config.services.beforePluginsInitialised[file].config
+                this.config.services.beforePluginsInitialised[file].config,
             );
         });
 

@@ -9,7 +9,7 @@ export class Services {
      * Registered service providers
      */
     private services: {[key: string] : any} = {};
-
+    
     /**
      * Register a service provider
      * @param name 
@@ -26,7 +26,7 @@ export class Services {
         this.services[name] = service;
 
         // Initialise the service
-        this.services[name].initialise(config);
+        this.services[name].initialise(this, config);
 
     }
 
@@ -62,7 +62,7 @@ export class Services {
  * Service interface
  */
 export interface iService {
-    initialise(config:iConfigService): void;
+    initialise(services:Services, config:iConfigService): void;
     pluginsInitialised(): void;
     pluginsGenerated(): void;
 }
@@ -73,6 +73,7 @@ export interface iService {
 export interface iConfigServices {
     name: string;
     class: string;
+    dependencies: string[];
     config: iConfigService;
 }
 

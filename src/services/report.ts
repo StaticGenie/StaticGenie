@@ -1,4 +1,4 @@
-import {iService, iConfigService} from "../libs/services"
+import {iService, iConfigService, Services} from "../libs/services"
 
 export interface iReport {
     add(record:iRecord) : void;
@@ -27,7 +27,7 @@ abstract class Report implements iService, iReport {
         this.records.push(record);
     }
     
-    abstract initialise(config:iConfigService) : void;
+    abstract initialise(services:Services, config:iConfigService) : void;
     
     pluginsInitialised() {
 
@@ -41,7 +41,7 @@ abstract class Report implements iService, iReport {
 
 export class ReportConsole extends Report {
     
-    initialise(config:iReportConsoleConfig) {
+    initialise(services:Services, config:iReportConsoleConfig) {
 
     }
 

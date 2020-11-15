@@ -1,4 +1,4 @@
-import {iConfigService, iService} from "../libs/services"
+import {iConfigService, iService, Services} from "../libs/services"
 
 export interface iModel {
     data: {[key: string] : any};
@@ -18,7 +18,7 @@ export class Model implements iService, iModel {
      * Initialise using provided config
      * @param config 
      */
-    initialise(config:iModelConfig) {
+    initialise(services:Services, config:iModelConfig) {
         
     }
 
