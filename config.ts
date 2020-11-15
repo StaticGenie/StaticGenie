@@ -31,7 +31,6 @@ export = <fm.app.iConfig>{
         beforePluginsInitialised: {
             "../services/model": { 
                 name: "model", 
-                dependencies: [],
                 class: fm.services.model.Model.name,
                 config: <fm.services.model.iModelConfig>{} 
             },
@@ -39,20 +38,17 @@ export = <fm.app.iConfig>{
         afterPluginsInitialised: {
             "../services/report": { 
                 name: "report", 
-                dependencies: [],
                 class: fm.services.report.ReportConsole.name,
                 config: <fm.services.report.iReportConsoleConfig>{} 
             },
             "../services/pagewriter": { 
                 name: "pagewriter", 
-                dependencies: [],
                 class: fm.services.pagewriter.PageWriterConsole.name,
                 config: <fm.services.pagewriter.iPageWriterConsoleConfig>{}
             },
             "../services/theme": { 
                 name: "theme", 
                 class: fm.services.theme.ThemeEJS.name,
-                dependencies: [],
                 config: <fm.services.theme.iThemeEJSConfig>{
                     data: <iThemeConfigData>{
                         title: "StaticGenie",

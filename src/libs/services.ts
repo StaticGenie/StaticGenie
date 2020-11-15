@@ -9,7 +9,7 @@ export class Services {
      * Registered service providers
      */
     private services: {[key: string] : any} = {};
-    
+
     /**
      * Register a service provider
      * @param name 
@@ -73,7 +73,6 @@ export interface iService {
 export interface iConfigServices {
     name: string;
     class: string;
-    dependencies: string[];
     config: iConfigService;
 }
 
