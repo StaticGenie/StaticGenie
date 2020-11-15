@@ -75,6 +75,7 @@ Services are support systems built directly into the framework. They are all use
 - `/theme/layouts` - In order to create any page with a unique look and feel (such as /contact.html with a contact form) it needs a layout. They are defined here.
 - `/www` - your generated website! Copy all the contents of this folder to your web host. You can change the output directory in your `/config.ts` file.
 - `/config.ts` - General configuration of your website.
+- `/docs` - Documentation (although you can also find this at https://staticgenie.com)
 
 ## Build A Website!
 
@@ -104,3 +105,4 @@ Alpha
 - @TODO Support async... maybe... conflict between simplicity and performance here...
 - @TODO Unit tests
 - @TODO Create UML diagram of classes, interfaces and their relationships
+- @TODO Setup TypeDoc
