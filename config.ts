@@ -10,7 +10,9 @@ export = <fm.app.iConfig>{
      * Lists all plugins to load and their respective config
      */
     plugins: {
-        "../plugins/pages": {}
+        "../plugins/pages": {
+
+        }
     },
 
     /**
@@ -22,23 +24,23 @@ export = <fm.app.iConfig>{
             "../services/model": { 
                 name: "model", 
                 class: fm.services.model.Model.name,
-                config: <fm.services.model.iModelConfig>{} 
+                config: <fm.services.model.iModelConfig>{}
             },
         },
         afterPluginsInitialised: {
-            "../services/report": { 
+            "../services/report": {
                 name: "report", 
                 class: fm.services.report.ReportConsole.name,
                 config: <fm.services.report.iReportConsoleConfig>{} 
             },
-            "../services/pagewriter": { 
+            "../services/pagewriter": {
                 name: "pagewriter", 
                 class: fm.services.pagewriter.PageWriterFile.name,
                 config: <fm.services.pagewriter.iPageWriterFileConfig>{
-                    outDirectory: "./www"
+                    outDirectory: "./www" // Don't change this (there are areas that don't use this value yet!!!!!!!!!)
                 }
             },
-            "../services/theme": { 
+            "../services/theme": {
                 name: "theme", 
                 class: fm.services.theme.ThemeEJS.name,
                 config: <fm.services.theme.iThemeEJSConfig>{
