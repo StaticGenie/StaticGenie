@@ -1,6 +1,5 @@
 import {iService, iConfigService, Services} from "../libs/services";
 import * as ejs from "ejs";
-import {Model} from "./model";
 
 export interface iTheme {
     renderLayout(layout:string, data:{[key: string] : any}): string;
@@ -14,24 +13,20 @@ interface iThemeConfig extends iConfigService {
 abstract class Theme implements iService, iTheme {
 
     /**
-     * @TODO this is UGLY due to not using the constructor to setup the objects. As a result, they have to be initialised here. This sucks.
+     * @TODO this is UGLY due to not using the constructor to setup the objects. As a result, they have to be initialised here. This sucks - but so does handling constructor interfaces in TypeScript ><
      */
-    protected config:iThemeConfig = {options: {}, data: {}};
-    protected model:{[key:string] : any} = {};
+    protected config:iThemeConfig = {data: {}};
+    protected services:Services = new Services();
 
     /**
-     * @TODO the usage of services results in a dependency around the order the services are registered (this sucks)
-     * 
-     * @param services 
+     * Store the dependencies
+     * @param services
      * @param config 
      */
     initialise(services:Services, config:iThemeConfig) {
         this.config = config;
-        this.model = <Model>services.get("model").data;
+        this.services = services;
     }
-
-    abstract renderLayout(layout:string, data:{[key:string] : any}) : string;
-    abstract render(template:string, data:{[key:string] : any}) : string;
 
     pluginsInitialised() {
 
@@ -41,9 +36,22 @@ abstract class Theme implements iService, iTheme {
     
     }
 
+    abstract renderLayout(layout:string, data:{[key:string] : any}) : string;
+    abstract render(template:string, data:{[key:string] : any}) : string;
+
 }
 
 export class ThemeEJS extends Theme {
+
+    /**
+     * @TODO setup EJS
+     */
+    constructor() {
+        super();
+
+        
+
+    }
 
     /**
      * Renders a layout using the data
@@ -75,9 +83,9 @@ export class ThemeEJS extends Theme {
 
         // Parse template
         return ejs.render(template, {
-            theme: this.config.data,    // theme config data
-            model: this.model,
-            page: data,                 // data used to render this specific page/layout
+            theme: this.config.data,                    // Theme config data
+            model: this.services.get("model").data,     // The global model services data (updated via plugins during their init process)
+            page: data,                                 // Data used to render this specific page/layout
         });
         
     }

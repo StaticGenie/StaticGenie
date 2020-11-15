@@ -62,9 +62,24 @@ export class Services {
  * Service interface
  */
 export interface iService {
+
+    /**
+     * Setup the properties of the service
+     * @param services this should only be stored in the service. It should NOT be accessed within this method to give time for all services to be registered before being accessed
+     * @param config 
+     */
     initialise(services:Services, config:iConfigService): void;
+
+    /**
+     * Let's the services know that all plugins have been initialised
+     */
     pluginsInitialised(): void;
+
+    /**
+     * Let's the services know that all plugins have generated their relevant pages
+     */
     pluginsGenerated(): void;
+
 }
 
 /**
