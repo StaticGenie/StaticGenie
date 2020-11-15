@@ -12,9 +12,7 @@ abstract class PageWriter implements iService, iPageWriter {
         
     }
 
-    write(file:string, data:string|Buffer) {
-        
-    }
+    abstract write(file:string, data:string|Buffer): void;
 
     pluginsInitialised() {
 
@@ -73,7 +71,9 @@ export interface iPageWriterConsoleConfig extends iConfigService {
  * Nothing to do :)
  */
 export class PageWriterVoid extends PageWriter {
-
+    write(file: string, data:string|Buffer) {
+        // Nothing to do
+    }
 }
 export interface iPageWriterVoidConfig extends iConfigService {
     
