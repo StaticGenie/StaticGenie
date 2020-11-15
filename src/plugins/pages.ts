@@ -28,31 +28,11 @@ export class Plugin implements fm.plugins.iPlugin {
 
         // Services
         const pages = <fm.services.pagewriter.iPageWriter>services.get("pagewriter");
-        const report = <fm.services.report.iReport>services.get("report");
         const theme = <fm.services.theme.iTheme>services.get("theme");
         
-        // Write a page
-        pages.writeString("index.html", theme.render("Index: <%= model.title %><br />Hello <%= page.name %><br /><%- theme.copyright %>", {name: "ScottyCoder"}));
-        pages.writeString("about.html", theme.render("About: <%= model.title %><br />Hello <%= page.name %><br /><%- theme.copyright %>", {name: "ScottyCoder"}));
-        pages.writeString("contact.html", theme.render("Contact: <%= model.title %><br />Hello <%= page.name %><br /><%- theme.copyright %>", {name: "ScottyCoder"}));
-        
-        // Report the page
-        report.add({
-            url: "/index.html",
-            status: fm.services.report.STATUS.SUCCESS,
-            msg: "", //@TODO shouldn't need to declare this when there is no error. Prob follow "err" pattern?
-        });
-        report.add({
-            url: "/about.html",
-            status: fm.services.report.STATUS.SUCCESS,
-            msg: "",
-        });
-        report.add({
-            url: "/contact.html",
-            status: fm.services.report.STATUS.ERROR,
-            msg: "",
-        });
-        
+        // Write the page
+        pages.write("hello/index.html", theme.render("Index: <%= model.title %><br />Hello <%= page.name %><br /><%- theme.copyright %>", {name: "ScottyCoder"}));
+
     }
 
 }

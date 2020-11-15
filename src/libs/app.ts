@@ -84,11 +84,6 @@ export class App {
 export interface iConfig {
 
     /**
-     * Where the generated website will be placed
-     */
-    outputDir: string;
-
-    /**
      * Registered plugins
      */
     plugins: iConfigPlugins;

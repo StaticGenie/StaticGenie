@@ -1,8 +1,9 @@
-import {iService, iConfigService, Services} from "../libs/services"
+import {iService, iConfigService, Services} from "../libs/services";
+import * as fs from "fs-extra";
+import { services } from "../framework";
 
 export interface iPageWriter {
-    writeString(file:string, data:string) : void;
-    writeBinary(file:string, data:Buffer) : void;
+    write(file:string, data:string|Buffer) : void;
 }
 
 abstract class PageWriter implements iService, iPageWriter {
@@ -11,11 +12,7 @@ abstract class PageWriter implements iService, iPageWriter {
         
     }
 
-    writeString(file:string, data:string) {
-
-    }
-
-    writeBinary(file:string, data:Buffer) {
+    write(file:string, data:string|Buffer) {
         
     }
 
@@ -29,15 +26,46 @@ abstract class PageWriter implements iService, iPageWriter {
 
 }
 
+/**
+ * Write pages to the file system
+ */
 export class PageWriterFile extends PageWriter {
-    writeString(file:string, data:string) {
-        console.log(`\n#########################################\n### ${file}\n#########################################\n` + data);        
+    private config:iPageWriterFileConfig = {outDirectory: ""};
+    private services:Services = new Services();
+    initialise(services:Services, config:iPageWriterFileConfig) {
+        this.config = config;
+        this.services = services;
     }
-    writeBinary(file:string, data:Buffer) {
-        this.writeString(name, data.toString());
+    write(file:string, data:string|Buffer) {
+        
+        // Update with error if one occurs
+        let err = "";
+
+        // Write the file
+        try {
+            fs.outputFileSync(this.config.outDirectory + "/" + file, data);
+        } catch (e) {
+            err = e.toString();
+        }
+
+        // Add the file to the report service
+        (<services.report.iReport>this.services.get("report")).add(file, err);
+
     }
 }
 export interface iPageWriterFileConfig extends iConfigService {
+    outDirectory: string;
+}
+
+/**
+ * Write pages to the console
+ */
+export class PageWriterConsole extends PageWriter {
+    write(file:string, data:string|Buffer) {
+        console.log(`\n#########################################\n### ${file}\n#########################################\n` + data.toString());
+    }
+}
+export interface iPageWriterConsoleConfig extends iConfigService {
     
 }
 
@@ -48,20 +76,5 @@ export class PageWriterVoid extends PageWriter {
 
 }
 export interface iPageWriterVoidConfig extends iConfigService {
-    
-}
-
-export class PageWriterConsole extends PageWriter {
-
-    writeString(file:string, data:string) {
-        console.log(`\n#########################################\n### ${file}\n#########################################\n` + data);        
-    }
-
-    writeBinary(file:string, data:Buffer) {
-        this.writeString(name, data.toString());
-    }
-
-}
-export interface iPageWriterConsoleConfig extends iConfigService {
     
 }

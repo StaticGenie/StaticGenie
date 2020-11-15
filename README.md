@@ -107,8 +107,12 @@ Alpha
 - @TODO Create UML diagram of classes, interfaces and their relationships
 - @TODO Setup TypeDoc
 - @TODO create staticgenie.com website with documentation
+- @TODO check .gitignore ignores all the right directories (seeing as I've changed them so much)
 
 Beta
 
 - @TODO Create a proper dependency injection system around the services with proper constructor, register, init, boot, event system instead of old fashioned hooks, etc... Will break the API though so probably better for a version 2 thing once the use cases have been properly ironed out
-.
+- @TODO Implement caching if pages have already been generated
+
+
+

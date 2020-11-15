@@ -7,16 +7,6 @@ import {iThemeConfigData} from "./theme/package";
 export = <fm.app.iConfig>{
 
     /**
-     * Where to put the generated website
-     */
-    outputDir: "./www",
-
-    /**
-     * Where to pull static assets like files (js, images, etc)
-     */
-    assetsDir: "./theme/assets",
-
-    /**
      * Lists all plugins to load and their respective config
      */
     plugins: {
@@ -43,8 +33,10 @@ export = <fm.app.iConfig>{
             },
             "../services/pagewriter": { 
                 name: "pagewriter", 
-                class: fm.services.pagewriter.PageWriterConsole.name,
-                config: <fm.services.pagewriter.iPageWriterConsoleConfig>{}
+                class: fm.services.pagewriter.PageWriterFile.name,
+                config: <fm.services.pagewriter.iPageWriterFileConfig>{
+                    outDirectory: "./www"
+                }
             },
             "../services/theme": { 
                 name: "theme", 
