@@ -6,3 +6,6 @@ node_modules/
 
 # Compiled TS to JS code
 tmp/
+
+# Don't want the users generated website stored in git (it's just a compiled copy of all the raw data already making up StaticGenie)
+www/
