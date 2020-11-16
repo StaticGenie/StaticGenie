@@ -233,30 +233,28 @@ If installed correctly, you should be able to call the service within plugin met
 
 
 
-# TODO
+# Next Release Todo
 
-Alpha
+1.0.0 (In Progress)
 
-- @TODO convert to a proper README instead of this brain dump
-- @TODO figure out an easy way of updating the framework (at the moment it's going to be a clone as opposed to npm install)
+- @TODO finish the README.md
 - @TODO simplify directory structure
-- @TODO Implement error handling and a way of reporting new pages, failed pages and errors during processing
-- @TODO How can users supply their own services and switch out existing services (extended/implemented)
-- @TODO Inconsistency between the terms model & data
+- @TODO Inconsistency between the terms model & data. There are 3 primary models; Global (frozen after all plugins initialised), Theme (from config.ts, instantly frozen), Page (always mutable)
 - @TODO Build a static website for StaticGenie.com
 - @TODO Comment everything
-- @TODO Support async... maybe... conflict between simplicity and performance here...
 - @TODO Unit tests
 - @TODO Create UML diagram of classes, interfaces and their relationships
 - @TODO Setup TypeDoc
 - @TODO create staticgenie.com website with documentation
+- @TODO /theme/layouts/includes to become /theme/partials. Allowing an author to create related nested directories eg `includes/blog/aside-tags.ejs` & `layouts/blog/post.ejs`.
 - @TODO check .gitignore ignores all the right directories (seeing as I've changed them so much)
-- @TODO /theme/layouts/includes to become /theme/partials
 
-Beta
+# Future Ideas
 
-- @TODO Create a proper dependency injection system around the services with proper constructor, register, init, boot, event system instead of old fashioned hooks, etc... Will break the API though so probably better for a version 2 thing once the use cases have been properly ironed out
-- @TODO Implement caching if pages have already been generated
+- Create a proper dependency injection system around the services with proper constructor, register, init, boot, event system instead of old fashioned hooks, etc... Will break the API though so probably better for a version 2 thing once the use cases have been properly ironed out and the requirements defined
+- Implement caching if pages have already been generated
+- Figure out an easy way of updating the framework (at the moment it's going to be a clone as opposed to npm install)
+- Support async... maybe... conflict between simplicity and performance here. Might be better to allow chunks of the framework to run in parallel so the simplicity is retained.
 
 
 
