@@ -38,7 +38,7 @@ export class Services {
         if (this.services.hasOwnProperty(name) === true) {
             return this.services[name];
         }
-        throw new Error(`Can not get service '${name}' since it's not been register (doesn't exist)`);
+        throw new Error(`Can not get service '${name}' since it's not been registered (doesn't exist)`);
     }
 
     /**

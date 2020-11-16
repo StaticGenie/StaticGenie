@@ -30,16 +30,21 @@ export class Plugin implements fm.plugins.iPlugin {
         const pages = <fm.services.pagewriter.iPageWriter>services.get("pagewriter");
         const theme = <fm.services.theme.iTheme>services.get("theme");
         
-        // @TODO Find all the yaml pages (FML, I hate doing this in nodejs)
-        
+        // Find all the yml files
+        fm.helpers.getFilesSync("./data/pages").forEach(file => {
+            
+            // Parse the yaml
+            
 
 
 
 
 
 
-        // Write the page
-        pages.write("index.html", theme.renderLayout("index", {name: "ScottyCoder"}));
+            // Write the page
+            pages.write("index.html", theme.renderLayout("index", {name: "ScottyCoder"}));
+
+        });
 
     }
 
