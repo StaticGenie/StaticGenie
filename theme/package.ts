@@ -1,7 +1,9 @@
 
 export interface iThemeConfigData {
     title: string;
-    links: iLink[]
+    socialLinks: iLink[];
+    headerLinks: iLink[];
+    footerLinks: iLink[];
     copyright: string;
 }
 

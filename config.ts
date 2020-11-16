@@ -41,14 +41,25 @@ export = <fm.app.iConfig>{
                 }
             },
             "../services/theme": {
-                name: "theme", 
+                name: "theme",
                 class: fm.services.theme.ThemeEJS.name,
                 config: <fm.services.theme.iThemeEJSConfig>{
                     data: <iThemeConfigData>{
                         title: "StaticGenie",
-                        links: [
+                        socialLinks: [
+                            {name: "GitHub", url: "https://github.com/StaticGenie/StaticGenie"},
+                            {name: "Reddit", url: "https://reddit.com/u/StaticGenie"},
+                        ],
+                        headerLinks: [
                             {name: "Home", url: "index.html"},
                             {name: "About", url: "about.html"},
+                            {name: "Docs", url: "docs.html"},
+                            {name: "Blog", url: "blog.html"},
+                            {name: "Contact", url: "contact.html"},
+                        ],
+                        footerLinks: [
+                            {name: "Terms", url: "terms.html"},
+                            {name: "Privacy", url: "privacy.html"},
                             {name: "Contact", url: "contact.html"},
                         ],
                         copyright: "Copyright &copy; 2020 StaticGenie, All Rights Reserved",
@@ -57,5 +68,5 @@ export = <fm.app.iConfig>{
             },
         },
     },
-
+    
 }

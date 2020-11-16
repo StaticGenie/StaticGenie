@@ -1,7 +1,5 @@
 <nav>
     <ul>
-        <% theme.links.forEach(link => { %>
-            <li><a href='<%- link.url %>'><%= link.name %></a></li>
-        <% }) %>
+        <% theme.headerLinks.forEach(link => { %><li><a href='<%- link.url %>'><%= link.name %></a></li><% }) %>
     </ul>
 </nav>

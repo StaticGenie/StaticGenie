@@ -19,11 +19,11 @@ You will require;
 
 Simple right?
 
-You will need to clone this repo and run `docker-compose run sg npm install`. You should then be all setup and ready to go.
+Clone this repo and run `docker-compose run sg npm install`. You should then be all setup and ready to go.
 
 # Running Commands Inside Docker
 
-Since everything is dockerised. All commands to be run through docker-compose. Remember to run these within the projects working directory. i.e. `cd ~/StaticGenie`.
+Since everything is dockerised. All commands should be run through `docker-compose`. Remember to run these within the projects working directory. i.e. `cd cloned-staticgenie-repo`.
 
 To run a command;
 
@@ -36,58 +36,201 @@ To run a command;
 
 ## NPM Commands
 
-When you wish to run StaticGenie. Use the following command: `docker-compose run sg npm run {commands-below}`
+When you wish to run StaticGenie. Use the following command: `docker-compose run sg npm run {commands-below}`. There are various built in commands;
 
-- `build:ts` - Converts the typescript to javascript. Gives you quicker feedback than having to generate the website everytime you wish to test
+- `build:fresh` - Removes anything generated from the previous run. Ensures everything is clean and no previous artifacts left behind
+- `build:typescript` - Converts the typescript to javascript. Gives you quicker feedback than having to generate the website everytime you wish to test
 - `build:pages` - Build your web pages
-- `build:clean` - Cleans up any temporary artifacts such as compiled ts ready for the next build
+- `build:assets` - Copies over any supporting assets .css, .js, .jpg etc from `/theme/assets` to the `/www/assets` directory
+- `build:clean` - Cleans up any temporary artifacts such as compiled typescript ready for the next build
 - `build:optimise` - @TODO - Will perform optimisations like CSS/JS minification, etc
 - `test` - @TODO - Compile and tests the javascript (although this isn't working yet)
-- `start` - runs all the build scripts in order
+- `docs` - @TODO - Builds the code documentation and stores inside `/docs`. You can view this on the staticgenie.com website too.
+- `start` - runs all the build scripts in order (start here)
 
-@TODO can't decide if to make `build:website` or break it up and split the generator into multiple commands (I like this one I think): `build:pages`, `build:assets`, `build:optimise`, etc
+You can open up `/package.json` to see/modify the commands or run `docker-compose run sg npm run` to see the commands npm has loaded from the `/package.json` file.
 
-# Config
-
-Configure your website by editing `/src/config.ts`.
-
-# Framework Structure
-
-## Plugins
-
-Everything is based around plugins. Without plugins there would be no data model. Without data, there would be nothing to put within pages.
-
-Each plugin creates Model Builders and Generators.
-
-Model Builders are responsible for mutating a shared model that is later accessible by all generators. This is great if you want data to be displayed across multiple generators such as site name, contact details, etc. 
-
-Generators are responsible for generating pages. They can do this by looking at the shared model and/or pulling in it's own data as well as using service providers to assist it.
-
-## Services
-
-Services are support systems built directly into the framework. They are all used via interfaces to allow them to be switched out for "better" ones in the future. An accessor is always used which will allow the potential for turning it into a factory/facade/etc to support versioning and 3rd party service providers depending on how it develops.
-
-## Directory Structure
+# Directory Structure
 
 - `/data/{plugin}` - Data used by the respective plugin.
-- `/src` - The StaticGenie source code (best to stay out of here unless you know what you're doing).
-- `/theme/assets` - Any assets such as .css, .zip, .png, .js etc you want to add to your site.
+- `/src` - The StaticGenie source code (best to stay out of here unless you know what you're doing or you're creating a service/plugin).
+- `/theme/assets` - Any assets such as .css, .zip, .png, .js etc you want to add to your site. Accessible from the theme layouts via `/assets/*`
 - `/theme/layouts` - In order to create any page with a unique look and feel (such as /contact.html with a contact form) it needs a layout. They are defined here.
-- `/www` - your generated website! Copy all the contents of this folder to your web host. You can change the output directory in your `/config.ts` file.
+- `/theme/layouts/includes` - When you want a portion of html to be to shared across multiple layouts (e.g. header & footer)
+- `/www` - Your generated website! Copy all the contents of this folder to your web host.
 - `/config.ts` - General configuration of your website.
 - `/docs` - Documentation (although you will also be able to see this at https://staticgenie.com)
 
-## Build A Website!
+# Build A Website
+
+@TODO write this section
+
+- Creating 3 new pages
+- Creating a new layout
+- Using some images on a page
+
+# Core Service Providers
+
+@TODO write this section
+
+- model
+- pagewriter
+- report
+- theme
+
+# Core Plugins
+
+@TODO write this section
+
+- pages
+- blog
+
+# Creating A Plugin
+
+@TODO write this section
+
+A plugin is responsible for generating web pages. They may uses various services to do this as well as it's configuration (defined within `/config.ts`). Plugins can not access other plugins.
+
+**WARNING: It is possible to register new services from a plugin. DO NOT do this. In time this options will no longer be available.**
 
 
 
-## Creating A Theme
 
 
-## Creating A Plugin
 
 
-## Creating A Service
+
+# Creating A Theme
+
+- Place any supporting assets within `/theme/assets` such as .css, .jpg, and .js files
+- Create your EJS layouts within `/theme/layouts`
+- Create any shared includes/partials used by the layouts within `/theme/layouts/includes`
+- Update `/theme/package.ts` with an exported interface called `iThemeConfigData`. Define all the config data used directly by your theme.
+
+When building a theme, you can access model data within your templates using the following keys:
+
+- `theme.{key}` - the defined values within `config.ts` relating to the `theme` service provider
+- `page.{key}` - any page specific values defined by plugins when generating the specific page
+- `model.{key}` - global model generated when all plugins initialise
+
+# Creating A Service
+
+## What is a Service provider
+
+A service provides capabilities mostly for plugins to use. Services are instantiated once by the framework and that same instance shared across all plugins. Services are access via interfaces to allow them to be switched out for different implementations.
+
+## Example service providers
+
+- `pagewriter` - responsible for writing "pages" (such as web pages) to the disk, console, etc
+- `report` - responsible for generating a report on how the website generation went (i.e. did all the pages get generated ok)
+- `theme` - responsible for rendering a template into pages
+- `model` - responsible for storing the global model populated by the initialisation method of plugins
+
+## Service structure
+
+**WARNING: Services are capable of using other services, however, other services should NOT be used during initialisation else it will create a dependency on the order in which the services are initialised. They can however safely be stored within the object for later use.**
+
+Here is a template for a new service. Replace `[SERVICENAME]` with the name of your service. Then save the file within ./src/libs/services/*.ts
+
+```
+import {iConfigService, iService, Services} from "../libs/services"
+
+/**
+* Allows you to provide multiple implementations of your service. This should be used when getting an instance of this service.
+*/
+export interface i[SERVICENAME] {
+    
+}
+
+/**
+* You don't have to export this, you can make it abstract but make sure you export one or more of it sub classes
+*/
+export class [SERVICENAME] implements iService, i[SERVICENAME] {
+
+    /**
+     * Initialise using provided config
+     * @param services 
+     * @param config
+     */
+    initialise(services:Services, config:i[SERVICENAME]Config) {
+        
+    }
+
+    /**
+     * Called when all plugins have initialised
+     */
+    pluginsInitialised() {
+
+    }
+
+    /**
+     * Called when all plugins have generated their respective pages
+     */
+    pluginsGenerated() {
+
+    }
+
+}
+
+/**
+* Defines the configuration (if any) that can be configured within `/config.ts`
+*/
+export interface i[SERVICENAME]Config extends iConfigService {
+
+}
+```
+
+## Registering & configuring the service
+
+Open `/config.ts`. 
+
+Locate the services sections. Within you will see two more sections `beforePluginsInitialised` and `afterPluginsInitialised`. You need to register your plugin and it's configuration in the relevant section.
+
+- `beforePluginsInitialised` - If you want the plugins to be able to access your service during the initialisation stage (such as when building the shared global model) and during the plugins generator method then register it here. Most services won't need to be registered here.
+- `afterPluginsInitialised` - Once all plugins have been initiated, your service becomes available to use within each plugins generator method.
+
+A service config looks like this.
+
+```
+"../services/[FILENAME]": {
+    
+    // The name used to get an instance of the service. DO NOT change this else any 3rd party dependencies will break. 
+    name: "[ACCESS NAME]",
+
+    // The class to create an instance of (you can switch this out since the service should be developed against the interface defined within the file)
+    class: fm.services.model.[CLASSNAME].name,
+    
+    // The config interface used to help define the correct format of the config followed by the actual configuration of the service
+    config: <fm.services.model.i[CLASSNAME]Config>{}
+
+},
+```
+
+Here's an example of a completed service registered within the `beforePluginsInitialised` section.
+
+```
+services: {
+    beforePluginsInitialised: {
+        "../services/model": { 
+            name: "model", 
+            class: fm.services.model.Model.name,
+            config: <fm.services.model.iModelConfig>{}
+        },
+    },
+    afterPluginsInitialised: {
+        
+    },
+}
+```
+
+If installed correctly, you should be able to call the service within plugin methods and service methods like: `services.get("[NAME]").[METHOD]()`
+
+
+
+
+
+
+
 
 
 # TODO
@@ -108,6 +251,7 @@ Alpha
 - @TODO Setup TypeDoc
 - @TODO create staticgenie.com website with documentation
 - @TODO check .gitignore ignores all the right directories (seeing as I've changed them so much)
+- @TODO /theme/layouts/includes to become /theme/partials
 
 Beta
 

@@ -26,6 +26,8 @@ export class Plugin implements fm.plugins.iPlugin {
         services.get("model").data.blog.dates.monthly.newest = [];
         services.get("model").data.blog.dates.monthly.oldest = [];
 
+        need to prebuild the page urls so they can be linked directly to the relevant tags, etc. Allow the full post to be linked directly to each tag
+
         */
 
     }
@@ -38,7 +40,7 @@ export class Plugin implements fm.plugins.iPlugin {
     generate(services:fm.services.Services, config:fm.plugins.iConfig) {
         
         // Generate the blog post pages
-
+        
 
 
     }

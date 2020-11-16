@@ -4,14 +4,13 @@
 
 config: 
   # Which layout to use from /theme/layouts/*.ejs
-  layout: article
+  layout: contact
   # The location of the file when generated & it's URL eg: /about/index.html
-  file: /about.html
+  file: /contact.html
 
 ##################################################################
 # Page Model (accessible to the layout via "page.*"). If you need to lookup the keys, open the layout file
 ##################################################################
 
 page: 
-  title: About
-  jumbotron: About
+  title: Contact

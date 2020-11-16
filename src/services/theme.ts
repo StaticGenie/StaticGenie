@@ -26,8 +26,16 @@ abstract class Theme implements iService, iTheme {
      * @param config 
      */
     initialise(services:Services, config:iThemeConfig) {
+
+        // Save theme model
         this.config = config;
+        
+        // Freeze config to make debugging easier and remove the choice of plugins being able to change too much
+        Object.freeze(this.config);
+        
+        // Save services so we can get the global model data
         this.services = services;
+
     }
 
     pluginsInitialised() {
