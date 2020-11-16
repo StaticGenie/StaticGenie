@@ -49,6 +49,7 @@ export = <fm.app.iConfig>{
                         socialLinks: [
                             {name: "GitHub", url: "https://github.com/StaticGenie/StaticGenie"},
                             {name: "Reddit", url: "https://reddit.com/u/StaticGenie"},
+                            {name: "Twitter", url: "https://twitter.com/StaticGenie"},
                         ],
                         headerLinks: [
                             {name: "Home", url: "index.html"},
