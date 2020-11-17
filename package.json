@@ -6,7 +6,6 @@
   "scripts": {
     "start": "npm run build:fresh && npm run build:typescript && npm run build:pages && npm run build:assets && npm run build:optimise && npm run build:cleanup",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "docs": "echo \"Error: no docs generator installed\" && exit 1",
     "build:fresh": "rm -rf ./www ./tmp && mkdir -p ./www ./theme/assets ./theme/layouts",
     "build:typescript": "tsc",
     "build:pages": "nodejs ./tmp/src/index.js",

@@ -231,7 +231,9 @@ If installed correctly, you should be able to call the service within plugin met
 
 
 
+# Tips
 
+- `@TODO` is a convention I have used to tag anything that needs looking into. Using VSCode I open a global search panel with `@TODO` and it provides me a todo list. I then check each of the todos before a release.
 
 # Next Release Todo
 
@@ -244,7 +246,6 @@ If installed correctly, you should be able to call the service within plugin met
 - @TODO Comment everything
 - @TODO Unit tests
 - @TODO Create UML diagram of classes, interfaces and their relationships
-- @TODO Setup TypeDoc
 - @TODO create staticgenie.com website with documentation
 - @TODO /theme/layouts/includes to become /theme/partials. Allowing an author to create related nested directories eg `includes/blog/aside-tags.ejs` & `layouts/blog/post.ejs`.
 - @TODO check .gitignore ignores all the right directories (seeing as I've changed them so much)
@@ -255,6 +256,4 @@ If installed correctly, you should be able to call the service within plugin met
 - Implement caching if pages have already been generated
 - Figure out an easy way of updating the framework (at the moment it's going to be a clone as opposed to npm install)
 - Support async... maybe... conflict between simplicity and performance here. Might be better to allow chunks of the framework to run in parallel so the simplicity is retained.
-
-
 
