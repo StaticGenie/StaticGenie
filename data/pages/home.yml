@@ -9,9 +9,9 @@ config:
   file: /index.html
 
 ##################################################################
-# Single values used on one layout. Not shared across multiple layouts.
+# Page properties
 ##################################################################
 
 page: 
-  title: Welcome
-  jumbotron: Welcome
+  title: Getting Started
+  jumbotron: Getting Started

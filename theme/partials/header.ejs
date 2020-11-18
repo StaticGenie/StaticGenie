@@ -1,5 +1,16 @@
 <nav>
-    <ul>
-        <% theme.headerLinks.forEach(link => { %><li><a href='<%- link.url %>'><%= link.name %></a></li><% }) %>
-    </ul>
+    <div class='constrict'>
+        <div class='social'>
+            <% theme.socialLinks.forEach(link => { %>
+                <a href='<%- link.url %>' target='_blank'><img src='<%- link.image %>' title="<%= link.name %>" /></a>
+            <% }) %>
+        </div>
+        <ul>
+            <li class='logo'><a href='index.html'>StaticGenie</a></li>
+            <li class='sep'>|</li>
+            <% theme.headerLinks.forEach(link => { %>
+                <li><a href='<%- link.url %>'><%= link.name %></a></li>
+            <% }) %>
+        </ul>
+    </div>
 </nav>

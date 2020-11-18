@@ -3,7 +3,7 @@ import {Model, iModelConfig} from "./src/services/model";
 import {PageWriterFile, iPageWriterFileConfig} from "./src/services/pagewriter";
 import {ThemeEJS, iThemeEJSConfig} from "./src/services/theme";
 import {ReportConsole, iReportConsoleConfig} from "./src/services/report";
-import {iPluginPagesConfig} from "./src/plugins/pages";
+import {iPluginConfig as iPluginPagesConfig} from "./src/plugins/pages";
 import {iThemeConfigData} from "./theme/package";
 
 
@@ -53,9 +53,9 @@ export = <iConfig>{
                     data: <iThemeConfigData>{
                         title: "StaticGenie",
                         socialLinks: [
-                            {name: "GitHub", url: "https://github.com/StaticGenie/StaticGenie"},
-                            {name: "Reddit", url: "https://reddit.com/u/StaticGenie"},
-                            {name: "Twitter", url: "https://twitter.com/StaticGenie"},
+                            {name: "GitHub", url: "https://github.com/StaticGenie/StaticGenie", image: "assets/images/github.png"},
+                            {name: "Reddit", url: "https://reddit.com/u/StaticGenie", image: "assets/images/reddit.png"},
+                            {name: "Twitter", url: "https://twitter.com/StaticGenie", image: "assets/images/twitter.png"},
                         ],
                         headerLinks: [
                             {name: "Home", url: "index.html"},
@@ -67,6 +67,8 @@ export = <iConfig>{
                             {name: "Terms", url: "terms.html"},
                             {name: "Privacy", url: "privacy.html"},
                             {name: "Contact", url: "contact.html"},
+                            {name: "Credits", url: "credits.html"},
+                            {name: "License", url: "license.html"},
                         ],
                         copyright: "Copyright &copy; 2020 StaticGenie, All Rights Reserved",
                     },

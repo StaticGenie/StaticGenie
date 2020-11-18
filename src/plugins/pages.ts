@@ -17,11 +17,7 @@ export class Plugin implements iPlugin {
      * @param services
      * @param config 
      */
-    initialise(services:Services, config:iPluginPagesConfig) {
-
-        //services.get("model").data.title = "StaticGenie";
-
-        //@TODO Can register a new service provider... not recommended (may create a dependency on the order the plugins are executed) but a possible way of creating plugin based service providers given only the plugin generators use it :/ maybe providing the actual services plugin isn't the best idea here... Mabe provide another method here to explicitly register service providers?
+    initialise(services:Services, config:iPluginConfig) {
 
     }
     
@@ -30,14 +26,14 @@ export class Plugin implements iPlugin {
      * @param services 
      * @param config
      */
-    generate(services:Services, config:iPluginPagesConfig) {
+    generate(services:Services, config:iPluginConfig) {
 
         // Services
         const pages = <iPageWriter>services.get("pagewriter");
         const theme = <iTheme>services.get("theme");
         const report = <iReport>services.get("report");
 
-        // Find all the yml files
+        // Find all the yaml files
         helpers.getFilesSync("./data/pages").forEach(file => {
             
             // Parse the yaml
@@ -75,6 +71,6 @@ export class Plugin implements iPlugin {
 
 }
 
-export interface iPluginPagesConfig extends iConfig {
+export interface iPluginConfig extends iConfig {
 
 }

@@ -4,14 +4,18 @@
 
 config: 
   # Which layout to use from /theme/layouts/*.ejs
-  layout: contact
+  layout: article
   # The location of the file when generated & it's URL eg: /about/index.html
-  file: /contact.html
+  file: /credits.html
 
 ##################################################################
 # Page properties
 ##################################################################
 
 page: 
-  title: Contact
-  jumbotron: Contact
+  title: Credits
+  jumbotron: Credits
+  thanks:
+    - https://www.iconfinder.com/rohitink
+    - https://www.iconfinder.com/Indygo
+    - https://www.iconfinder.com/Re66y

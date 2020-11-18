@@ -232,18 +232,17 @@ If installed correctly, you should be able to call the service within plugin met
 
 1.0.0 (In Progress)
 
-- @TODO finish the README.md
-- @TODO simplify directory structure
+- @TODO finish the README.md & comment all the code
 - @TODO Inconsistency between the terms model & data.
 - @TODO Build a static website for StaticGenie.com
-- @TODO Comment everything
+    - Content within pages plugin that doesn't require a new layout every time or hard coding the content within the layout (been tempted myself, so I'm sure other peeps will)!
 - @TODO Unit tests
 - @TODO Create UML diagram of classes, interfaces and their relationships
-- @TODO create staticgenie.com website with documentation
 - @TODO check .gitignore ignores all the right directories (seeing as I've changed them so much)
 
 # Future Ideas
 
+- Figure out a way of reliably changing the output directory for the generated website
 - Create a proper dependency injection system around the services with proper constructor, register, init, boot, event system instead of old fashioned hooks, etc... Will break the API though so probably better for a version 2 thing once the use cases have been properly ironed out and the requirements defined
 - Implement caching if pages have already been generated
 - Figure out an easy way of updating the framework (at the moment it's going to be a clone as opposed to npm install)

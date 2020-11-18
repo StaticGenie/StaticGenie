@@ -4,14 +4,14 @@
 
 config: 
   # Which layout to use from /theme/layouts/*.ejs
-  layout: contact
+  layout: article
   # The location of the file when generated & it's URL eg: /about/index.html
-  file: /contact.html
+  file: /blog.html
 
 ##################################################################
 # Page properties
 ##################################################################
 
 page: 
-  title: Contact
-  jumbotron: Contact
+  title: Once I've built the StaticGenie blog plugin. 
+  jumbotron: Coming Soon
