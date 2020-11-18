@@ -1,5 +1,5 @@
-import * as fm from "./framework";
+import {App} from "./libs/app";
 import config = require("../config");
 
 // New StaticGenie instance
-new fm.app.App(config);
+new App(config);

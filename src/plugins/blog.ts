@@ -1,17 +1,18 @@
-import * as fm from "../framework";
+import {iPlugin, iConfig} from "../libs/plugins";
+import {Services} from "../libs/services";
 
 /**
  * Plugin
  * @TODO
  */
-export class Plugin implements fm.plugins.iPlugin {
+export class Plugin implements iPlugin {
 
     /**
      * Update the model, check config, etc
      * @param services
      * @param config 
      */
-    initialise(services:fm.services.Services, config:fm.plugins.iConfig) {
+    initialise(services:Services, config:iConfig) {
         /*
 
         compile and share these globally so all pages of the theme can use it
@@ -37,7 +38,7 @@ export class Plugin implements fm.plugins.iPlugin {
      * @param services 
      * @param config 
      */
-    generate(services:fm.services.Services, config:fm.plugins.iConfig) {
+    generate(services:Services, config:iConfig) {
         
         // Generate the blog post pages
         

@@ -1,18 +1,23 @@
-import * as fm from "../framework";
+import {iPlugin, iConfig} from "../libs/plugins";
+import {Services} from "../libs/services";
+import {iPageWriter} from "../services/pagewriter";
+import {iTheme} from "../services/theme";
+import {iReport} from "../services/report";
+import * as helpers from "../libs/helpers";
 import * as yaml from "js-yaml";
 import * as fs from "fs";
 
 /**
  * Plugin
  */
-export class Plugin implements fm.plugins.iPlugin {
+export class Plugin implements iPlugin {
 
     /**
      * Update the model, check config, etc
      * @param services
      * @param config 
      */
-    initialise(services:fm.services.Services, config:fm.plugins.iConfig) {
+    initialise(services:Services, config:iPluginPagesConfig) {
 
         //services.get("model").data.title = "StaticGenie";
 
@@ -25,15 +30,15 @@ export class Plugin implements fm.plugins.iPlugin {
      * @param services 
      * @param config
      */
-    generate(services:fm.services.Services, config:fm.plugins.iConfig) {
+    generate(services:Services, config:iPluginPagesConfig) {
 
         // Services
-        const pages = <fm.services.pagewriter.iPageWriter>services.get("pagewriter");
-        const theme = <fm.services.theme.iTheme>services.get("theme");
-        const report = <fm.services.report.iReport>services.get("report");
+        const pages = <iPageWriter>services.get("pagewriter");
+        const theme = <iTheme>services.get("theme");
+        const report = <iReport>services.get("report");
 
         // Find all the yml files
-        fm.helpers.getFilesSync("./data/pages").forEach(file => {
+        helpers.getFilesSync("./data/pages").forEach(file => {
             
             // Parse the yaml
             try {
@@ -67,5 +72,9 @@ export class Plugin implements fm.plugins.iPlugin {
         });
 
     }
+
+}
+
+export interface iPluginPagesConfig extends iConfig {
 
 }

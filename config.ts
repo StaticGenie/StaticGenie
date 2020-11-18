@@ -1,16 +1,22 @@
-import * as fm from "./src/framework";
+import {iConfig} from "./src/libs/app";
+import {Model, iModelConfig} from "./src/services/model";
+import {PageWriterFile, iPageWriterFileConfig} from "./src/services/pagewriter";
+import {ThemeEJS, iThemeEJSConfig} from "./src/services/theme";
+import {ReportConsole, iReportConsoleConfig} from "./src/services/report";
+import {iPluginPagesConfig} from "./src/plugins/pages";
 import {iThemeConfigData} from "./theme/package";
+
 
 /**
  * Configure your website here
  */
-export = <fm.app.iConfig>{
+export = <iConfig>{
 
     /**
      * Lists all plugins to load and their respective config
      */
     plugins: {
-        "../plugins/pages": {
+        "../plugins/pages": <iPluginPagesConfig>{
 
         }
     },
@@ -23,27 +29,27 @@ export = <fm.app.iConfig>{
         beforePluginsInitialised: {
             "../services/model": { 
                 name: "model", 
-                class: fm.services.model.Model.name,
-                config: <fm.services.model.iModelConfig>{}
+                class: Model.name,
+                config: <iModelConfig>{}
             },
         },
         afterPluginsInitialised: {
             "../services/report": {
                 name: "report", 
-                class: fm.services.report.ReportConsole.name,
-                config: <fm.services.report.iReportConsoleConfig>{} 
+                class: ReportConsole.name,
+                config: <iReportConsoleConfig>{} 
             },
             "../services/pagewriter": {
                 name: "pagewriter", 
-                class: fm.services.pagewriter.PageWriterFile.name,
-                config: <fm.services.pagewriter.iPageWriterFileConfig>{
+                class: PageWriterFile.name,
+                config: <iPageWriterFileConfig>{
                     outDirectory: "./www" // Don't change this (there are areas that don't use this value yet!!!!!!!!!)
                 }
             },
             "../services/theme": {
                 name: "theme",
-                class: fm.services.theme.ThemeEJS.name,
-                config: <fm.services.theme.iThemeEJSConfig>{
+                class: ThemeEJS.name,
+                config: <iThemeEJSConfig>{
                     data: <iThemeConfigData>{
                         title: "StaticGenie",
                         socialLinks: [

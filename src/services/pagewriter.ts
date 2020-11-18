@@ -1,6 +1,6 @@
 import {iService, iConfigService, Services} from "../libs/services";
 import * as fs from "fs-extra";
-import { services } from "../framework";
+import {iReport} from "../services/report";
 
 export interface iPageWriter {
     write(file:string, data:string|Buffer) : void;
@@ -47,7 +47,7 @@ export class PageWriterFile extends PageWriter {
         }
 
         // Add the file to the report service
-        (<services.report.iReport>this.services.get("report")).add(file, err);
+        (<iReport>this.services.get("report")).add(file, err);
 
     }
 }
