@@ -56,7 +56,7 @@ You can open up `/package.json` to see/modify the commands or run `docker-compos
 - `/src` - The StaticGenie source code (best to stay out of here unless you know what you're doing or you're creating a service/plugin).
 - `/theme/assets` - Any assets such as .css, .zip, .png, .js etc you want to add to your site. Accessible from the theme layouts via `/assets/*`
 - `/theme/layouts` - In order to create any page with a unique look and feel (such as /contact.html with a contact form) it needs a layout. They are defined here.
-- `/theme/layouts/includes` - When you want a portion of html to be to shared across multiple layouts (e.g. header & footer)
+- `/theme/partials` - When you want a portion of html to be to shared across multiple layouts (e.g. header & footer)
 - `/www` - Your generated website! Copy all the contents of this folder to your web host.
 - `/config.ts` - General configuration of your website.
 - `/docs` - Documentation (although you will also be able to see this at https://staticgenie.com)
@@ -104,7 +104,7 @@ A plugin is responsible for generating web pages. They may uses various services
 
 - Place any supporting assets within `/theme/assets` such as .css, .jpg, and .js files
 - Create your EJS layouts within `/theme/layouts`
-- Create any shared includes/partials used by the layouts within `/theme/layouts/includes`
+- Create any shared includes/partials used by the layouts within `/theme/partials`
 - Update `/theme/package.ts` with an exported interface called `iThemeConfigData`. Define all the config data used directly by your theme.
 
 When building a theme, you can access model data within your templates using the following keys:
@@ -233,7 +233,7 @@ If installed correctly, you should be able to call the service within plugin met
 
 # Tips
 
-- `@TODO` is a convention I have used to tag anything that needs looking into. Using VSCode I open a global search panel with `@TODO` and it provides me a todo list. I then check each of the todos before a release.
+- `@TODO` is a convention I have used to tag anything that needs looking into. Using VSCode I open a global search panel with `@TODO` and it provides me a todo list. I then check each of the todos before a release and use the todos to ensure refactorings and similar tech debt do not get forgotten.
 
 # Next Release Todo
 
@@ -247,7 +247,6 @@ If installed correctly, you should be able to call the service within plugin met
 - @TODO Unit tests
 - @TODO Create UML diagram of classes, interfaces and their relationships
 - @TODO create staticgenie.com website with documentation
-- @TODO /theme/layouts/includes to become /theme/partials. Allowing an author to create related nested directories eg `includes/blog/aside-tags.ejs` & `layouts/blog/post.ejs`.
 - @TODO check .gitignore ignores all the right directories (seeing as I've changed them so much)
 
 # Future Ideas

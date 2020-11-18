@@ -84,7 +84,7 @@ export class ThemeEJS extends Theme {
             model: this.services.get("model").data,     // The global model services data (updated via plugins during their init process)
             page: data,                                 // Data used to render this specific page/layout
         }, {
-            root: "./theme/layouts",
+            root: "./theme/partials",
         });
         
     }
