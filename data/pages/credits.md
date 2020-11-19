@@ -10,7 +10,7 @@ config:
 page: 
   jumbotron: Credits
 
-# Markdown - Everything below the 5 equal signs will be exposed to layouts via: `page.markdown.parsed` & `page.markdown.raw`. HTML is allowed (create layouts/partials if you wish to re-use it).
+# Everything below the 5 equal signs will be parsed as 'markdown' and exposed to layouts via: `page.content`. HTML is allowed (create layouts/partials if you wish to re-use it).
 
 =====
 

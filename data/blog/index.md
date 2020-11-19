@@ -2,12 +2,12 @@
 # HEAD
 ###########################################
 
-# General configuration of the page
 config: 
-  # Which layout to use from /theme/layouts/*.ejs
-  layout: page
-  # The location of the file when generated & it's URL eg: /about/index.html
-  file: /index.html
+  title: My First Post
+  tags: ["funny", "quotes"]
+  date: 2020-12-28
+  time: 12:00:00
+  layout: post
 
 # Custom page properties exposed to layouts via: `page.*`
 page: 
@@ -20,19 +20,6 @@ page:
 ###########################################
 =====
 
-# Why
+# My first post
 
-hello `link`
-
-hello
-
-```
-function() {
-  console.log("hello")
-}
-```
-
-# How
-
-
-
+Introduction here...
