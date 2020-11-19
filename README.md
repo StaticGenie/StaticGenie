@@ -52,13 +52,25 @@ You can open up `/package.json` to see/modify the commands or run `docker-compos
 - `/config.ts` - General configuration of your website.
 - `/docs` - Documentation (although you will also be able to see this at https://staticgenie.com)
 
+
+
+
+
+
+
+
+
+
+
+
 # Build A Website
 
 @TODO write this section
 
-- Creating 3 new pages
-- Creating a new layout
-- Using some images on a page
+- Creating 3 new pages using the pages plugin
+- Creating a new layout using the pages plugin
+- Displaying an image using the pages plugin
+- Converting common HTML to a layout/partial using the pages plugin (moves properties to the page.* model that other pages can also use)
 
 Models: Global (frozen after all plugins initialised), Theme (from config.ts, instantly frozen), Page (always mutable)
 
@@ -75,8 +87,7 @@ Models: Global (frozen after all plugins initialised), Theme (from config.ts, in
 
 @TODO write this section
 
-- pages
-- blog
+- pages (see Build A Website section of this readme)
 
 # Creating A Plugin
 
@@ -85,6 +96,13 @@ Models: Global (frozen after all plugins initialised), Theme (from config.ts, in
 A plugin is responsible for generating web pages. They may uses various services to do this as well as it's configuration (defined within `/config.ts`). Plugins can not access other plugins.
 
 **WARNING: It is possible to register new services from a plugin. DO NOT do this. In time this options will no longer be available.**
+
+
+
+
+
+
+
 
 
 
