@@ -250,9 +250,19 @@ If installed correctly, you should be able to call the service within plugin met
 
 1.0.0 (In Progress)
 
-- finish the README.md & comment all the code
-- Inconsistency between the terms model & data.
-- Build a static website for StaticGenie.com
+- clean up the data/pages structure to match the index.md one
+- comment all code
+- Inconsistency between the terms model & data. Need 3 models for templates;
+  - Global (frozen after all plugins initialised)
+  - Theme (frozen)
+  - Page (immutable, but not sharable between plugins)
+- move the readme.md content to the website
+- deploy the website
+- feedback from community
+
+1.1.0 (Blog Support)
+
+- finish the blog plugin (currently a mess due to prototyping use cases) and refactor the required functionality out of the pages plugin
 
 # Backlog
 
