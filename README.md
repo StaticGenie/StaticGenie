@@ -246,17 +246,27 @@ If installed correctly, you should be able to call the service within plugin met
 
 - `@TODO` is a convention I have used to tag anything that needs looking into. Using VSCode I open a global search panel with `@TODO` and it provides me a todo list. I then check each of the todos before a release and use the todos to ensure refactorings and similar tech debt do not get forgotten.
 
-# Next Release Todo
+# Next Release @TODO
 
 1.0.0 (In Progress)
 
-- @TODO finish the README.md & comment all the code
-- @TODO Inconsistency between the terms model & data.
-- @TODO Build a static website for StaticGenie.com
-    - Content within pages plugin that doesn't require a new layout every time or hard coding the content within the layout (been tempted myself, so I'm sure other peeps will)!
-- @TODO Unit tests
-- @TODO Create UML diagram of classes, interfaces and their relationships
-- @TODO check .gitignore ignores all the right directories (seeing as I've changed them so much)
+- finish the README.md & comment all the code
+- Inconsistency between the terms model & data.
+- Build a static website for StaticGenie.com
+
+# Backlog
+
+## Community
+
+- Unit tests
+- Create UML diagram of classes, interfaces and their relationships
+- Create examples of common tasks
+- Get involved with dev networks on places like reddit, linkedin, twitter, etc
+- Break up this README.md into the website. Don't want two sources of truth!
+
+## Nice To Have
+
+- @TODO Create a markdown css file as part of the theme and style it up
 
 # Future Ideas
 

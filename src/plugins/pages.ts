@@ -68,10 +68,10 @@ export class Plugin implements iPlugin {
                     documentYaml.page.content = {};
                 }
                 if (documentYaml.page.content.hasOwnProperty("parsed") === true) {
-                    throw new Error("You can not define your own 'page.content.raw' key in the page header as it's reserved for the main documents content to occupy.");
+                    throw new Error("You can not define your own 'page.content.raw' key in the page head section as it's reserved for the main documents content to occupy.");
                 }
                 if (documentYaml.page.content.hasOwnProperty("raw") === true) {
-                    throw new Error("You can not define your own 'page.content.raw' key in the page header as it's reserved for the main documents content to occupy.");
+                    throw new Error("You can not define your own 'page.content.raw' key in the page head section as it's reserved for the main documents content to occupy.");
                 }
 
                 // Extract and parse Markdown, assign to page object
@@ -89,7 +89,7 @@ export class Plugin implements iPlugin {
                 
             } catch (e) {
 
-                // Couldn't create the page
+                // Couldn't create the page, so report it
                 report.add(file, e.toString());
 
             }

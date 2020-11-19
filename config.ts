@@ -59,16 +59,13 @@ export = <iConfig>{
                         ],
                         headerLinks: [
                             {name: "Home", url: "index.html"},
-                            {name: "About", url: "about.html"},
+                            {name: "Getting Started", url: "getting-started.html"},
                             {name: "Blog", url: "blog.html"},
-                            {name: "Contact", url: "contact.html"},
                         ],
                         footerLinks: [
-                            {name: "Terms", url: "terms.html"},
-                            {name: "Privacy", url: "privacy.html"},
                             {name: "Contact", url: "contact.html"},
                             {name: "Credits", url: "credits.html"},
-                            {name: "License", url: "license.html"},
+                            {name: "License & Terms", url: "license-and-terms.html"},
                         ],
                         copyright: "Copyright &copy; 2020 StaticGenie, All Rights Reserved",
                     },
