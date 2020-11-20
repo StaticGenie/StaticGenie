@@ -16,24 +16,6 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-code {
-    background-color:#333;
-    color:#FFF;
-    line-height:1.5;
-    padding:2px 4px 2px 4px;
-    border-radius: 3px;
-    display:inline-block;
-    font-family:"Lucida Console", Monaco, monospace;
-    font-size:smaller;
-}
-
-pre code {
-    padding:10px;
-    display:block;
-    margin-top:15px;
-    margin-bottom:15px;
-}
-
 a:hover, a:active, a:link, a:visited {
     color:#006699;
     text-decoration: none;
@@ -110,25 +92,46 @@ section.canvas {
     min-height:1200px;
 }
 
+div.page code {
+    background-color:#333;
+    color:#FFF;
+    line-height:1.5;
+    padding:1px 5px 1px 5px;
+    border-radius: 3px;
+    display:inline-block;
+    font-family:"Lucida Console", Monaco, monospace;
+    font-size:smaller;
+}
+
+div.page pre code {
+    padding:10px;
+    display:block;
+    margin: 20px 0 20px 0;
+}
+
 div.page p {
     line-height:1.5;
 }
-
 div.page h1 {
     font-size:46px;
     font-weight:bold;
     margin-top:50px;
 }
-
 div.page h2 {
     font-size:26px;
     font-weight:bold;
     margin-top:50px;
 }
-
 div.page p {
     line-height:1.5;
-    margin: 30px 0 30px 0;
+    margin: 20px 0 20px 0;
+}
+div.page ul {
+    margin: 20px 0 20px 50px;
+    list-style-type: disc;
+}
+div.page ul li {
+    line-height:1.5;
 }
 
 footer {

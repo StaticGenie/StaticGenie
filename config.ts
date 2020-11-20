@@ -63,8 +63,9 @@ export = <iConfig>{
                         ],
                         headerLinks: [
                             {name: "Home", url: "index.html"},
-                            {name: "Getting Started", url: "getting-started.html"},
-                            {name: "Blog", url: "blog.html"},
+                            {name: "Getting Started", url: "docs/getting-started/installation.html"},
+                            {name: "Docs", url: "docs/index.html"},
+                            {name: "Roadmap", url: "roadmap.html"},
                         ],
                         footerLinks: [
                             {name: "Contact", url: "contact.html"},
