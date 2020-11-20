@@ -1,3 +1,9 @@
+/* ====================================================================
+ * License: MIT
+ * Website: https://staticgenie.com
+ * Source: https://github.com/StaticGenie/StaticGenie
+==================================================================== */
+
 import {iConfigService, iService, Services} from "../libs/services"
 
 export interface iModel {

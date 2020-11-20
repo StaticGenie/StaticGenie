@@ -1,3 +1,9 @@
+/* ====================================================================
+ * License: MIT
+ * Website: https://staticgenie.com
+ * Source: https://github.com/StaticGenie/StaticGenie
+==================================================================== */
+
 import {iConfig} from "./src/libs/app";
 import {Model, iModelConfig} from "./src/services/model";
 import {PageWriterFile, iPageWriterFileConfig} from "./src/services/pagewriter";
@@ -5,7 +11,6 @@ import {ThemeEJS, iThemeEJSConfig} from "./src/services/theme";
 import {ReportConsole, iReportConsoleConfig} from "./src/services/report";
 import {iPluginConfig as iPluginPagesConfig} from "./src/plugins/pages";
 import {iThemeConfigData} from "./theme/package";
-
 
 /**
  * Configure your website here

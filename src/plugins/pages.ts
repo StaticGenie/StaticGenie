@@ -1,3 +1,9 @@
+/* ====================================================================
+ * License: MIT
+ * Website: https://staticgenie.com
+ * Source: https://github.com/StaticGenie/StaticGenie
+==================================================================== */
+
 import {iPlugin, iConfig} from "../libs/plugins";
 import {Services} from "../libs/services";
 import {iPageWriter} from "../services/pagewriter";

@@ -1,3 +1,9 @@
+/* ====================================================================
+ * License: MIT
+ * Website: https://staticgenie.com
+ * Source: https://github.com/StaticGenie/StaticGenie
+==================================================================== */
+
 import * as services from "./services";
 import {iConfig as iConfigPlugins, iPlugin} from "./plugins";
 import {iConfigServices} from "./services";

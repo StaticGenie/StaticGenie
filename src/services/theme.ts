@@ -1,7 +1,12 @@
+/* ====================================================================
+ * License: MIT
+ * Website: https://staticgenie.com
+ * Source: https://github.com/StaticGenie/StaticGenie
+==================================================================== */
+
 import {iService, iConfigService, Services} from "../libs/services";
 import * as ejs from "ejs";
 import * as fs from "fs";
-
 
 export interface iTheme {
     renderLayout(layout:string, data:{[key: string] : any}): string;

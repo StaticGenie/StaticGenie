@@ -1,3 +1,9 @@
+/* ====================================================================
+ * License: MIT
+ * Website: https://staticgenie.com
+ * Source: https://github.com/StaticGenie/StaticGenie
+==================================================================== */
+
 /**
  * MAKE SURE THERE ARE NO SIDE EFFECTS AFTER EXECUTING THESE FUNCTIONS! IF THEY HAVE SIDE EFFECTS, THEY ARE NOT HELPERS.
  */
