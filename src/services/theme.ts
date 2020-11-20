@@ -109,9 +109,9 @@ export class ThemeEJS extends Theme {
 
         // Parse template
         return ejs.render(template, {
-            theme: this.config.data,                    // Theme config data
-            model: this.services.get("model").data,     // The global model services data (updated via plugins during their init process)
-            page: data,                                 // Data used to render this specific page/layout
+            theme: this.config.data,                            // Theme config data - frozen
+            global: this.services.get("globalmodel").model,     // The global model services data (updated via plugins during their init process) - frozen
+            page: data,                                         // Data used to render this specific page/layout and can change between each render
         }, {
             root: "./theme/partials",
         });

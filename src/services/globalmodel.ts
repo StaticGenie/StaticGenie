@@ -6,26 +6,30 @@
 
 import {iConfigService, iService, Services} from "../libs/services"
 
-export interface iModel {
-    data: {[key: string] : any};
+/**
+ * Service provider interface
+ */
+export interface iGlobalModel {
+    model: {[key: string] : any};
 }
 
 /**
- * Holds the shared model data
+ * Holds the shared model data - called GlobalModel to make referencing it easier
+ * "Global" leaks context, but, this service provider won't be re-used anywhere
  */
-export class Model implements iService, iModel {
+export class GlobalModel implements iService, iGlobalModel {
     
     /**
-     * The data (duh)
+     * The model data (duh)
      */
-    public data: {[key: string] : any} = {};
+    public model: {[key: string] : any} = {};
 
     /**
      * Dependency injection
      * @param services
      * @param config 
      */
-    initialise(services:Services, config:iModelConfig) {
+    initialise(services:Services, config:iGlobalModelConfig) {
         
     }
 
@@ -44,20 +48,20 @@ export class Model implements iService, iModel {
     }
 
     /**
-     * When the data has been created. Freeze it!
+     * When the model has been created. Freeze it!
      */
     private freeze() {
         
         // Destroy any functions and other smart stuff. Should just be text based.
-        this.data = JSON.parse(JSON.stringify(this.data));
+        this.model = JSON.parse(JSON.stringify(this.model));
 
         // No further changes allowed
-        Object.freeze(this.data);
+        Object.freeze(this.model);
 
     }
 
 }
 
-export interface iModelConfig extends iConfigService {
+export interface iGlobalModelConfig extends iConfigService {
 
 }

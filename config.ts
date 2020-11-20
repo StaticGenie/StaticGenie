@@ -5,7 +5,7 @@
 ==================================================================== */
 
 import {iConfig} from "./src/libs/app";
-import {Model, iModelConfig} from "./src/services/model";
+import {GlobalModel, iGlobalModelConfig} from "./src/services/globalmodel";
 import {PageWriterFile, iPageWriterFileConfig} from "./src/services/pagewriter";
 import {ThemeEJS, iThemeEJSConfig} from "./src/services/theme";
 import {ReportConsole, iReportConsoleConfig} from "./src/services/report";
@@ -31,10 +31,10 @@ export = <iConfig>{
      */
     services: {
         beforePluginsInitialised: {
-            "../services/model": { 
-                name: "model", 
-                class: Model.name,
-                config: <iModelConfig>{}
+            "../services/globalmodel": { 
+                name: "globalmodel", 
+                class: GlobalModel.name,
+                config: <iGlobalModelConfig>{}
             },
         },
         afterPluginsInitialised: {

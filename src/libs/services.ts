@@ -4,11 +4,6 @@
  * Source: https://github.com/StaticGenie/StaticGenie
 ==================================================================== */
 
-export * as model from "../services/model";
-export * as report from "../services/report";
-export * as pagewriter from "../services/pagewriter";
-export * as theme from "../services/theme";
-
 /**
  * Collection of services
  */

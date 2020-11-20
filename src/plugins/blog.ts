@@ -7,7 +7,7 @@
 import {iPlugin} from "../libs/plugins";
 import {Services} from "../libs/services";
 import {Plugin as Pages, iPluginConfig as iPagesConfig} from "./pages";
-import {iModel} from "../services/model";
+import {iGlobalModel} from "../services/globalmodel";
 import * as helpers from "../libs/helpers";
 import * as fs from "fs";
 import * as slugify from "slugify";
@@ -26,11 +26,11 @@ export class Plugin extends Pages implements iPlugin {
     initialise(services:Services, config:iPluginConfig) {
 
         // Load the yaml section of each page to build the globl model
-        const model = <iModel>services.get("model");
+        const global = (<iGlobalModel>services.get("globalmodel")).model;
 
         // Ensure the keys all exist
-        model.data.blog = {};
-        model.data.blog.tags = {};
+        global.blog = {};
+        global.blog.tags = {};
 
         // Find all the page defs
         helpers.getFilesSync("./data/blog").forEach(file => {
@@ -59,7 +59,7 @@ export class Plugin extends Pages implements iPlugin {
                 console.log(slugify.default("/blog/2020-11-19/" + documentYaml.config.title, {lower:true, strict: true}))
 
 
-                //model.data.blog.tags[] = []
+                //global.data.blog.tags[] = []
                 
             } catch (e) {
 
@@ -73,15 +73,15 @@ export class Plugin extends Pages implements iPlugin {
 
         compile and share these globally so all pages of the theme can use it
 
-        services.get("model").data.blog.urls = {};
-        services.get("model").data.blog.categories.alphabetical = [];
-        services.get("model").data.blog.categories.popular = [];
-        services.get("model").data.blog.tags.alphabetical = [];
-        services.get("model").data.blog.tags.popular = [];
-        services.get("model").data.blog.dates.yearly.newest = [];
-        services.get("model").data.blog.dates.yearly.oldest = [];
-        services.get("model").data.blog.dates.monthly.newest = [];
-        services.get("model").data.blog.dates.monthly.oldest = [];
+        global.blog.urls = {};
+        global.blog.categories.alphabetical = [];
+        global.blog.categories.popular = [];
+        global.blog.tags.alphabetical = [];
+        global.blog.tags.popular = [];
+        global.blog.dates.yearly.newest = [];
+        global.blog.dates.yearly.oldest = [];
+        global.blog.dates.monthly.newest = [];
+        global.blog.dates.monthly.oldest = [];
 
         need to prebuild the page urls so they can be linked directly to the relevant tags, etc. Allow the full post to be linked directly to each tag
 
