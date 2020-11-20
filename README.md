@@ -78,7 +78,7 @@ Models: Global (frozen after all plugins initialised), Theme (from config.ts, in
 
 @TODO write this section
 
-- model
+- globalmodel
 - pagewriter
 - report
 - theme
@@ -122,7 +122,7 @@ When building a theme, you can access model data within your templates using the
 
 - `theme.{key}` - the defined values within `config.ts` relating to the `theme` service provider
 - `page.{key}` - any page specific values defined by plugins when generating the specific page
-- `model.{key}` - global model generated when all plugins initialise
+- `global.{key}` - global model generated when all plugins initialise, stored within the `globalmodel` service provider
 
 # Creating A Service
 
@@ -135,7 +135,7 @@ A service provides capabilities mostly for plugins to use. Services are instanti
 - `pagewriter` - responsible for writing "pages" (such as web pages) to the disk, console, etc
 - `report` - responsible for generating a report on how the website generation went (i.e. did all the pages get generated ok)
 - `theme` - responsible for rendering a template into pages
-- `model` - responsible for storing the global model populated by the initialisation method of plugins
+- `globalmodel` - responsible for storing the global model populated by the initialisation method of plugins
 
 ## Service structure
 
@@ -203,29 +203,29 @@ Locate the services sections. Within you will see two more sections `beforePlugi
 A service config looks like this.
 
 ```
-"../services/[FILENAME]": {
+"../services/globalmodel": { 
     
     // The name used to get an instance of the service. DO NOT change this else any 3rd party dependencies will break. 
-    name: "[ACCESS NAME]",
-
+    name: "[SERVICENAME]", 
+    
     // The class to create an instance of (you can switch this out since the service should be developed against the interface defined within the file)
-    class: fm.services.model.[CLASSNAME].name,
+    class: [CLASSNAME].name,
     
     // The config interface used to help define the correct format of the config followed by the actual configuration of the service
-    config: <fm.services.model.i[CLASSNAME]Config>{}
+    config: <i[CLASSNAME]Config>{}
 
 },
 ```
 
-Here's an example of a completed service registered within the `beforePluginsInitialised` section.
+An example of a completed service registered within the `beforePluginsInitialised` section.
 
 ```
 services: {
     beforePluginsInitialised: {
-        "../services/model": { 
-            name: "model", 
-            class: fm.services.model.Model.name,
-            config: <fm.services.model.iModelConfig>{}
+        "../services/globalmodel": { 
+            name: "globalmodel", 
+            class: GlobalModel.name,
+            config: <iGlobalModelConfig>{}
         },
     },
     afterPluginsInitialised: {
@@ -234,12 +234,12 @@ services: {
 }
 ```
 
-If installed correctly, you should be able to call the service within plugin methods and service methods like: `services.get("[NAME]").[METHOD]()`
+If installed (and classes/interfaces imported) correctly, you should be able to call the service within plugin methods and service methods like: `services.get("[NAME]").[METHOD]()`
 
 # Tips
 
 - `@TODO` is a convention I have used to tag anything that needs looking into. Using VSCode I open a global search panel with `@TODO` and it provides me a todo list. I then check each of the todos before a release and use the todos to ensure refactorings and similar tech debt do not get forgotten.
-
+- When using a service provider, it's a good idea to hint the interface i.e. `let global = <iGlobalModel>services.get("globalmodel")` which will allow TypeScript static checking to work as well as your IDE intellisense.
 
 
 
@@ -261,7 +261,6 @@ If installed correctly, you should be able to call the service within plugin met
   - Global (frozen after all plugins initialised)
   - Theme (frozen)
   - Page (immutable, but not sharable between plugins)
-- Rename `model` to `globalmodel`. 
 - Deploy the website
 - Feedback from community
 
