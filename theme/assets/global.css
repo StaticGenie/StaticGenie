@@ -106,6 +106,7 @@ div.page pre code {
     padding:10px;
     display:block;
     margin: 20px 0 20px 0;
+    overflow:auto;
 }
 div.page blockquote {
     margin:30px 0 30px 0;
