@@ -257,10 +257,7 @@ If installed (and classes/interfaces imported) correctly, you should be able to 
 
 - Rename `pages` to `basicpages`. Referring to `pages` is too abstract when discussing details
 - Break up this README.md into the website. Don't want two sources of truth!
-- Inconsistency between the terms model & data. Need 3 models for templates;
-  - Global (frozen after all plugins initialised)
-  - Theme (frozen)
-  - Page (immutable, but not sharable between plugins)
+- Review @ TODOs
 - Deploy the website
 - Feedback from community
 
