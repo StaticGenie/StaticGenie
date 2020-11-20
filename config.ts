@@ -11,6 +11,7 @@ import {ThemeEJS, iThemeEJSConfig} from "./src/services/theme";
 import {ReportConsole, iReportConsoleConfig} from "./src/services/report";
 import {iPluginConfig as iPluginPagesConfig} from "./src/plugins/pages";
 import {iThemeConfigData} from "./theme/package";
+import { Services } from "./src/libs/services";
 
 /**
  * Configure your website here
@@ -56,6 +57,7 @@ export = <iConfig>{
                 config: <iThemeEJSConfig>{
                     data: <iThemeConfigData>{
                         title: "StaticGenie",
+                        logoLink: "/index.html",
                         socialLinks: [
                             {name: "GitHub", url: "https://github.com/StaticGenie/StaticGenie", image: "/assets/images/github.png"},
                             {name: "Reddit", url: "https://reddit.com/u/StaticGenie", image: "/assets/images/reddit.png"},
@@ -63,8 +65,7 @@ export = <iConfig>{
                         ],
                         headerLinks: [
                             {name: "Home", url: "/index.html"},
-                            {name: "Getting Started", url: "/docs/getting-started/installation.html"},
-                            {name: "Docs", url: "/docs/index.html"},
+                            {name: "Docs", url: "/docs/getting-started/installation.html"},
                             {name: "Roadmap", url: "/roadmap.html"},
                         ],
                         footerLinks: [

@@ -14,21 +14,25 @@ page:
 ###########################################
 =====
 
-# Next Release @TODO
+# Current Sprint
 
-1.0.0 (In Progress)
+0.1.0 (In Progress)
 
+- The TOC layout required a lot of copy and pasting of the same TOC between pages. This is wrong. Need to figure out the recommended way (define in theme or hard code in docs layout but both have pros and cons)
 - Rename `pages` to `basicpages`. Referring to `pages` is too abstract when discussing details
-- Break up this README.md into the website. Don't want two sources of truth!
 - Review @ TODOs
-- Deploy the website
+
+0.1.1 (Implement/Note Community Feedback)
+
 - Feedback from community
 
-1.1.0 (Blog Support)
+0.2.0 (Blog Support)
 
 - Finish the blog plugin (currently a mess due to prototyping use cases) and refactor the required functionality out of the pages plugin
 
 # Backlog
+
+Not yet scheduled.
 
 ## Performance
 
@@ -42,11 +46,16 @@ page:
 - Create examples of common tasks
 - Create public repo of plugins, service providers and themes
 - Get involved with dev networks on places like reddit, linkedin, twitter, etc
+- Release log (more important when reaching first v1 release)
 
 ## Nice To Have
 
 - Figure out a way of reliably (DRY) changing the output directory for the generated website
 - Embrace the github community tools like wiki, projects, bugs, etc
+
+## Bugs
+
+- If writer tries to write over another file. It should error via the report service provider 
 
 # Idea Discussions
 

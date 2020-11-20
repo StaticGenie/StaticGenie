@@ -25,7 +25,7 @@ a:hover {
 }
 
 .constrict {
-    width:1100px;
+    max-width:1100px;
     margin-left:auto;
     margin-right:auto;  
 }
@@ -102,25 +102,38 @@ div.page code {
     font-family:"Lucida Console", Monaco, monospace;
     font-size:smaller;
 }
-
 div.page pre code {
     padding:10px;
     display:block;
     margin: 20px 0 20px 0;
 }
-
+div.page blockquote {
+    margin:30px 0 30px 0;
+    padding: 10px;
+    background-color:#DDDDDD;
+    border-radius: 3px;
+}
+div.page blockquote p {
+    padding:0;
+    margin:0;
+}
 div.page p {
     line-height:1.5;
 }
 div.page h1 {
-    font-size:46px;
+    font-size:38px;
     font-weight:bold;
-    margin-top:50px;
+    margin-top:60px;
 }
 div.page h2 {
-    font-size:26px;
+    font-size:24px;
     font-weight:bold;
-    margin-top:50px;
+    margin-top:45px;
+}
+div.page h3 {
+    font-size:16px;
+    font-weight:bold;
+    margin-top:30px;
 }
 div.page p {
     line-height:1.5;

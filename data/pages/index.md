@@ -7,7 +7,7 @@ config:
   file: /index.html
   
 page: 
-  jumbotron: The Static Website Generator
+  jumbotron: Static Website Generator
 
 ###########################################
 # BODY

@@ -1,0 +1,71 @@
+###########################################
+# HEAD
+###########################################
+
+config: 
+  layout: page-toc
+  file: /docs/advanced/creating-a-theme.html
+
+page: 
+  jumbotron: Creating A Theme
+  toc:
+    Getting Started: 
+      Installation: /docs/getting-started/installation.html
+      Commands: /docs/getting-started/commands.html
+      Directory Structure: /docs/getting-started/directory-structure.html
+    Core:
+      Services: /docs/core/services.html
+      Plugins: /docs/core/plugins.html
+      Libs: /docs/core/libs.html
+    How To:
+      New Pages: /docs/how-to/new-pages.html
+      Bespoke Design: /docs/how-to/bespoke-design.html
+      Display Image: /docs/how-to/display-image.html
+      Reusable HTML: /docs/how-to/reusable-html.html
+    Advanced:
+      Creating A Theme: /docs/advanced/creating-a-theme.html
+      Creating A Service: /docs/advanced/creating-a-service.html
+      Creating A Plugin: /docs/advanced/creating-a-plugin.html
+
+###########################################
+# BODY
+###########################################
+=====
+
+# What is a theme
+
+A theme is where all the HTML and assets (images, javascript, css, etc) are located. The theme will use a rendering engine such as EJS (as is the case with StaticGenie) to construct web pages.
+
+# Creating a theme
+
+Everything relating to a theme belongs within the `/theme` directory. It's completely seperate from the data of the website.
+
+## Assets
+
+Place any supporting assets within `/theme/assets` such as .css, .jpg, and .js files. These will be copied straight over to the final website accessible via `/www/assets/*`
+
+## Layouts
+
+Place any layouts inside `/theme/layouts`. These are the root layouts used to generate web pages from.
+
+## Partials
+
+Any snippets of template (partials) you wish to include should go here. 
+
+If you're using the default renderer (EJS) you can include EJS files like this `<%- include("/header") %>`. The root directory of where to search for partials will already be set to `/theme/partials`.
+
+## Package
+
+The `/theme/package.ts` file contains the configuration keys required by the theme. You can create anything you like in this file, but, you MUST export an interface called `iThemeConfigData` that defines all the theme keys used by your theme. This should be used within the `/config.ts` file to ensure the person using your theme includes the expected key/values (strongly typed).
+
+## Config
+
+Within `/config.ts` locate the string `data: <iThemeConfigData>{` within the theme service provider. This is where you configure the theme. When the theme is loaded into the StaticGenie app it will be frozen (no longer changeable).
+
+## Model
+
+When building a theme, you need to be able to render useful data! Thankfully you can access 3 models within your layouts/partials using the following keys:
+
+- `theme.{key}` - Theme settings. You can see what keys are defined within `/config.ts` within the `theme` service provider under the `data` key
+- `global.{key}` - Global model generated when all plugins initialise, stored within the `globalmodel` service provider. Refer to individual plugins documentation (or its `intialise()` method) for the keys made available
+- `page.{key}` - Page specific values defined by plugins when generating the specific page. Refer to individual plugins documentation (or its `generate()` method) for the keys made available

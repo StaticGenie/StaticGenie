@@ -6,7 +6,7 @@
             <% }) %>
         </div>
         <ul>
-            <li class='logo'><a href='index.html'>StaticGenie</a></li>
+            <li class='logo'><a href='<%- theme.logoLink %>'>StaticGenie</a></li>
             <li class='sep'>|</li>
             <% theme.headerLinks.forEach(link => { %>
                 <li><a href='<%- link.url %>'><%= link.name %></a></li>
