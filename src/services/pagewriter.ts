@@ -15,7 +15,7 @@ export interface iPageWriter {
 abstract class PageWriter implements iService, iPageWriter {
 
     /**
-     * Allows access to service providers and config
+     * Dependency injection
      * @param services 
      * @param config 
      */

@@ -21,8 +21,8 @@ export class Model implements iService, iModel {
     public data: {[key: string] : any} = {};
 
     /**
-     * Initialise using provided config
-     * @param services service provider access, but, don't use any
+     * Dependency injection
+     * @param services
      * @param config 
      */
     initialise(services:Services, config:iModelConfig) {
