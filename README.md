@@ -236,15 +236,20 @@ services: {
 
 If installed correctly, you should be able to call the service within plugin methods and service methods like: `services.get("[NAME]").[METHOD]()`
 
-
-
-
-
-
-
 # Tips
 
 - `@TODO` is a convention I have used to tag anything that needs looking into. Using VSCode I open a global search panel with `@TODO` and it provides me a todo list. I then check each of the todos before a release and use the todos to ensure refactorings and similar tech debt do not get forgotten.
+
+
+
+
+
+
+
+
+
+
+
 
 # Next Release @TODO
 
@@ -257,12 +262,12 @@ If installed correctly, you should be able to call the service within plugin met
   - Theme (frozen)
   - Page (immutable, but not sharable between plugins)
 - Rename `model` to `globalmodel`. 
-- deploy the website
-- feedback from community
+- Deploy the website
+- Feedback from community
 
 1.1.0 (Blog Support)
 
-- finish the blog plugin (currently a mess due to prototyping use cases) and refactor the required functionality out of the pages plugin
+- Finish the blog plugin (currently a mess due to prototyping use cases) and refactor the required functionality out of the pages plugin
 
 # Backlog
 
@@ -282,6 +287,7 @@ If installed correctly, you should be able to call the service within plugin met
 ## Nice To Have
 
 - Figure out a way of reliably (DRY) changing the output directory for the generated website
+- Embrace the github community tools like wiki, projects, bugs, etc
 
 # Idea Discussions
 
