@@ -22,6 +22,7 @@ export class Model implements iService, iModel {
 
     /**
      * Initialise using provided config
+     * @param services service provider access, but, don't use any
      * @param config 
      */
     initialise(services:Services, config:iModelConfig) {
@@ -29,17 +30,17 @@ export class Model implements iService, iModel {
     }
 
     /**
-     * Freeze the model once all plugins have initialised to prevent generators interfering with them
+     * When plugins have all initialised
      */
     pluginsInitialised() {
         this.freeze()
     }
 
     /**
-     * Nothing to do when this happens
+     * When plugins have generated all their pages
      */
     pluginsGenerated() {
-
+        // Nothing to do when this happens
     }
 
     /**

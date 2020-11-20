@@ -8,9 +8,27 @@ import {iService, iConfigService, Services} from "../libs/services";
 import * as ejs from "ejs";
 import * as fs from "fs";
 
+/**
+ * Theme interface
+ */
 export interface iTheme {
+
+    /**
+     * A shortcut method that knows where to pick the layout from StaticGenie
+     * @param layout layout as string data
+     * @param data the model to use with the layout
+     * @returns the rendered layout
+     */
     renderLayout(layout:string, data:{[key: string] : any}): string;
+
+    /**
+     * Renders a string and sets the partials directory
+     * @param template string
+     * @param data the model to use with the template
+     * @returns the rendered template
+     */
     render(template:string, data:{[key: string] : any}): string;
+
 }
 
 interface iThemeConfig extends iConfigService {
@@ -23,6 +41,10 @@ abstract class Theme implements iService, iTheme {
      * @TODO this is UGLY due to not using the constructor to setup the objects. As a result, they have to be initialised here. This sucks - but so does handling constructor interfaces in TypeScript ><
      */
     protected config:iThemeConfig = {data: {}};
+
+    /**
+     * Service provider access
+     */
     protected services:Services = new Services();
 
     /**
@@ -32,7 +54,7 @@ abstract class Theme implements iService, iTheme {
      */
     initialise(services:Services, config:iThemeConfig) {
 
-        // Save theme model
+        // Save theme config & data model
         this.config = config;
         
         // Freeze config to make debugging easier and remove the choice of plugins being able to change too much
@@ -43,12 +65,18 @@ abstract class Theme implements iService, iTheme {
 
     }
 
+    /**
+     * When plugins have all initialised
+     */
     pluginsInitialised() {
-
+        // Nothing to do when his happens
     }
 
+    /**
+     * When plugins have generated all their pages
+     */
     pluginsGenerated() {
-    
+        // Nothing to do when this happens
     }
 
     abstract renderLayout(layout:string, data:{[key:string] : any}) : string;
@@ -56,20 +84,16 @@ abstract class Theme implements iService, iTheme {
 
 }
 
+/**
+ * EJS Template Engine
+ */
 export class ThemeEJS extends Theme {
 
     /**
-     * @TODO setup EJS
-     */
-    constructor() {
-        super();
-    }
-
-    /**
      * Renders a layout using the data
-     * @TODO create a consistent model structure to pass the EJS
-     * @param layout 
-     * @param data 
+     * @param layout layout as string data
+     * @param data the model to use with the layout
+     * @returns the rendered layout
      */
     renderLayout(layout:string, data:{[key:string] : any}) : string {
         return this.render(fs.readFileSync("./theme/layouts/" + layout + ".ejs").toString(), data);
@@ -77,9 +101,9 @@ export class ThemeEJS extends Theme {
     
     /**
      * Renders a template using the data model
-     * @TODO create a consistent model structure to pass the EJS
-     * @param template 
-     * @param data 
+     * @param template string
+     * @param data the model to use with the template
+     * @returns the rendered template
      */
     render(template:string, data:{[key:string] : any}) : string {
 
@@ -96,6 +120,9 @@ export class ThemeEJS extends Theme {
 
 }
 
+/**
+ * EJS Specific Config
+ */
 export interface iThemeEJSConfig extends iThemeConfig {
 
 }

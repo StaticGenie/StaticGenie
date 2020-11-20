@@ -12,8 +12,7 @@ import * as fs from "fs";
 
 /**
  * Returns array of all files (including within directories) minus the directory itself
- * 
- * @param dir
+ * @param dir directory to scan
  */
 export function getFilesSync(dir:string) : string[] {
     let files: string[] = [];

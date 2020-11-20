@@ -9,12 +9,12 @@ import {iConfig as iConfigPlugins, iPlugin} from "./plugins";
 import {iConfigServices} from "./services";
 
 /**
- * The core application, everything starts here!!
+ * The core application where different phases of the generator are glued together
  */
 export class App {
 
     /**
-     * Everything configuration related
+     * The global config of the app and all its plugins/services/theme/etc (referenced at /config.ts)
      */
     private config:iConfig;
 
@@ -24,13 +24,13 @@ export class App {
     private plugins: {[key:string] : iPlugin} = {};
 
     /**
-     * Service providers perform tasks shared by the generators such as; caching, image resizing, clash handling, etc
+     * Manages all the built services and their state that are passed into plugins, services, etc
      */
     private services:services.Services;
 
     /**
      * All starts (and ends) here
-     * @param config 
+     * @param config The global config of the app and all its plugins/services/theme/etc (referenced at /config.ts)
      */
     constructor(config:iConfig) {
 

@@ -6,6 +6,9 @@
 
 import {iService, iConfigService, Services} from "../libs/services"
 
+/**
+ * Service interface
+ */
 export interface iReport {
     add(file:string, err:string) : void;
 }
@@ -15,30 +18,57 @@ export interface iReport {
  */
 abstract class Report implements iService, iReport {
     
+    /**
+     * The files to include in the report with error info (if any)
+     */
     protected files:{[key:string] : string} = {};
 
+    /**
+     * Add file to report
+     * @param file file name to add
+     * @param err error if any
+     */
     add(file:string, err:string = "") {
         this.files[file] = err;
     }
     
+    /**
+     * When plugins have all initialised
+     */
     pluginsInitialised() {
-
+        // Nothing to do when his happens
     }
 
+    /**
+     * When plugins have generated all their pages
+     */
     pluginsGenerated() {
-
+        // Nothing to do when this happens
     }
 
+    /**
+     * Dependency injection
+     * @param services 
+     * @param config 
+     */
     abstract initialise(services:Services, config:iConfigService) : void;
 
 }
 
 export class ReportConsole extends Report {
     
+    /**
+     * Dependency injection
+     * @param services 
+     * @param config 
+     */
     initialise(services:Services, config:iReportConsoleConfig) {
 
     }
 
+    /**
+     * When plugins have generated all their pages
+     */
     pluginsGenerated() {
         
         // Produce the report in one go (don't do multiple console.logs as it's VERY SLOW if 1000's are needed)
@@ -63,6 +93,9 @@ export class ReportConsole extends Report {
     }
 }
 
+/**
+ * Console report config
+ */
 export interface iReportConsoleConfig extends iConfigService {
    
 }

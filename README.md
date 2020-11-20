@@ -250,7 +250,6 @@ If installed correctly, you should be able to call the service within plugin met
 
 1.0.0 (In Progress)
 
-- comment all code
 - Inconsistency between the terms model & data. Need 3 models for templates;
   - Global (frozen after all plugins initialised)
   - Theme (frozen)

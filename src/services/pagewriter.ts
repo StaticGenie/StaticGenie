@@ -14,18 +14,34 @@ export interface iPageWriter {
 
 abstract class PageWriter implements iService, iPageWriter {
 
+    /**
+     * Allows access to service providers and config
+     * @param services 
+     * @param config 
+     */
     initialise(services:Services, config:iPageWriterFileConfig) {
-        
+        // Nothing to do here
     }
 
+    /**
+     * Write the data
+     * @param file file location
+     * @param data 
+     */
     abstract write(file:string, data:string|Buffer): void;
 
+    /**
+     * When plugins have all initialised
+     */
     pluginsInitialised() {
-
+        // Nothing to do when his happens
     }
 
+    /**
+     * When plugins have generated all their pages
+     */
     pluginsGenerated() {
-    
+        // Nothing to do when this happens
     }
 
 }
