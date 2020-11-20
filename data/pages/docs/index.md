@@ -4,7 +4,7 @@
 
 config: 
   layout: page-toc
-  file: /docs/getting-started/installation.html
+  file: /docs/index.html
 
 page: 
   jumbotron: Getting Started

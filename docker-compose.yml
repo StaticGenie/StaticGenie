@@ -16,3 +16,8 @@ services:
     # mount these volumes with write access so the code within the container can modify files within it. In this case, everything is mounted.
     volumes:
       - ./:/home/sg
+    
+    # Used by http-server when showing a demo of the generated website
+    ports:
+    - "8080:8080"
+    
