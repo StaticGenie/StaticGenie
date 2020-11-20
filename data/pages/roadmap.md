@@ -21,9 +21,12 @@ page:
 - The TOC layout required a lot of copy and pasting of the same TOC between pages. This is wrong. Need to figure out the recommended way (define in theme or hard code in docs layout but both have pros and cons)
 - Rename `pages` to `basicpages`. Referring to `pages` is too abstract when discussing details
 - Review @ TODOs
+- If writer tries to write over another file. It should error via the report service provider 
 
 0.1.1 (Implement/Note Community Feedback)
 
+- Logo & some nice pics to spice up the website
+- Make responsive
 - Feedback from community
 
 0.2.0 (Blog Support)
@@ -50,12 +53,8 @@ Not yet scheduled.
 
 ## Nice To Have
 
-- Figure out a way of reliably (DRY) changing the output directory for the generated website
+- Figure out a way of reliably (DRY) changing the output directory for the generated website (such as `/docs` for github pages)
 - Embrace the github community tools like wiki, projects, bugs, etc
-
-## Bugs
-
-- If writer tries to write over another file. It should error via the report service provider 
 
 # Idea Discussions
 
