@@ -250,13 +250,13 @@ If installed correctly, you should be able to call the service within plugin met
 
 1.0.0 (In Progress)
 
+- Rename `pages` to `basicpages`. Referring to `pages` is too abstract when discussing details
+- Break up this README.md into the website. Don't want two sources of truth!
 - Inconsistency between the terms model & data. Need 3 models for templates;
   - Global (frozen after all plugins initialised)
   - Theme (frozen)
   - Page (immutable, but not sharable between plugins)
-- Rename `pages` to `basicpages`. Referring to `pages` is too abstract when discussing details
 - Rename `model` to `globalmodel`. 
-- move the readme.md content to the website
 - deploy the website
 - feedback from community
 
@@ -278,12 +278,10 @@ If installed correctly, you should be able to call the service within plugin met
 - Create examples of common tasks
 - Create public repo of plugins, service providers and themes
 - Get involved with dev networks on places like reddit, linkedin, twitter, etc
-- Break up this README.md into the website. Don't want two sources of truth!
 
 ## Nice To Have
 
-- @TODO Create a markdown css file as part of the theme and style it up
-- @TODO Figure out a way of reliably changing the output directory for the generated website
+- Figure out a way of reliably (DRY) changing the output directory for the generated website
 
 # Idea Discussions
 

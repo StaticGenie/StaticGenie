@@ -28,7 +28,6 @@ export = <iConfig>{
 
     /**
      * Load all services to be used by plugins
-     * @TODO the services config doesn't "require" name, class in the interface. Fix this.
      */
     services: {
         beforePluginsInitialised: {
