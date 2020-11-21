@@ -34,8 +34,7 @@ page:
 
 # What is a service provider
 
-
-A service provides capabilities mostly for plugins to use. Services are instantiated once by the framework and that same instance shared across all plugins. Services are access via interfaces to allow them to be switched out for different implementations.
+A service provides capabilities mostly for plugins to use. Services are instantiated once by the framework and that same instance shared across all plugins. Services are accessed via interfaces to allow them to be switched out for different implementations.
 
 ## Example service providers
 
