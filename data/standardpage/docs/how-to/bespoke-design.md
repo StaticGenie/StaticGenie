@@ -3,7 +3,7 @@
 ###########################################
 
 config: 
-  layout: page-toc
+  layout: standardpage-toc
   file: /docs/how-to/bespoke-design.html
 
 page: 

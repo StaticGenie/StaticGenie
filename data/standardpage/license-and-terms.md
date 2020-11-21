@@ -3,7 +3,7 @@
 ###########################################
 
 config: 
-  layout: page
+  layout: standardpage
   file: /license-and-terms.html
   
 page: 

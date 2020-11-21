@@ -3,7 +3,7 @@
 ###########################################
 
 config: 
-  layout: page-toc
+  layout: standardpage-toc
   file: /docs/core/plugins.html
 
 page: 
@@ -36,11 +36,11 @@ page:
 
 A plugin is responsible for generating web pages. They may uses various services to do this as well as it's configuration (defined within `/config.ts`). There are a few plugins built into StaticGenie;
 
-## Pages
+## StandardPage
 
-This is at the heart of StaticGenie. It's a simple model -> view setup.
+This is at the heart of StaticGenie. It's a simple model -> view setup and hence, creates a basic page.
 
-Create your page within `/data/pages` and name your file with the `.md` extension e.g. `/data/pages/about.md`. This page will contain all the data for the specific page.
+Create your page within `/data/standardpage` and name your file with the `.md` extension e.g. `/data/standardpage/about.md`. This page will contain all the data for the specific page.
 
 The `.md` file is broken down into 2 halves. The HEAD section which uses yaml syntax & the BODY part (everything below =====) which uses markdown syntax.
 
@@ -54,7 +54,7 @@ The first part of the file looks like this:
 ###########################################
 
 config: 
-  layout: page
+  layout: standardpage
   file: /about/index.html
 
 page: 
@@ -82,7 +82,7 @@ Everything below the `=====` will be rendered as markdown and made available to 
 
 ### Full Example
 
-Page `/data/pages/about.md`
+Page `/data/standardpage/about.md`
 
 ```
 ###########################################
@@ -90,7 +90,7 @@ Page `/data/pages/about.md`
 ###########################################
 
 config: 
-  layout: page
+  layout: standardpage
   file: /about.html
 
 page: 

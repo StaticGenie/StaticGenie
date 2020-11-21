@@ -6,7 +6,7 @@
 
 import {iPlugin} from "../libs/plugins";
 import {Services} from "../libs/services";
-import {Plugin as Pages, iPluginConfig as iPagesConfig} from "./pages";
+import {Plugin as StandardPage, iPluginConfig as iStandardPageConfig} from "./standardpage";
 import {iGlobalModel} from "../services/globalmodel";
 import * as helpers from "../libs/helpers";
 import * as fs from "fs";
@@ -16,7 +16,7 @@ import * as slugify from "slugify";
  * Plugin
  * @TODO sort out the pages plugin then finish this one.
  */
-export class Plugin extends Pages implements iPlugin {
+export class Plugin extends StandardPage implements iPlugin {
 
     /**
      * Update the model, check config, etc
@@ -124,6 +124,6 @@ export class Plugin extends Pages implements iPlugin {
 
 }
 
-interface iPluginConfig extends iPagesConfig {
+interface iPluginConfig extends iStandardPageConfig {
 
 }

@@ -3,7 +3,7 @@
 ###########################################
 
 config: 
-  layout: page
+  layout: standardpage
   file: /credits.html
   
 page: 

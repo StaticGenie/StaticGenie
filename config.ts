@@ -9,9 +9,8 @@ import {GlobalModel, iGlobalModelConfig} from "./src/services/globalmodel";
 import {PageWriterFile, iPageWriterFileConfig} from "./src/services/pagewriter";
 import {ThemeEJS, iThemeEJSConfig} from "./src/services/theme";
 import {ReportConsole, iReportConsoleConfig} from "./src/services/report";
-import {iPluginConfig as iPluginPagesConfig} from "./src/plugins/pages";
+import {iPluginConfig as iPluginStandardPageConfig} from "./src/plugins/standardpage";
 import {iThemeConfigData} from "./theme/package";
-import { Services } from "./src/libs/services";
 
 /**
  * Configure your website here
@@ -22,7 +21,7 @@ export = <iConfig>{
      * Lists all plugins to load and their respective config
      */
     plugins: {
-        "../plugins/pages": <iPluginPagesConfig>{
+        "../plugins/standardpage": <iPluginStandardPageConfig>{
 
         }
     },

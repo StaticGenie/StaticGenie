@@ -3,7 +3,7 @@
 ###########################################
 
 config: 
-  layout: page
+  layout: standardpage
   file: /index.html
   
 page: 

@@ -3,7 +3,7 @@
 ###########################################
 
 config: 
-  layout: page
+  layout: standardpage
   file: /roadmap.html
   
 page: 
@@ -19,7 +19,6 @@ page:
 0.1.0 (In Progress)
 
 - The TOC layout required a lot of copy and pasting of the same TOC between pages. This is wrong. Need to figure out the recommended way (define in theme or hard code in docs layout but both have pros and cons)
-- Rename `pages` to `basicpages`. Referring to `pages` is too abstract when discussing details
 - Review @ TODOs
 - If writer tries to write over another file. It should error via the report service provider 
 

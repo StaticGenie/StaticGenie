@@ -3,7 +3,7 @@
 ###########################################
 
 config: 
-  layout: page-toc
+  layout: standardpage-toc
   file: /docs/getting-started/directory-structure.html
 
 page: 

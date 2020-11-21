@@ -3,11 +3,11 @@
 ###########################################
 
 config: 
-  layout: page-toc
-  file: /docs/how-to/new-pages.html
+  layout: standardpage-toc
+  file: /docs/how-to/reusable-html.html
 
 page: 
-  jumbotron: New Pages
+  jumbotron: Reusable HTML
   toc:
     Getting Started: 
       Installation: /docs/getting-started/installation.html
@@ -34,14 +34,13 @@ page:
 
 # The Challenge
 
-Create a new page
+I've got some HTML directly embedded within the markdown of a single page. However, I want to re-use that HTML on other pages.
 
-## Option 1 - Use Built In Page Plugin
+## Option 1 - Create A Partial
 
-Using the built in core page plugin is the easiest way to create a page. You can find more info on this here: [Core Plugins](/docs/core/plugins.md)
+This would be the main solution. It's what `partials` were designed for.
 
 @TODO how
 
-## Option 2 - Create A Plugin
-
-If you want to generate pages based on data such as that returned from Twitter or other sources. You may want to [create your own plugin](/docs/advanced/creating-a-plugin).
+- extract html
+- extract values into page. or theme. depending on if side wide or page specific.

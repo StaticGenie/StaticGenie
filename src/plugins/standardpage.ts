@@ -44,7 +44,7 @@ export class Plugin implements iPlugin {
         const report = <iReport>services.get("report");
 
         // Find all the page defs
-        helpers.getFilesSync("./data/pages").forEach(file => {
+        helpers.getFilesSync("./data/standardpage").forEach(file => {
             try {
                 
                 // Read the file contents into document
