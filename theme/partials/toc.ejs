@@ -1,0 +1,14 @@
+<div class='toc'>
+    <ul>
+        <% Object.keys(toc).forEach(heading => { %>
+            <li>
+                <%= heading %>
+                <ul>
+                    <% Object.keys(toc[heading]).forEach(linkName => { %>
+                        <li><a href='<%- toc[heading][linkName] %>'><%= linkName %></a></li>
+                    <% }) %>
+                </ul>
+            </li>
+        <%  }) %>
+    </ul>
+</div>

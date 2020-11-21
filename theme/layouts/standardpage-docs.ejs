@@ -29,20 +29,7 @@
         <%- include("/header") %>
         <%- include("/jumbotron") %>
         <section class='canvas constrict'>
-            <div class='toc'>
-                <ul>
-                <% Object.keys(page.toc).forEach(heading => { %>
-                    <li>
-                        <%= heading %>
-                        <ul>
-                            <% Object.keys(page.toc[heading]).forEach(linkName => { %>
-                                <li><a href='<%- page.toc[heading][linkName] %>'><%= linkName %></a></li>
-                            <% }) %>
-                        </ul>
-                    </li>
-                <%  }) %>
-            </ul>
-            </div>
+            <%- include("/toc", {toc: theme.docs}) %>
             <div class='page'>
                 <%- page.content %>
             </div>

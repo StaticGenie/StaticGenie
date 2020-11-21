@@ -18,9 +18,7 @@ page:
 
 0.1.0 (In Progress)
 
-- The TOC layout required a lot of copy and pasting of the same TOC between pages. This is wrong. Need to figure out the recommended way (define in theme or hard code in docs layout but both have pros and cons)
 - Review @ TODOs
-- If writer tries to write over another file. It should error via the report service provider 
 
 0.1.1 (Implement/Note Community Feedback)
 
