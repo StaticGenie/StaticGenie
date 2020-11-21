@@ -63,7 +63,15 @@ export class PageWriterFile extends PageWriter {
 
         // Write the file
         try {
+
+            // The user shouldn't be overwriting a file
+            if (fs.existsSync(this.config.outDirectory + "/" + file) === true) {
+                throw new Error("File already exists: " + this.config.outDirectory + "/" + file);
+            }
+
+            // Write the file
             fs.outputFileSync(this.config.outDirectory + "/" + file, data);
+            
         } catch (e) {
             err = e.toString();
         }
