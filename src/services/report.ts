@@ -72,23 +72,25 @@ export class ReportConsole extends Report {
     pluginsGenerated() {
         
         // Produce the report in one go (don't do multiple console.logs as it's VERY SLOW if 1000's are needed)
-        let report = Object.keys(this.files).map(file => ` [${this.files[file] === "" ? "OK" : "ERROR"}] ${file} ${this.files[file]}`).join("\n");
+        let ok = Object.keys(this.files).filter(file => this.files[file] === "").map(file =>`[OK] ${file}`);
+        let errored = Object.keys(this.files).filter(file => this.files[file] !== "").map(file =>`[ERROR] ${file} ${this.files[file]}`);
         
         // Output the report
         // @TODO split the files into success, list errors at the end & show the summary as X created, X failed. Probably better to store an array of objects, also allows the use of filter and would potentially be better performance wise
 
         console.log()
-        console.log(" ==================================================")
-        console.log(" === REPORT")
-        console.log(" ==================================================")
+        console.log("==================================================")
+        console.log("=== REPORT")
+        console.log("==================================================")
         console.log()
-        console.log(report)
+        console.log(ok.join("\n"))
+        console.log(errored.join("\n"))
         console.log()
-        console.log(` ${Object.keys(this.files).length} Files Generated`)
+        console.log(`${ok.length}/${ok.length + errored.length} Pages Generated (${errored.length} Errors)`)
         console.log()
-        console.log(" ==================================================")
-        console.log(" === END")
-        console.log(" ==================================================")
+        console.log("==================================================")
+        console.log("=== END")
+        console.log("==================================================")
 
     }
 }
