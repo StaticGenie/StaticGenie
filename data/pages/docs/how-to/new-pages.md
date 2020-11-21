@@ -32,7 +32,16 @@ page:
 ###########################################
 =====
 
-# @TODO
+# The Challenge
 
-- using page plugin
-- create own plugin
+Create a new page
+
+## Option 1 - Use Built In Page Plugin
+
+Using the built in core page plugin is the easiest way to create a page. You can find more info on this here: [Core Plugins](/docs/core/plugins.md)
+
+@TODO how
+
+## Option 2 - Create A Plugin
+
+If you want to generate pages based on data such as that returned from Twitter or other sources. You may want to [create your own plugin](/docs/advanced/creating-a-plugin).
