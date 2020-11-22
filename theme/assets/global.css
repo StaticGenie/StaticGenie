@@ -159,11 +159,11 @@ footer div.links {
     text-align:center;
     color:#666;
 }
-footer div.links a:hover, footer div.links a:active, footer div.links a:link, footer div.links a:visited {
+footer a:hover, footer a:active, footer a:link, footer a:visited {
     color:#AAA;
     text-decoration: none;
 }
-footer div.links a:hover {
+footer a:hover {
     color:#FFF;
 }
 footer div.copyright {
@@ -171,6 +171,8 @@ footer div.copyright {
     color:#AAA;
     margin-top:10px;
 }
-footer div.links a {
+footer div.generated-by {
+    text-align:center;
     color:#AAA;
+    margin-top:10px;
 }
