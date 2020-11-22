@@ -18,7 +18,7 @@
     "type": "git",
     "url": "git+https://github.com/StaticGenie/StaticGenie.git"
   },
-  "keywords": [],
+  "keywords": ["Static Website Generator", "Website Builder", "StaticGenie", "Static Genie"],
   "author": "Scott (ScottyCoder)",
   "license": "MIT",
   "bugs": {

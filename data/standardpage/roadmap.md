@@ -18,13 +18,14 @@ page:
 
 0.1.0 (In Progress)
 
-- Review @ TODOs
+- Finish documentation
+- Feedback from community
 
 0.1.1 (Implement/Note Community Feedback)
 
 - Logo & some nice pics to spice up the website
 - Make responsive
-- Feedback from community
+- Update meta tags (author, viewport, etc)
 
 0.2.0 (Blog Support)
 
@@ -56,7 +57,7 @@ Not yet scheduled.
 # Idea Discussions
 
 - Create a proper dependency injection system around the services with proper constructor, register, init, boot, event system instead of old fashioned hooks, etc... Will break the API though so probably better for a version 2 thing once the use cases have been properly ironed out and the requirements defined
-- Figure out an easy way of updating the framework (at the moment it's going to be a clone as opposed to npm install)
+- Figure out an easy way of updating the framework (at the moment it's going to be a clone as opposed to npm install)?
 - Support async... maybe... conflict between simplicity and performance here. Might be better to allow chunks of the framework to run in parallel so the simplicity is retained.
 
 
