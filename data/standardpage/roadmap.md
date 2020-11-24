@@ -31,6 +31,10 @@ page:
 
 - Finish the blog plugin (currently a mess due to prototyping use cases) and refactor the required functionality out of the pages plugin
 
+0.3.0 (NPM)
+
+- Create a CLI interface to publish to npm
+
 # Backlog
 
 Not yet scheduled.
