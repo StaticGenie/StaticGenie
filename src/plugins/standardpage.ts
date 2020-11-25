@@ -9,18 +9,15 @@ import {Services} from "../libs/services";
 import {iPageWriter} from "../services/pagewriter";
 import {iTheme} from "../services/theme";
 import {iReport} from "../services/report";
+import {iSGDocumentObject, SGDocument} from "../libs/sgdocument";
 import * as helpers from "../libs/helpers";
-import * as yaml from "js-yaml";
 import * as fs from "fs";
-import * as markdown from "markdown-it";
 
 /**
  * Plugin
  * @TODO break out this functionality into libs/ class. Then allow the blog plugin to use it. Would also allow much better unit testing.
  */
 export class Plugin implements iPlugin {
-
-    protected delimiter:string = "\n====="; // Windows CRLF will still work with this (don't put a trailing \n in the delimiter) 
 
     /**
      * Update the model, check config, etc
@@ -48,23 +45,10 @@ export class Plugin implements iPlugin {
             try {
                 
                 // Read the file contents into document
-                let documentRaw = fs.readFileSync(file, 'utf8');
-
-                // Find the delimiter position
-                let position = this.findDelimiterPosition(documentRaw);
-                
-                // Extract yaml head
-                let documentYaml = this.extractYaml(documentRaw, position);
-
-                // Verify structure
-                this.verifyConfig(documentYaml);
-                this.verifyPage(documentYaml);
-
-                // Extract markdown body
-                documentYaml.page.content = this.extractMarkdown(documentRaw, position);
+                let document = new SGDocumentStandardPage(fs.readFileSync(file, 'utf8')).export()
 
                 // Write the page
-                pages.write(documentYaml.config.file, theme.renderLayout(documentYaml.config.layout, documentYaml.page));
+                pages.write(document.config.file, theme.renderLayout(document.config.layout, document.page));
                 
             } catch (e) {
 
@@ -77,64 +61,41 @@ export class Plugin implements iPlugin {
 
     }
 
-    protected findDelimiterPosition(document:string, delimiter:string = this.delimiter){
-        let position = document.indexOf(delimiter);
-        if (position === -1) {
-            throw new Error(`Couldn't find the delimiter '${delimiter}' that separates the yaml from the markdown`);
-        }
-        return position;
+}
 
-    }
+/**
+ * Understands how to parse & verify Standard Pages
+ */
+class SGDocumentStandardPage extends SGDocument {
 
-    protected extractYaml(document:string, position:number) : iYamlObject  {
-        return <iYamlObject>yaml.safeLoad(document.slice(0, position).trim());
-    }
-
-    protected verifyConfig(yamlObject: iYamlObject) {
+    /**
+     * Verify the document contains the expected fields on config.* & page.*
+     * @param document 
+     */
+    protected verifyDocument(document: iSGDocumentObject) : void {
 
         // Check required fields exist
-        if (yamlObject.hasOwnProperty("config") === false) throw new Error(`Does not contain a "config" property`);
-        if (yamlObject.config.hasOwnProperty("file") === false) throw new Error(`Does not contain a "config.file" property`);
-        if (yamlObject.config.hasOwnProperty("layout") === false) throw new Error(`Does not contain a "config.layout" property`);
+        if (document.hasOwnProperty("config") === false) throw new Error(`Does not contain a "config" property`);
+        if (document.config.hasOwnProperty("file") === false) throw new Error(`Does not contain a "config.file" property`);
+        if (document.config.hasOwnProperty("layout") === false) throw new Error(`Does not contain a "config.layout" property`);
         
         // If this field doesn't exist, make sure it does now
-        if (yamlObject.hasOwnProperty("page") === false) {
-            yamlObject.page = {};
+        if (document.hasOwnProperty("page") === false) {
+            document.page = {};
+        }
+
+        // These keys should NOT already exist as it's reserved for the parsed body sections content to be added later
+        if (document.page.hasOwnProperty("content") === true) {
+            throw new Error("You can not define your own 'page.content' key in the page head section as it's reserved for the main documents (body) content to occupy when parsed.");
         }
 
     }
 
-    protected verifyPage(yamlObject: iYamlObject) {
-
-        // These keys should NOT already exist as it's reserved for the parsed content section
-        if (yamlObject.page.hasOwnProperty("content") === true) {
-            throw new Error("You can not define your own 'page.content.raw' key in the page head section as it's reserved for the main documents content to occupy.");
-        }
-
-    }
-
-    protected extractMarkdown(document:string, position:number) : string {
-
-        // Markdown parser
-        let md = new markdown.default({
-            html: true,
-            linkify: true,
-            typographer: true
-        });
-
-        // Extract and parse Markdown
-        return md.render(document.slice(position + this.delimiter.length).trim());
-        
-    }
-
-
-
 }
 
-export interface iYamlObject{
-    [key:string]:any
-}
-
+/**
+ * Configuration for this plugin
+ */
 export interface iPluginConfig extends iConfig {
 
 }

@@ -25,6 +25,7 @@ export class Plugin extends StandardPage implements iPlugin {
      */
     initialise(services:Services, config:iPluginConfig) {
 
+        /*
         // Load the yaml section of each page to build the globl model
         const global = (<iGlobalModel>services.get("globalmodel")).model;
 
@@ -69,7 +70,7 @@ export class Plugin extends StandardPage implements iPlugin {
 
         });
 
-        /*
+        
 
         compile and share these globally so all pages of the theme can use it
 
@@ -107,18 +108,7 @@ export class Plugin extends StandardPage implements iPlugin {
         // Generate the blog post pages /posts/post-title-here.html
 
             // Allow config to specify a different URL structure
-
             
-
-
-
-        
-
-
-
-
-
-
 
     }
 
