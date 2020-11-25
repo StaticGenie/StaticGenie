@@ -15,7 +15,6 @@ import * as fs from "fs";
 
 /**
  * Plugin
- * @TODO break out this functionality into libs/ class. Then allow the blog plugin to use it. Would also allow much better unit testing.
  */
 export class Plugin implements iPlugin {
 
@@ -41,6 +40,7 @@ export class Plugin implements iPlugin {
         const report = <iReport>services.get("report");
 
         // Find all the page defs
+        // @TODO get the file location from the config
         helpers.getFilesSync("./data/standardpage").forEach(file => {
             try {
                 

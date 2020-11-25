@@ -23,6 +23,9 @@ export = <iConfig>{
     plugins: {
         "../plugins/standardpage": <iPluginStandardPageConfig>{
 
+        },
+        "../plugins/blog": <iPluginStandardPageConfig>{
+            
         }
     },
 

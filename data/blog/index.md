@@ -3,14 +3,16 @@
 ###########################################
 
 config: 
-  title: My Top 50 Quotes
-  author: ScottyCoder
-  tags: 
-    - funny
-    - quotes
-  date: 2020-12-28
-  time: 12:00:00
   layout: post
+  post: 
+    title: My Top 50 Quotes
+    desc: For when you want a bit of inspiration
+    author: ScottyCoder
+    tags: 
+      - funny
+      - quotes
+    date: 2020-12-28
+    time: 12:00:00
 
 page: 
   jumbotron: Blog

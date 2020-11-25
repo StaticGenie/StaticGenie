@@ -19,7 +19,22 @@ export interface iSGDocumentObject{
  * Required interface for an SGDocument
  */
 export interface iSGDocumentExportable {
+
+    /**
+     * Export the fully parsed document
+     */
     export(): iSGDocumentObject;
+    
+    /**
+     * Doesn't require extracting and parsing the body
+     */
+    exportHead() : iSGDocumentObject;
+
+    /**
+     * Doesn't require extracting and parsing the head
+     */
+    exportBody() : string;
+
 }
 
 /**
@@ -80,7 +95,7 @@ export abstract class SGDocument implements iSGDocumentExportable {
     }
 
     /**
-     * Export the parsed and verified document
+     * Export the parsed and verified document including both head and body
      */
     export() : iSGDocumentObject {
 
@@ -96,6 +111,22 @@ export abstract class SGDocument implements iSGDocumentExportable {
         // Completed document
         return document;
         
+    }
+
+    /**
+     * Doesn't require extracting the body
+     */
+    exportHead() : iSGDocumentObject {
+        let head = this.getHead();
+        this.verifyDocument(head);
+        return head;
+    }
+
+    /**
+     * Doesn't require extracting the head
+     */
+    exportBody() : string {
+        return this.getBody();
     }
 
     /**
