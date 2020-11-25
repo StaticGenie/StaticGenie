@@ -14,17 +14,90 @@ page:
 ###########################################
 =====
 
-# @TODO
+# What is a plugin
 
-A plugin is responsible for generating web pages. They may uses various services to do this as well as it's configuration (defined within `/config.ts`). Plugins can not access other plugins.
+A plugin is responsible for generating web pages by using various imports (3rd party libs) and the frameworks service providers injected into the methods. Plugins can not access other plugins.
 
-**WARNING: It is possible to register new services from a plugin. DO NOT do this. In time this options will no longer be available.**
+## Example plugins
+
+- `StandardPage` - parses the .md files within the `/data/standarpage` directory and generates static web pages from them
+
+## Plugin structure
+
+**WARNING: It is possible to register new services from a plugin. DO NOT do this. In future updates this capability will no longer be available.**
+
+Here is a template for a new plugin. You must export a class called `Plugin` and an interface called `iPluginConfig`.
+```
+import {iPlugin} from "../libs/plugins";
+import {Services} from "../libs/services";
+
+/**
+ * Plugin
+ */
+export class Plugin implements iPlugin {
+
+    /**
+     * Update the model, check config, etc
+     * @param services
+     * @param config 
+     */
+    initialise(services:Services, config:iPluginConfig) {
+
+      // Usual action here is to get the "globalmodel" service provider and update the global model. 
+      // This global model can then be used by the generate method and other plugins/themes.
+
+    }
+
+    /**
+     * Generate pages
+     * @param services 
+     * @param config 
+     */
+    generate(services:Services, config:iPluginConfig) {
+        
+      // Usual action here is to create and send pages to the "pagewriter" service provider and upon
+      // an error generating a page, use the "report" service provider.
+
+    }
+
+}
+
+/**
+* Configuration of your plugin
+*/
+interface iPluginConfig {
+
+}
+
+## Registering & configuring the plugin
+
+Open `/config.ts`. 
+
+Locate the plugins key within the config. It should look something similar to this. 
+
+```
+plugins: {
+        "../plugins/standardpage": <iPluginStandardPageConfig>{
+
+        }
+    },
+```
+
+Add you plugin and it's config like this;
+
+```
+plugins: {
+        "../plugins/standardpage": <iPluginStandardPageConfig>{
+
+        },
+        "../plugins/yourpluginfile": <iPluginYourPluginConfig>{
+          // config here if any
+        }
+    },
+```
+
+You're done. Run StaticGenie and your plugin should run.
 
 
-# Tips
 
-Need to move these elsewhere
 
-- `@TODO` is a convention I have used to tag anything that needs looking into. Using VSCode I open a global search panel with `@TODO` and it provides me a todo list. I then check each of the todos before a release and use the todos to ensure refactorings and similar tech debt do not get forgotten.
-- When using a service provider, it's a good idea to hint the interface i.e. `let global = <iGlobalModel>services.get("globalmodel")` which will allow TypeScript static checking to work as well as your IDE intellisense.
-- When you need to create a more advanced yaml structure. I find this site very useful: [Online YAML Parser](https://yaml-online-parser.appspot.com/)

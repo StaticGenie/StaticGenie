@@ -16,13 +16,11 @@ page:
 
 # The Challenge
 
-Create a new page
+Create a new html page.
 
 ## Option 1 - Use Built In StandardPage Plugin
 
-Using the built in core StandardPage plugin is the easiest way to create a page. You can find more info on this here: [Core Plugins](/docs/core/plugins.md)
-
-@TODO how
+Using the built in [core](/docs/core/plugins.md) StandardPage plugin is the easiest way to create a page. You can find more info on using this plugin [here](/docs/core/plugins.md)
 
 ## Option 2 - Create A Plugin
 

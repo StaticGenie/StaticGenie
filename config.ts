@@ -72,13 +72,15 @@ export = <iConfig>{
                                 "New Pages" : "/docs/how-to/new-pages.html",
                                 "Bespoke Design" : "/docs/how-to/bespoke-design.html",
                                 "Display Image" : "/docs/how-to/display-image.html",
-                                "Reusable HTML" : "/docs/how-to/reusable-html.html",
                             },
                             "Advanced" : {
                                 "Creating A Theme" : "/docs/advanced/creating-a-theme.html",
                                 "Creating A Service" : "/docs/advanced/creating-a-service.html",
                                 "Creating A Plugin" : "/docs/advanced/creating-a-plugin.html",
-                            }
+                            },
+                            "Extras" : {
+                                "Tips" : "/docs/extras/tips.html",
+                            },
                         },
                         socialLinks: [
                             {name: "GitHub", url: "https://github.com/StaticGenie/StaticGenie", image: "/assets/images/github.png"},
