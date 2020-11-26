@@ -34,7 +34,7 @@ export class Plugin implements iPlugin {
     initialise(services:Services, config:iPluginConfig) {
 
         const gm = (<iGlobalModel>services.get("globalmodel")).model;
-        const model = new BlogGlobalModelBuilder();
+        const model = new GlobalModelCollectionsBuilder();
 
         // Find all the blog posts
         helpers.getFilesSync(config.directory).forEach(file => {
@@ -73,7 +73,34 @@ export class Plugin implements iPlugin {
 
         // @TODO think what's best to call the key the builder is attached to, and then rename the model builder class to match
         gm.blog.groups = model.build();
-        
+
+        //@TODO change the gm.blog model to something like this:
+        /*
+        let out = {
+            blog: iBlogGlobalModel{
+                functions: {
+                    getRandomPosts: (total) => {
+                        return _.sampleSize(out.blog.posts, total)
+                    },
+                }
+                posts: Post[]
+                collections:  iPostCollections{
+                    tags: {
+                        popular: iPostCollection[]
+                        alphabetical: iPostCollection[]
+                    }
+                    dates: {
+                        year: iPostCollection[]
+                        yearmonth: iPostCollection[]
+                    }
+                    authors: {
+                        popular: iPostCollection[]
+                    }
+                }
+            }
+        }
+        */
+
     }
 
     /**
@@ -90,8 +117,8 @@ export class Plugin implements iPlugin {
         console.log(util.inspect(gm, {depth:null, colors:true}));
 
         // Render an index page!!
-        pages.write("/blog/index.html", theme.renderLayout("blog/index", {}));
-
+        // @TODO where do I get page from? Use the globalmodel to render posts on the home page... etc...
+        pages.write("/blog/index.html", theme.renderLayout("blog/index", {})); 
 
 
 
@@ -101,7 +128,7 @@ export class Plugin implements iPlugin {
             // By Tags
             // By Date
             // By Author
-            // 
+            // Pagination (just noticed the _.chunk method on lodash and thought of this while lookign for _.shuffle)
 
         /*
 
@@ -218,7 +245,7 @@ interface iPostCollection {
  * Exported so you can use it to help render themes
  * @TODO move to another key eg: blog.groups.*, blog.posts.*, etc.
  */
-export interface iBlogGlobalModel {
+export interface iGlobalModelCollections {
     tagsPopular: iPostCollection[];
     tagsAlphabetical: iPostCollection[];
     datesYear: iPostCollection[];
@@ -226,12 +253,15 @@ export interface iBlogGlobalModel {
     authorsPopular: iPostCollection[];
 }
 
-class BlogGlobalModelBuilder {
+/**
+ * Builds and sorts the collections for the global model service provider
+ */
+class GlobalModelCollectionsBuilder {
     
     /**
      * Working model and what will be exported
      */
-    private model:iBlogGlobalModel = {
+    private model:iGlobalModelCollections = {
         tagsPopular: [],
         tagsAlphabetical: [],
         datesYear: [],
@@ -261,7 +291,7 @@ class BlogGlobalModelBuilder {
     /**
      * Build & export the model
      */
-    build() : iBlogGlobalModel {
+    build() : iGlobalModelCollections {
 
         // Ensure the model is sorted before exporting
         this.sort();
