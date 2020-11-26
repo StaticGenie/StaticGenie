@@ -10,7 +10,7 @@ config:
     author: ScottyCoder
     tags: 
       - funny
-      - quotes
+      - Quotes
     date: 2020-11-01T12:00:00
 
 page: 

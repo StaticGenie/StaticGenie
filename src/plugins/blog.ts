@@ -34,23 +34,8 @@ export class Plugin implements iPlugin {
     initialise(services:Services, config:iPluginConfig) {
 
         const gm = (<iGlobalModel>services.get("globalmodel")).model;
+        const model = new BlogGlobalModelBuilder();
 
-        // Define the blog keys that will be populated
-        gm.blog = {
-            tags: {
-                alphabetical: {},
-                popular: {}
-            },
-            dates: {
-                newest: [],
-                year: {},
-                yearmonth: {},
-            },
-            authors: {
-                popular: {},
-            }
-        };
-        
         // Find all the blog posts
         helpers.getFilesSync(config.directory).forEach(file => {
             
@@ -60,51 +45,17 @@ export class Plugin implements iPlugin {
                 let document = (new SGDocumentBlogPage(fs.readFileSync(file, 'utf8')).exportHead()).config;
 
                 // Create an object that will represent a "post".
-                // @TODO this needs to VERIFY it's data and convert types since what's come from document could be anything
                 let post = new Post(document.post.date);
                 post.title = document.post.title;
                 post.desc = document.post.desc;
                 post.tags = document.post.tags;
-                post.url = "/blog/" + post.date.format("yyyy-mm-dd") + "/" + slugify.default(document.post.title, {lower:true, strict: true}); //@TODO allow this to be customised via the plugin config
+                post.url = "/blog/" + post.date.format("yyyy-mm-dd") + "/" + slugify.default(document.post.title, {lower:true, strict: true}); //@TODO allow this to be customised via the plugin config and make the knowledge of creating a blog url re-useable
                 post.author = document.post.author;
                 post.file = file;
+
+                // Add post to the model
+                model.addPost(post);
                 
-                // Extract the tags and assign to the global model
-                (<string[]>document.post.tags).forEach(tag => {
-                    
-                    // Does the tag already exist, if not, create it
-                    if (gm.blog.tags.alphabetical.hasOwnProperty(tag) === false) {
-                        gm.blog.tags.alphabetical[tag] = [];  
-                    }
-                    if (gm.blog.tags.popular.hasOwnProperty(tag) === false) {
-                        gm.blog.tags.popular[tag] = [];  
-                    }
-                    
-                    // Add the post to each tag group
-                    gm.blog.tags.alphabetical[tag].push(post);
-                    gm.blog.tags.popular[tag].push(post);
-
-                });
-
-                // Does the date already exist?
-                if (gm.blog.dates.year.hasOwnProperty(post.date.format("yyyy")) === false) {
-                    gm.blog.dates.year[post.date.format("yyyy")] = []; 
-                }
-                if (gm.blog.dates.yearmonth.hasOwnProperty(post.date.format("yyyymm")) === false) {
-                    gm.blog.dates.yearmonth[post.date.format("yyyymm")] = [];
-                }
-
-                // Add posts to each date group
-                gm.blog.dates.newest.push(post);
-                gm.blog.dates.year[post.date.format("yyyy")].push(post);
-                gm.blog.dates.yearmonth[post.date.format("yyyymm")].push(post);
-
-                // Does the author already exist?
-                if (gm.blog.authors.popular.hasOwnProperty(post.author) === false) {
-                    gm.blog.authors.popular[post.author] = []; 
-                }
-                gm.blog.authors.popular[post.author].push(post);
-
             } catch (e) {
                 
                 // Add the file that was being parsed to the error to make it a little easier to understand
@@ -117,68 +68,12 @@ export class Plugin implements iPlugin {
 
         });
 
-        // Alphabetical
-        gm.blog.tags.alphabetical = this.sortObjectKeysAlphabeticallyAsc(gm.blog.tags.alphabetical);
-        gm.blog.dates.year = this.sortObjectKeysAlphabeticallyDesc(gm.blog.dates.year);
-        gm.blog.dates.yearmonth = this.sortObjectKeysAlphabeticallyDesc(gm.blog.dates.yearmonth);
+        // Build and export the model onto the global model
+        gm.blog = {};
 
-        // Popular
-        gm.blog.tags.popular = this.sortObjectKeysByArrayLengthAsc(gm.blog.tags.popular);
-        gm.blog.authors.popular = this.sortObjectKeysByArrayLengthAsc(gm.blog.authors.popular);
-
-        // Array sorts
-        gm.blog.dates.newest = gm.blog.dates.newest.sort((post1:Post, post2:Post) => parseInt(post2.date.format("yyyymmddHHMMss")) - parseInt(post1.date.format("yyyymmddHHMMss")))
+        // @TODO think what's best to call the key the builder is attached to, and then rename the model builder class to match
+        gm.blog.groups = model.build();
         
-        // @TODO Array sorts per dynamic key
-
-    }
-
-    /**
-     * Returns a new object that's keys are sorted ascending order 
-     * Any keys that are not strings will be converted to strings
-     * @param obj to sort
-     */
-    sortObjectKeysAlphabeticallyAsc(obj: {[key:string] : any}): {[key:string] : any} {
-        let sorted:any = {};
-        Object.keys(obj)
-            .sort()
-            .forEach(key => {
-                sorted["k:" + key] = obj[key];
-            });
-        return sorted;
-    }
-
-    /**
-     * Returns a new object that's keys are sorted descending order
-     * Any keys that are not strings will be converted to strings
-     * @param obj to sort
-     */
-    sortObjectKeysAlphabeticallyDesc(obj: {[key:string] : any}): {[key:string] : any} {
-        let sorted:any = {};
-        Object.keys(obj)
-            .sort()
-            .reverse()
-            .forEach(key => {
-                sorted["k:" + key.toString()] = obj[key];
-            });
-        return sorted;
-    }
-
-    /**
-     * Returns a new object that's keys are sorted based on how many items are in its array in ascending order
-     * Any keys that are not strings will be converted to strings
-     * 
-     * @param obj 
-     */
-    sortObjectKeysByArrayLengthAsc(obj: {[key:string] : any}): {[key:string] : any} {
-        let sorted:any = {};
-        Object.keys(obj)
-            .map(key => { return { name: key, length: obj[key].length } })
-            .sort((key1, key2) => key2.length - key1.length)
-            .forEach(key => {
-                sorted["k:"+key.name.toString()] = obj[key.name];
-            });
-        return sorted;
     }
 
     /**
@@ -188,8 +83,18 @@ export class Plugin implements iPlugin {
      */
     generate(services:Services, config:iPluginConfig) {
 
+        const pages = <iPageWriter>services.get("pagewriter");
+        const theme = <iTheme>services.get("theme");
+        const report = <iReport>services.get("report");
         const gm = (<iGlobalModel>services.get("globalmodel")).model.blog;
         console.log(util.inspect(gm, {depth:null, colors:true}));
+
+        // Render an index page!!
+        pages.write("/blog/index.html", theme.renderLayout("blog/index", {}));
+
+
+
+
 
         // Create the general pages
             // Index (page.post .... )
@@ -295,6 +200,159 @@ class SGDocumentBlogPage extends SGDocument {
         if (document.page.hasOwnProperty("post") === true) {
             throw new Error("You can not define your own 'page.post' key in the page head section as it's reserved for use by the blog plugin to make computed values available to themes.");
         }
+
+    }
+
+}
+
+/**
+ * How posts are stored within the global model
+ */
+interface iPostCollection {
+    name: string;
+    posts: Post[];
+}
+
+/**
+ * What will be made available on the "gobalmodel" service provider. 
+ * Exported so you can use it to help render themes
+ * @TODO move to another key eg: blog.groups.*, blog.posts.*, etc.
+ */
+export interface iBlogGlobalModel {
+    tagsPopular: iPostCollection[];
+    tagsAlphabetical: iPostCollection[];
+    datesYear: iPostCollection[];
+    datesYearMonth: iPostCollection[];
+    authorsPopular: iPostCollection[];
+}
+
+class BlogGlobalModelBuilder {
+    
+    /**
+     * Working model and what will be exported
+     */
+    private model:iBlogGlobalModel = {
+        tagsPopular: [],
+        tagsAlphabetical: [],
+        datesYear: [],
+        datesYearMonth: [],
+        authorsPopular: [],
+    }
+
+    /**
+     * Add a new post to the model builder
+     * @param post 
+     */
+    addPost(post:Post) {
+
+        // Extract the tags and assign to the model
+        post.tags.forEach(tag => {
+            this.addToPostCollection(this.model.tagsPopular, tag, post);
+            this.addToPostCollection(this.model.tagsAlphabetical, tag, post);
+        });
+        
+        // Other collections
+        this.addToPostCollection(this.model.datesYear, post.date.format("yyyy"), post);
+        this.addToPostCollection(this.model.datesYearMonth, post.date.format("yyyymm"), post);
+        this.addToPostCollection(this.model.authorsPopular, post.author, post);
+
+    }
+    
+    /**
+     * Build & export the model
+     */
+    build() : iBlogGlobalModel {
+
+        // Ensure the model is sorted before exporting
+        this.sort();
+
+        // Return it
+        return this.model;
+
+    }
+
+    /**
+     * Add a new post to the correct collection (case insensitive), creating a new collection if one doesn't exist
+     * @param collections
+     * @param name 
+     * @param post 
+     */
+    private addToPostCollection(collections: iPostCollection[], name:string, post:Post) {
+
+        // Find the correct collection to add the post to
+        let existing = collections.find(collection => collection.name.toString().toLocaleLowerCase() === name.toString().toLocaleLowerCase());
+        if (typeof existing !== "undefined") {
+            existing.posts.push(post);
+            return;
+        }
+
+        // Create a new collection
+        collections.push({
+            name: name.toString(),
+            posts: [post]
+        });
+
+    }
+
+    /**
+     * Sort a collection and return a new collection
+     * @param collections 
+     */
+    private sortCollectionByTotalPostsDesc(collections: iPostCollection[]): iPostCollection[] {
+        return collections.sort((collection1, collection2) => collection2.posts.length - collection1.posts.length);
+    }
+
+    /**
+     * Sort a collection and return a new collection, descending order, newest first (dates)
+     * @param collections 
+     */
+    private sortCollectionByNameDesc(collections: iPostCollection[]): iPostCollection[] {
+        return collections.sort((collection1, collection2) => collection2.name.localeCompare(collection1.name));
+    }
+
+    /**
+     * Sort a collection and return a new collection, ascending order
+     * @param collections 
+     */
+    private sortCollectionByNameAsc(collections: iPostCollection[]): iPostCollection[] {
+        return collections.sort((collection1, collection2) => collection1.name.localeCompare(collection2.name));
+    }
+
+    /**
+     * Sort the posts within each collection by date, descending, newest first
+     * @param collections 
+     */
+    private sortCollectionPostsByDateDesc(collections: iPostCollection[]): iPostCollection[] {
+        return collections.map(collection => {
+            return {
+                name: collection.name,
+                posts: collection.posts.sort((post1, post2) => post2.date.format("yyyymmddHHMMss").localeCompare(post1.date.format("yyyymmddHHMMss")))
+            };
+        });
+    }
+
+    /**
+     * Sort everything within the model
+     */
+    private sort() {
+
+        // Sort by total posts, descending
+        this.model.tagsPopular = this.sortCollectionByTotalPostsDesc(this.model.tagsPopular);
+        this.model.authorsPopular = this.sortCollectionByTotalPostsDesc(this.model.authorsPopular);
+
+        // Sort by name, ascending
+        this.model.tagsAlphabetical = this.sortCollectionByNameAsc(this.model.tagsAlphabetical);
+
+        // Sort by name, descending
+        this.model.datesYear = this.sortCollectionByNameDesc(this.model.datesYear);
+        this.model.datesYearMonth = this.sortCollectionByNameDesc(this.model.datesYearMonth);
+
+        // Sort posts within each collection
+        this.model.tagsPopular = this.sortCollectionPostsByDateDesc(this.model.tagsPopular);
+        this.model.authorsPopular = this.sortCollectionPostsByDateDesc(this.model.authorsPopular);
+        this.model.tagsAlphabetical = this.sortCollectionPostsByDateDesc(this.model.tagsAlphabetical);
+        this.model.datesYear = this.sortCollectionPostsByDateDesc(this.model.datesYear);
+        this.model.datesYearMonth = this.sortCollectionPostsByDateDesc(this.model.datesYearMonth);
 
     }
 
