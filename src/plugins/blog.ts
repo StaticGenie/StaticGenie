@@ -9,13 +9,14 @@ import {Services} from "../libs/services";
 import {iPageWriter} from "../services/pagewriter";
 import {iTheme} from "../services/theme";
 import {iReport} from "../services/report";
-import {iGlobalModel} from "../services/globalmodel";
+import {iGlobalModel as iServiceGlobalModel} from "../services/globalmodel";
 import {iSGDocumentObject, SGDocument} from "../libs/sgdocument";
 import * as helpers from "../libs/helpers";
 import * as fs from "fs";
 import * as slugify from "slugify";
 import * as dateformat from "dateformat";
 import * as util from "util";
+import {default as _} from "lodash";    // @TODO this works!!!!!! do this instead of .default around SG
 
 /**
  * Plugin
@@ -33,8 +34,8 @@ export class Plugin implements iPlugin {
      */
     initialise(services:Services, config:iPluginConfig) {
 
-        const gm = (<iGlobalModel>services.get("globalmodel")).model;
-        const model = new GlobalModelCollectionsBuilder();
+        const gm = (<iServiceGlobalModel>services.get("globalmodel")).model;
+        const modelCollectionBuilder = new GlobalModelCollectionsBuilder();
 
         // Find all the blog posts
         helpers.getFilesSync(config.directory).forEach(file => {
@@ -52,9 +53,9 @@ export class Plugin implements iPlugin {
                 post.url = "/blog/" + post.date.format("yyyy-mm-dd") + "/" + slugify.default(document.post.title, {lower:true, strict: true}); //@TODO allow this to be customised via the plugin config and make the knowledge of creating a blog url re-useable
                 post.author = document.post.author;
                 post.file = file;
-
+                
                 // Add post to the model
-                model.addPost(post);
+                modelCollectionBuilder.addPost(post);
                 
             } catch (e) {
                 
@@ -68,38 +69,20 @@ export class Plugin implements iPlugin {
 
         });
 
-        // Build and export the model onto the global model
-        gm.blog = {};
+        // @TODO Build and export the model onto the global model.
+        gm.blog = <iGlobalModel>{
+            /*
+            functions: {
+                getRandomPosts: (total) => {
+                    return _.sampleSize(out.blog.posts, total)
+                },
+            },
+            posts: Post[]
+            */
+            collections: modelCollectionBuilder.build(),
+        };
 
-        // @TODO think what's best to call the key the builder is attached to, and then rename the model builder class to match
-        gm.blog.groups = model.build();
 
-        //@TODO change the gm.blog model to something like this:
-        /*
-        let out = {
-            blog: iBlogGlobalModel{
-                functions: {
-                    getRandomPosts: (total) => {
-                        return _.sampleSize(out.blog.posts, total)
-                    },
-                }
-                posts: Post[]
-                collections:  iPostCollections{
-                    tags: {
-                        popular: iPostCollection[]
-                        alphabetical: iPostCollection[]
-                    }
-                    dates: {
-                        year: iPostCollection[]
-                        yearmonth: iPostCollection[]
-                    }
-                    authors: {
-                        popular: iPostCollection[]
-                    }
-                }
-            }
-        }
-        */
 
     }
 
@@ -113,7 +96,7 @@ export class Plugin implements iPlugin {
         const pages = <iPageWriter>services.get("pagewriter");
         const theme = <iTheme>services.get("theme");
         const report = <iReport>services.get("report");
-        const gm = (<iGlobalModel>services.get("globalmodel")).model.blog;
+        const gm = (<iServiceGlobalModel>services.get("globalmodel")).model.blog;
         console.log(util.inspect(gm, {depth:null, colors:true}));
 
         // Render an index page!!
@@ -156,12 +139,14 @@ export class Plugin implements iPlugin {
 
         });
         */
-
-        
         
 
     }
 
+}
+
+interface iGlobalModel {
+    collections: iGlobalModelCollections;
 }
 
 class Post {
