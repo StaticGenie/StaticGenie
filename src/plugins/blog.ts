@@ -14,22 +14,25 @@ import {iSGDocumentObject, SGDocument} from "../libs/sgdocument";
 import * as helpers from "../libs/helpers";
 import * as fs from "fs";
 import * as slugify from "slugify";
-import * as path from "path";
+import * as dateformat from "dateformat";
+import * as util from "util";
 
 /**
  * Plugin
  * @TODO Finish the blog plugin
- * @TODO Add config params
+ * @TODO Not sure allowing a format() method on the model itself and passing to themes is a good idea...
  */
 export class Plugin implements iPlugin {
 
     /**
      * Update the model, check config, etc
+     * @NOTE 
      * @param services
      * @param config 
+     * @throws Error
      */
     initialise(services:Services, config:iPluginConfig) {
- 
+
         const gm = (<iGlobalModel>services.get("globalmodel")).model;
 
         // Define the blog keys that will be populated
@@ -39,70 +42,145 @@ export class Plugin implements iPlugin {
                 popular: {}
             },
             dates: {
-                newtest: {},
-                yearly: {},
-                monthly: {}
+                newest: [],
+                year: {},
+                yearmonth: {},
             },
             authors: {
                 popular: {},
-                date: {}
             }
         };
         
         // Find all the blog posts
         helpers.getFilesSync(config.directory).forEach(file => {
+            
             try {
-                
+
                 // Read the file contents into document but only parse the head section (since the parsed markdown could use up a lot of memory if stored within the globalmodel so best to get and parse it if needed)
                 let document = (new SGDocumentBlogPage(fs.readFileSync(file, 'utf8')).exportHead()).config;
-                
-                // Create an object that will represent a post.
-                let post = new Post();
-                post.date = document.post.date;
+
+                // Create an object that will represent a "post".
+                // @TODO this needs to VERIFY it's data and convert types since what's come from document could be anything
+                let post = new Post(document.post.date);
                 post.title = document.post.title;
                 post.desc = document.post.desc;
                 post.tags = document.post.tags;
-                post.url = "/blog/" + document.post.date + "/" + slugify.default(document.post.title, {lower:true, strict: true}); //@TODO allow this to be customised via the plugin config
+                post.url = "/blog/" + post.date.format("yyyy-mm-dd") + "/" + slugify.default(document.post.title, {lower:true, strict: true}); //@TODO allow this to be customised via the plugin config
                 post.author = document.post.author;
                 post.file = file;
-
+                
                 // Extract the tags and assign to the global model
                 (<string[]>document.post.tags).forEach(tag => {
                     
                     // Does the tag already exist, if not, create it
                     if (gm.blog.tags.alphabetical.hasOwnProperty(tag) === false) {
-                        gm.blog.tags.alphabetical[tag] = [];    
+                        gm.blog.tags.alphabetical[tag] = [];  
                     }
-
-                    // Add the post to this tag
+                    if (gm.blog.tags.popular.hasOwnProperty(tag) === false) {
+                        gm.blog.tags.popular[tag] = [];  
+                    }
+                    
+                    // Add the post to each tag group
                     gm.blog.tags.alphabetical[tag].push(post);
+                    gm.blog.tags.popular[tag].push(post);
 
                 });
 
+                // Does the date already exist?
+                if (gm.blog.dates.year.hasOwnProperty(post.date.format("yyyy")) === false) {
+                    gm.blog.dates.year[post.date.format("yyyy")] = []; 
+                }
+                if (gm.blog.dates.yearmonth.hasOwnProperty(post.date.format("yyyymm")) === false) {
+                    gm.blog.dates.yearmonth[post.date.format("yyyymm")] = [];
+                }
 
-                
-                // Move data from config
+                // Add posts to each date group
+                gm.blog.dates.newest.push(post);
+                gm.blog.dates.year[post.date.format("yyyy")].push(post);
+                gm.blog.dates.yearmonth[post.date.format("yyyymm")].push(post);
 
+                // Does the author already exist?
+                if (gm.blog.authors.popular.hasOwnProperty(post.author) === false) {
+                    gm.blog.authors.popular[post.author] = []; 
+                }
+                gm.blog.authors.popular[post.author].push(post);
 
-                // The URL taken from title
-                // @TODO URL format should come from config
-                // new Date(documentYaml.config.date + "T" + documentYaml.config.time)
-                
-
-
-                //global.data.blog.tags[] = []
-                
             } catch (e) {
+                
+                // Add the file that was being parsed to the error to make it a little easier to understand
+                e.message += ". When Parsing file: " + file;
 
-                // @TODO
+                // Rethrow so the error can be
                 throw e;
 
             }
 
         });
 
+        // Alphabetical
+        gm.blog.tags.alphabetical = this.sortObjectKeysAlphabeticallyAsc(gm.blog.tags.alphabetical);
+        gm.blog.dates.year = this.sortObjectKeysAlphabeticallyDesc(gm.blog.dates.year);
+        gm.blog.dates.yearmonth = this.sortObjectKeysAlphabeticallyDesc(gm.blog.dates.yearmonth);
+
+        // Popular
+        gm.blog.tags.popular = this.sortObjectKeysByArrayLengthAsc(gm.blog.tags.popular);
+        gm.blog.authors.popular = this.sortObjectKeysByArrayLengthAsc(gm.blog.authors.popular);
+
+        // Array sorts
+        gm.blog.dates.newest = gm.blog.dates.newest.sort((post1:Post, post2:Post) => parseInt(post2.date.format("yyyymmddHHMMss")) - parseInt(post1.date.format("yyyymmddHHMMss")))
+        
+        // @TODO Array sorts per dynamic key
+
     }
-    
+
+    /**
+     * Returns a new object that's keys are sorted ascending order 
+     * Any keys that are not strings will be converted to strings
+     * @param obj to sort
+     */
+    sortObjectKeysAlphabeticallyAsc(obj: {[key:string] : any}): {[key:string] : any} {
+        let sorted:any = {};
+        Object.keys(obj)
+            .sort()
+            .forEach(key => {
+                sorted["k:" + key] = obj[key];
+            });
+        return sorted;
+    }
+
+    /**
+     * Returns a new object that's keys are sorted descending order
+     * Any keys that are not strings will be converted to strings
+     * @param obj to sort
+     */
+    sortObjectKeysAlphabeticallyDesc(obj: {[key:string] : any}): {[key:string] : any} {
+        let sorted:any = {};
+        Object.keys(obj)
+            .sort()
+            .reverse()
+            .forEach(key => {
+                sorted["k:" + key.toString()] = obj[key];
+            });
+        return sorted;
+    }
+
+    /**
+     * Returns a new object that's keys are sorted based on how many items are in its array in ascending order
+     * Any keys that are not strings will be converted to strings
+     * 
+     * @param obj 
+     */
+    sortObjectKeysByArrayLengthAsc(obj: {[key:string] : any}): {[key:string] : any} {
+        let sorted:any = {};
+        Object.keys(obj)
+            .map(key => { return { name: key, length: obj[key].length } })
+            .sort((key1, key2) => key2.length - key1.length)
+            .forEach(key => {
+                sorted["k:"+key.name.toString()] = obj[key.name];
+            });
+        return sorted;
+    }
+
     /**
      * Generate pages
      * @param services 
@@ -111,7 +189,7 @@ export class Plugin implements iPlugin {
     generate(services:Services, config:iPluginConfig) {
 
         const gm = (<iGlobalModel>services.get("globalmodel")).model.blog;
-        console.log(gm);
+        console.log(util.inspect(gm, {depth:null, colors:true}));
 
         // Create the general pages
             // Index (page.post .... )
@@ -154,24 +232,38 @@ export class Plugin implements iPlugin {
 
 }
 
-interface iPost {
-    title:string;
-    desc:string;
-    url:string;
-    author:string;
-    tags:string[];
-    date:Date;
-    file:string; // Gives you the ability to later load and parse the raw file to get any information you need
-}
-
-class Post implements iPost {
-    date:Date = new Date();
+class Post {
+    date:PostDate;
     title:string = "";
     desc:string = "";
     url:string = "";
     author:string = "";
     tags:string[] = [];
     file:string = "";
+
+    /**
+     * By enforcing the date to be injected in, it allows date.format() to be used straight away
+     * @param date 
+     */
+    constructor(date:Date) {
+        this.date = new PostDate(date);
+    }
+
+}
+
+class PostDate {
+    
+    /**
+     * Private since allowing date.date just looks weird but post.date.format() looks right :)
+     */
+    private date:Date;
+    constructor(date:Date) {
+        this.date = date;
+    }
+    format(format:string):string {
+        return dateformat.default(this.date, format);
+    }
+
 }
 
 /**

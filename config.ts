@@ -11,8 +11,6 @@ import {ThemeEJS, iThemeEJSConfig} from "./src/services/theme";
 import {ReportConsole, iReportConsoleConfig} from "./src/services/report";
 import {iPluginConfig as iPluginStandardPageConfig} from "./src/plugins/standardpage";
 import {iThemeConfigData} from "./theme/package";
-import * as path from "path";
-import { fstat } from "fs";
 
 /**
  * Configure your website here
