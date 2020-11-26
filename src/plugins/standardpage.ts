@@ -40,8 +40,7 @@ export class Plugin implements iPlugin {
         const report = <iReport>services.get("report");
 
         // Find all the page defs
-        // @TODO get the file location from the config
-        helpers.getFilesSync("./data/standardpage").forEach(file => {
+        helpers.getFilesSync(config.directory).forEach(file => {
             try {
                 
                 // Read the file contents into document
@@ -97,5 +96,5 @@ class SGDocumentStandardPage extends SGDocument {
  * Configuration for this plugin
  */
 export interface iPluginConfig extends iConfig {
-
+    directory: string;
 }

@@ -10,7 +10,7 @@ import {Services} from "./services";
  * Configuration of a plugin (you will want to extend this with your plugin config)
  */
 export interface iConfig {
-    [key: string]: { [key: string] : any };
+    [key: string]: any;
 }
 
 /**

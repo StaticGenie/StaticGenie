@@ -29,7 +29,7 @@ export class Plugin implements iPlugin {
      * @param config 
      */
     initialise(services:Services, config:iPluginConfig) {
-
+ 
         const gm = (<iGlobalModel>services.get("globalmodel")).model;
 
         // Define the blog keys that will be populated
@@ -50,27 +50,21 @@ export class Plugin implements iPlugin {
         };
         
         // Find all the blog posts
-        // @TODO get the file location from the config
-        helpers.getFilesSync("./data/blog").forEach(file => {
+        helpers.getFilesSync(config.directory).forEach(file => {
             try {
                 
                 // Read the file contents into document but only parse the head section (since the parsed markdown could use up a lot of memory if stored within the globalmodel so best to get and parse it if needed)
                 let document = (new SGDocumentBlogPage(fs.readFileSync(file, 'utf8')).exportHead()).config;
                 
-                // @TODO apparently date and time fields are not being parsed as strings... ?
-                //console.log(document);
-
-
                 // Create an object that will represent a post.
                 let post = new Post();
-                post.date = new Date(document.post.date +"T"+ document.post.time); 
+                post.date = document.post.date;
                 post.title = document.post.title;
                 post.desc = document.post.desc;
                 post.tags = document.post.tags;
                 post.url = "/blog/" + document.post.date + "/" + slugify.default(document.post.title, {lower:true, strict: true}); //@TODO allow this to be customised via the plugin config
                 post.author = document.post.author;
                 post.file = file;
-
 
                 // Extract the tags and assign to the global model
                 (<string[]>document.post.tags).forEach(tag => {
@@ -218,5 +212,5 @@ class SGDocumentBlogPage extends SGDocument {
  * Configuration for this plugin
  */
 export interface iPluginConfig extends iConfig {
-
+    directory: string;
 }
