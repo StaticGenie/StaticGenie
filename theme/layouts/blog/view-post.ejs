@@ -4,14 +4,21 @@
     </head>
     <body>
         <%- include("/header") %>
+        <%- include("/jumbotron") %>
         <section class='canvas constrict'>
             <div class='page'>
-                <%- page.content %>
+                
+                <div style='background-color:#FFF;border:solid 1px #CCC;padding:35px;margin-bottom:50px;'>
+                    <%- page.content %>
+                </div>
 
                 <hr />                
                 
                 <% global.blog.functions.getRandomPosts(3).forEach(post => { %>
-                    <a href='<%- post.url %>'><%= post.title %></a><br />
+                    <div style='padding:30px;margin-bottom:15px;background-color:#FFF;border:solid 1px #CCC;border-left:solid 3px #006699;'>
+                        <h2 style="margin-top:0;margin-bottom:3px;"><a href='<%= post.url %>'><%= post.title %></a></h2>
+                        <p style="margin:0;color:#666;"><%= post.desc %></p>
+                    </div>
                 <% }); %>
 
             </div>

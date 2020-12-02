@@ -10,7 +10,9 @@ import {PageWriterFile, iPageWriterFileConfig} from "./src/services/pagewriter";
 import {ThemeEJS, iThemeEJSConfig} from "./src/services/theme";
 import {ReportConsole, iReportConsoleConfig} from "./src/services/report";
 import {iPluginConfig as iPluginStandardPageConfig} from "./src/plugins/standardpage";
+import {iPluginConfig as iPluginBlogConfig} from "./src/plugins/blog";
 import {iThemeConfigData} from "./theme/package";
+import {default as slugify} from "slugify";
 
 /**
  * Configure your website here
@@ -24,8 +26,26 @@ export = <iConfig>{
         "../plugins/standardpage": <iPluginStandardPageConfig>{
             directory: "./data/standardpage"
         },
-        "../plugins/blog": <iPluginStandardPageConfig>{
-            directory: "./data/blog"
+        "../plugins/blog": <iPluginBlogConfig>{
+            directory: "./data/blog",
+            postUrlFormat: (post) => {
+                return "/blog/" + slugify(post.title, {lower:true, strict: true}) + ".html";
+            },
+            specialPages: [
+                {
+                    url: "/blog/index.html",
+                    layout: "blog/browse-posts",
+                    page: {
+                        jumbotron: "Blog"
+                    }
+                }, {
+                    url: "/blog/tags.html",
+                    layout: "blog/browse-tags",
+                    page: {
+                        jumbotron: "Blog"
+                    }
+                },
+            ],
         }
     },
 
@@ -93,6 +113,7 @@ export = <iConfig>{
                         headerLinks: [
                             {name: "Home", url: "/index.html"},
                             {name: "Docs", url: "/docs/getting-started/installation.html"},
+                            {name: "Blog", url: "/blog/index.html"},
                             {name: "Roadmap", url: "/roadmap.html"},
                         ],
                         footerLinks: [

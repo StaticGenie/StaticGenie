@@ -13,10 +13,8 @@ import {iGlobalModel as iServiceGlobalModel} from "../services/globalmodel";
 import {iSGDocumentObject, SGDocument} from "../libs/sgdocument";
 import * as helpers from "../libs/helpers";
 import * as fs from "fs";
-import * as slugify from "slugify";
-import * as dateformat from "dateformat";
-import * as util from "util";
-import {default as _} from "lodash";    // @TODO this works!!!!!! do this instead of .default around SG
+import {default as dateformat} from "dateformat";
+import {default as _} from "lodash";
 
 /**
  * Plugin
@@ -27,7 +25,6 @@ export class Plugin implements iPlugin {
 
     /**
      * Update the model, check config, etc
-     * @NOTE 
      * @param services
      * @param config 
      * @throws Error
@@ -45,15 +42,15 @@ export class Plugin implements iPlugin {
                 // Read the file contents into document but only parse the head section (since the parsed markdown could use up a lot of memory if stored within the globalmodel so best to get and parse it if needed)
                 let document = (new SGDocumentBlogPage(fs.readFileSync(file, 'utf8')).exportHead()).config;
                 
-                // Create an object that will represent a "post".
+                // Create an object that will represent a "post"
                 let post = new Post(document.post.date);
                 post.title = document.post.title;
                 post.desc = document.post.desc;
                 post.tags = document.post.tags;
-                post.url = "/blog/" + post.date.format("yyyy-mm-dd") + "/" + slugify.default(document.post.title, {lower:true, strict: true}) + ".html"; //@TODO allow this to be customised via the plugin config and make the knowledge of creating a blog url re-useable
                 post.author = document.post.author;
                 post.file = file;
-                
+                post.url = config.postUrlFormat(post);
+
                 // Add post to the model
                 modelCollectionBuilder.addPost(post);
                 
@@ -80,14 +77,13 @@ export class Plugin implements iPlugin {
             collections: modelCollectionBuilder.build(),
         };
 
-
         // Add sorted posts
         gm.blog.collections.datesYear.forEach((collection:iPostCollection) => {
             collection.posts.forEach((post: Post) => {
                 gm.blog.posts.push(post)
             });
         });
-        
+
     }
 
     /**
@@ -104,11 +100,10 @@ export class Plugin implements iPlugin {
         const theme = <iTheme>services.get("theme");
         const report = <iReport>services.get("report");
         
-        // Browse posts
-        pages.write("/blog/index.html", theme.renderLayout("blog/browse-posts", {})); 
-
-        // Browse tags
-        pages.write("/blog/tags.html", theme.renderLayout("/blog/browse-tags", {}));
+        // Special pages @TODO create a new plugin that handles "special pages" i.e. ones you simply hard code page model and say what layout and urls it needs
+        config.specialPages.forEach(page => {
+            pages.write(page.url, theme.renderLayout(page.layout, page.page)); 
+        });
 
         // Render each post
         helpers.getFilesSync(config.directory).forEach(file => {
@@ -122,9 +117,9 @@ export class Plugin implements iPlugin {
                 post.title = document.config.post.title;
                 post.desc = document.config.post.desc;
                 post.tags = document.config.post.tags;
-                post.url = "/blog/" + post.date.format("yyyy-mm-dd") + "/" + slugify.default(document.config.post.title, {lower:true, strict: true}) + ".html"; //@TODO allow this to be customised via the plugin config and make the knowledge of creating a blog url re-useable
                 post.author = document.config.post.author;
                 post.file = file;
+                post.url = config.postUrlFormat(post); //@TODO allow this to be customised via the plugin config and make the knowledge of creating a blog url re-useable
 
                 // Write the page
                 pages.write(post.url, theme.renderLayout(document.config.layout, {...document.page, ...{post: post}}));
@@ -153,7 +148,11 @@ export interface iGlobalModel {
     collections: iGlobalModelCollections;
 }
 
-class Post {
+/**
+ * @TODO refactor this object - just generally badly designed
+ */
+ class Post {
+
     date:PostDate;
     title:string = "";
     desc:string = "";
@@ -182,7 +181,7 @@ class PostDate {
         this.date = date;
     }
     format(format:string):string {
-        return dateformat.default(this.date, format);
+        return dateformat(this.date, format);
     }
 
 }
@@ -380,4 +379,10 @@ class GlobalModelCollectionsBuilder {
  */
 export interface iPluginConfig extends iConfig {
     directory: string;
+    postUrlFormat: (post:Post) => string;
+    specialPages: {
+        url: string;
+        layout: string;
+        page: {[key:string] : any}
+    }[];
 }

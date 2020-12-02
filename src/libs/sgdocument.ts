@@ -5,7 +5,7 @@
 ==================================================================== */
 
 import * as yaml from "js-yaml";
-import * as markdown from "markdown-it";
+import {default as markdown} from "markdown-it";
 
 /**
  * The format of the returned parsed document
@@ -76,7 +76,7 @@ export abstract class SGDocument implements iSGDocumentExportable {
     protected getBody() : string {
 
         // Markdown parser
-        let md = new markdown.default({
+        let md = new markdown({
             html: true,
             linkify: true,
             typographer: true
