@@ -3,7 +3,7 @@
 ###########################################
 
 config: 
-  layout: post
+  layout: blog/view-post
   post: 
     title: How to use static genie
     desc: For when you want a bit of inspiration

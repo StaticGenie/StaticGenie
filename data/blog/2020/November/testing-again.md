@@ -3,7 +3,7 @@
 ###########################################
 
 config: 
-  layout: post
+  layout: blog/view-post
   post: 
     title: Testing Again
     desc: For when you want a bit of inspiration

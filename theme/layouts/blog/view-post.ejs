@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <%- include("/head") %>
+    </head>
+    <body>
+        <%- include("/header") %>
+        <section class='canvas constrict'>
+            <div class='page'>
+                <%- page.content %>
+
+                <hr />                
+                
+                <% global.blog.functions.getRandomPosts(3).forEach(post => { %>
+                    <a href='<%- post.url %>'><%= post.title %></a><br />
+                <% }); %>
+
+            </div>
+        </section>
+        <%- include("/footer") %>
+    </body>
+</html>

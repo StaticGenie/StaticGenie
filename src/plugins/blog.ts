@@ -44,13 +44,13 @@ export class Plugin implements iPlugin {
 
                 // Read the file contents into document but only parse the head section (since the parsed markdown could use up a lot of memory if stored within the globalmodel so best to get and parse it if needed)
                 let document = (new SGDocumentBlogPage(fs.readFileSync(file, 'utf8')).exportHead()).config;
-
+                
                 // Create an object that will represent a "post".
                 let post = new Post(document.post.date);
                 post.title = document.post.title;
                 post.desc = document.post.desc;
                 post.tags = document.post.tags;
-                post.url = "/blog/" + post.date.format("yyyy-mm-dd") + "/" + slugify.default(document.post.title, {lower:true, strict: true}); //@TODO allow this to be customised via the plugin config and make the knowledge of creating a blog url re-useable
+                post.url = "/blog/" + post.date.format("yyyy-mm-dd") + "/" + slugify.default(document.post.title, {lower:true, strict: true}) + ".html"; //@TODO allow this to be customised via the plugin config and make the knowledge of creating a blog url re-useable
                 post.author = document.post.author;
                 post.file = file;
                 
@@ -68,26 +68,33 @@ export class Plugin implements iPlugin {
             }
 
         });
-
-        // @TODO Build and export the model onto the global model.
+        
+        // Build and save the blogs shared global model
         gm.blog = <iGlobalModel>{
-            /*
             functions: {
-                getRandomPosts: (total) => {
-                    return _.sampleSize(out.blog.posts, total)
+                getRandomPosts: (total:number) => {
+                    return _.sampleSize(gm.blog.posts, total)
                 },
             },
-            posts: Post[]
-            */
+            posts: [],
             collections: modelCollectionBuilder.build(),
         };
 
 
-
+        // Add sorted posts
+        gm.blog.collections.datesYear.forEach((collection:iPostCollection) => {
+            collection.posts.forEach((post: Post) => {
+                gm.blog.posts.push(post)
+            });
+        });
+        
     }
 
     /**
      * Generate pages
+     * @TODO browse by year, yearmonth and author pages
+     * @TODO Pagination (noticed the _.chunk method on lodash and thought of this while lookign for _.shuffle)
+     * @TODO allow values used to create "browse" and other special pages to be configured via the plugin settings in /config.ts
      * @param services 
      * @param config
      */
@@ -96,39 +103,31 @@ export class Plugin implements iPlugin {
         const pages = <iPageWriter>services.get("pagewriter");
         const theme = <iTheme>services.get("theme");
         const report = <iReport>services.get("report");
-        const gm = (<iServiceGlobalModel>services.get("globalmodel")).model.blog;
-        console.log(util.inspect(gm, {depth:null, colors:true}));
+        
+        // Browse posts
+        pages.write("/blog/index.html", theme.renderLayout("blog/browse-posts", {})); 
 
-        // Render an index page!!
-        // @TODO where do I get page from? Use the globalmodel to render posts on the home page... etc...
-        pages.write("/blog/index.html", theme.renderLayout("blog/index", {})); 
+        // Browse tags
+        pages.write("/blog/tags.html", theme.renderLayout("/blog/browse-tags", {}));
 
-
-
-
-        // Create the general pages
-            // Index (page.post .... )
-            // By Tags
-            // By Date
-            // By Author
-            // Pagination (just noticed the _.chunk method on lodash and thought of this while lookign for _.shuffle)
-
-        /*
-
-        // Services
-        const pages = <iPageWriter>services.get("pagewriter");
-        const theme = <iTheme>services.get("theme");
-        const report = <iReport>services.get("report");
-
-        // Find all the page defs
-        helpers.getFilesSync("./data/standardpage").forEach(file => {
+        // Render each post
+        helpers.getFilesSync(config.directory).forEach(file => {
             try {
                 
                 // Read the file contents into document
-                let document = new SGDocumentStandardPage(fs.readFileSync(file, 'utf8')).export()
+                let document = new SGDocumentBlogPage(fs.readFileSync(file, 'utf8')).export()
+
+                // Create an object that will represent a "post".
+                let post = new Post(document.config.post.date);
+                post.title = document.config.post.title;
+                post.desc = document.config.post.desc;
+                post.tags = document.config.post.tags;
+                post.url = "/blog/" + post.date.format("yyyy-mm-dd") + "/" + slugify.default(document.config.post.title, {lower:true, strict: true}) + ".html"; //@TODO allow this to be customised via the plugin config and make the knowledge of creating a blog url re-useable
+                post.author = document.config.post.author;
+                post.file = file;
 
                 // Write the page
-                pages.write(document.config.file, theme.renderLayout(document.config.layout, document.page));
+                pages.write(post.url, theme.renderLayout(document.config.layout, {...document.page, ...{post: post}}));
                 
             } catch (e) {
 
@@ -138,14 +137,19 @@ export class Plugin implements iPlugin {
             }
 
         });
-        */
-        
 
     }
 
 }
 
-interface iGlobalModel {
+/**
+ * Exported so you can use it to help render themes
+ */
+export interface iGlobalModel {
+    functions: {
+        getRandomPosts: (total: number) => Post[],
+    };
+    posts: Post[];
     collections: iGlobalModelCollections;
 }
 
@@ -227,10 +231,8 @@ interface iPostCollection {
 
 /**
  * What will be made available on the "gobalmodel" service provider. 
- * Exported so you can use it to help render themes
- * @TODO move to another key eg: blog.groups.*, blog.posts.*, etc.
  */
-export interface iGlobalModelCollections {
+interface iGlobalModelCollections {
     tagsPopular: iPostCollection[];
     tagsAlphabetical: iPostCollection[];
     datesYear: iPostCollection[];

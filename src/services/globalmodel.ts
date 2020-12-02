@@ -52,9 +52,6 @@ export class GlobalModel implements iService, iGlobalModel {
      */
     private freeze() {
         
-        // Destroy any functions and other smart stuff. Should just be text based.
-        this.model = JSON.parse(JSON.stringify(this.model));
-
         // No further changes allowed
         Object.freeze(this.model);
 

@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <%- include("/head") %>
+    </head>
+    <body>
+        <%- include("/header") %>
+        <section class='canvas constrict'>
+            <div class='page'>
+                <% global.blog.collections.tagsPopular.forEach(collection => { %>
+                    <h1><%= collection.name %> ( <%= collection.posts.length %> )</h1>
+                    <% collection.posts.forEach(post => { %>
+                        <p><a href='<%= post.url %>'><%= post.title %></a></p>
+                    <% }) %>
+                <% }) %>
+            </div>
+        </section>
+        <%- include("/footer") %>
+    </body>
+</html>
