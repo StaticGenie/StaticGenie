@@ -100,7 +100,7 @@ export class Plugin implements iPlugin {
         const theme = <iTheme>services.get("theme");
         const report = <iReport>services.get("report");
         
-        // Special pages @TODO create a new plugin that handles "special pages" i.e. ones you simply hard code page model and say what layout and urls it needs
+        // Render special pages
         config.specialPages.forEach(page => {
             pages.write(page.url, theme.renderLayout(page.layout, page.page)); 
         });

@@ -8,12 +8,22 @@
         <section class='canvas constrict'>
             <div class='page'>
                 
-                <div style='background-color:#FFF;border:solid 1px #CCC;padding:35px;margin-bottom:50px;'>
+                <style>
+                    .blog-nav {
+                        margin-bottom:45px;
+                    }
+                </style>
+                
+                <div class='blog-nav'>
+                    <a href='/blog/index.html'>&lt;&lt; Back to all posts</a>
+                </div>
+                
+                <div style='background-color:#FFF;border:solid 1px #CCC;padding:0 35px 35px 35px;'>
                     <%- page.content %>
                 </div>
-
-                <hr />                
                 
+                <h2 style='margin:45px 0 15px 0;'>Random Posts</h2>
+
                 <% global.blog.functions.getRandomPosts(3).forEach(post => { %>
                     <div style='padding:30px;margin-bottom:15px;background-color:#FFF;border:solid 1px #CCC;border-left:solid 3px #006699;'>
                         <h2 style="margin-top:0;margin-bottom:3px;"><a href='<%= post.url %>'><%= post.title %></a></h2>

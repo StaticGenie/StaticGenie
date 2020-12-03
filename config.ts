@@ -38,12 +38,6 @@ export = <iConfig>{
                     page: {
                         jumbotron: "Blog"
                     }
-                }, {
-                    url: "/blog/tags.html",
-                    layout: "blog/browse-tags",
-                    page: {
-                        jumbotron: "Blog"
-                    }
                 },
             ],
         }

@@ -14,8 +14,6 @@ page:
 ###########################################
 =====
 
-If you love TypeScript and you want to build a static website from simple "data". Look no further.
-
 ## Secure
 
 Hosting a static website is very secure compared to hosted websites with dynamic backends. But everyone knows that. StaticGenie went a step further and has dockerised the development and website generation processes. Any depedencies are locked away inside a docker container with no local installs on the host machine and no access to anything outside of the project directory.

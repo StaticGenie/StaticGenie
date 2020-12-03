@@ -1,0 +1,6 @@
+<% collection.forEach(meta => { %>
+    <h1><%= meta.name %> ( <%= meta.posts.length %> )</h1>
+    <% meta.posts.forEach(post => { %>
+        <p><a href='<%= post.url %>'><%= post.title %></a></p>
+    <% }) %>
+<% }) %>
