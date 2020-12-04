@@ -8,10 +8,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "http-server ./www",
     "npm:publish": "npm login && npm publish",
-    "build:fresh": "rm -rf ./www/* ./tmp && mkdir -p ./www ./theme/assets ./theme/layouts",
+    "build:fresh": "rm -rf ./www/* ./tmp && mkdir -p ./www ./theme/root/assets ./theme/layouts",
     "build:typescript": "tsc",
     "build:pages": "nodejs ./tmp/src/index.js",
-    "build:assets": "cp -vr ./theme/assets ./www/assets",
+    "build:assets": "cp -vr ./theme/root/. ./www",
     "build:optimise": "echo \"@TODO run JS/CSS/IMG optimisation scripts over the output (www) folder\"",
     "build:cleanup": "rm -rf ./tmp"
   },

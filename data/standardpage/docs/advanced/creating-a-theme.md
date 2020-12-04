@@ -22,9 +22,13 @@ A theme is where all the HTML and assets (images, javascript, css, etc) are loca
 
 Everything relating to a theme belongs within the `/theme` directory. It's completely seperate from the data of the website.
 
-## Assets
+## Root Assets
 
-Place any supporting assets within `/theme/assets` such as .css, .jpg, and .js files. These will be copied straight over to the final website accessible via `/www/assets/*`
+The folder `/theme/root` which will copy everything to the `/www` directory. This allows you to keep root level assets (accessble via the url `/`) such as google analytics verification files, CNAME (github pages), `/robots.txt` and other such root level assets within it. You can also create more directories here and they too will (including their contents) be directly coppied.
+
+## Assets (Images, CSS, JS...)
+
+Place any supporting assets within `/theme/root/assets` such as .css, .jpg, and .js files. These will be copied straight over to the final website accessible via `/assets` via the website URL or located within `/www/assets/*` on teh file system. 
 
 ## Layouts
 
